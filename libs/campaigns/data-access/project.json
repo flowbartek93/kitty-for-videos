@@ -4,7 +4,7 @@
   "sourceRoot": "libs/campaigns/data-access/src",
   "prefix": "lib",
   "projectType": "library",
-  "tags": [],
+  "tags": ["type:data-access", "scope:campaigns"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"
