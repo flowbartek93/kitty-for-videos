@@ -40,6 +40,10 @@ export default [
               sourceTag: 'type:models',
               onlyDependOnLibsWithTags: ['type:models'],
             },
+            {
+              sourceTag: 'scope:app',
+              onlyDependOnLibsWithTags: ['*'],
+            },
           ],
         },
       ],

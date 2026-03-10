@@ -19,7 +19,8 @@
       "@kitty-for-videos/models": ["libs/shared/models/src/index.ts"],
       "@kitty-for-videos/campaigns-data-access": [
         "libs/campaigns/data-access/src/index.ts"
-      ]
+      ],
+      "@env/*": ["src/environments/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
