@@ -1,12 +1,6 @@
-import { computed } from '@angular/core';
-import { signalStoreFeature, withComputed } from '@ngrx/signals';
+import { signalStoreFeature, type } from '@ngrx/signals';
+import { CampaignsState } from './campaigns.state';
 
-export function withCampaignsSelectors() {
-  return signalStoreFeature(
-    withComputed((state) => ({
-      allCampaigns: computed(() => {
-        return [];
-      }),
-    })),
-  );
+export function withCapmaignsSelectors() {
+  return signalStoreFeature({ state: type<CampaignsState>() });
 }
