@@ -1,12 +1,12 @@
 import { tapResponse } from '@ngrx/operators';
-import { signalStoreFeature, withMethods } from '@ngrx/signals';
+import { signalStoreFeature, type, withMethods } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { pipe, tap } from 'rxjs';
-import { campaignsState } from './campaigns.state';
+import { CampaignsState } from './campaigns.state';
 
 export function withCampaignsMethods() {
   return signalStoreFeature(
-    campaignsState,
+    { state: type<CampaignsState>() },
     withMethods((store) => ({
       loadAllCampaigns: rxMethod<void>(
         pipe(
