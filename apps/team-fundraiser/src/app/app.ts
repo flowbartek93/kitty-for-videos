@@ -10,5 +10,4 @@ import { CampaignsStore } from '@kitty-for-videos/campaigns-data-access';
 })
 export class App {
   private store = inject(CampaignsStore);
-  protected title = 'team-fundraiser';
 }
