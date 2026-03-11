@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { SUPABASE_CONFIG } from '../../auth';
+import { CampaignsStore } from '../store/campaigns.store';
 
 export function provideSupabaseConfig(config: { url: string; key: string }) {
   return [
@@ -23,5 +24,12 @@ export class SupabaseService {
       this.supabaseConfig.url,
       this.supabaseConfig.key,
     );
+  }
+
+  getAllCampaings() {
+    return this.supabaseClient
+      .from('campaigns')
+      .select('*')
+      .then((promise) => promise.data);
   }
 }

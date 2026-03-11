@@ -1,4 +1,4 @@
-import { signalStore, withState } from '@ngrx/signals';
+import { signalStore, withHooks, withState } from '@ngrx/signals';
 import { withCampaignsMethods } from './campaigns.methods';
 import { CampaignsState, initialCampaignsState } from './campaigns.state';
 import { withCapmaignsSelectors } from './campaigns.selectors';
@@ -8,4 +8,11 @@ export const CampaignsStore = signalStore(
   withState<CampaignsState>(initialCampaignsState),
   withCampaignsMethods(),
   withCapmaignsSelectors(),
+  withHooks((store) => {
+    return {
+      onInit: () => {
+        store.loadAllCampaigns();
+      },
+    };
+  }),
 );

@@ -42,7 +42,7 @@ export default [
             },
             {
               sourceTag: 'scope:app',
-              onlyDependOnLibsWithTags: ['*'],
+              onlyDependOnLibsWithTags: ['type:data-access'],
             },
           ],
         },
