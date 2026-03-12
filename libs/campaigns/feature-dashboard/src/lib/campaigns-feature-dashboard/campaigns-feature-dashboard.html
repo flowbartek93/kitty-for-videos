@@ -1,4 +1,4 @@
-<main class="p-6 md:p-12 bg-slate-950 min-h-screen text-slate-100 antialiased">
+<!-- <main class="p-6 md:p-12 bg-slate-950 min-h-screen text-slate-100 antialiased">
   <div class="max-w-7xl mx-auto flex justify-between items-center mb-12">
     <h1 class="text-3xl font-black tracking-tighter italic">
       TEAM<span class="text-indigo-500">FUND</span>
@@ -65,3 +65,16 @@
     </div>
   </div>
 </main>
+ -->
+
+<div class="grid grid-cols-4 gap-4">
+  <div class="col-span-2 row-span-2 bg-indigo-600 ...">...</div>
+
+  <lib-stat-card label="Aktywne kampanie" [value]="store.entities().length" />
+
+  <lib-profile-card name="Hubert" />
+
+  @for (campaign of store.entities(); track campaign.id) {
+  <lib-campaign-card [campaign]="campaign" class="col-span-2" />
+  }
+</div>
