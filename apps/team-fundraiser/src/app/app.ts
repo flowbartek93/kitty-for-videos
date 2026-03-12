@@ -1,6 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CampaignsStore } from '@kitty-for-videos/campaigns-data-access';
 
 @Component({
   imports: [RouterModule],
@@ -8,6 +7,4 @@ import { CampaignsStore } from '@kitty-for-videos/campaigns-data-access';
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
-export class App {
-  private store = inject(CampaignsStore);
-}
+export class App {}
