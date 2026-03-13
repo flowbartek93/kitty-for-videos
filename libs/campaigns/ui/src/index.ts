@@ -1,7 +1,5 @@
-export * from './lib/campaigns-ui/campaigns-ui';
+export * from './lib/stat-card/stat-card.component';
 
-export * from './lib/stat-card';
+export * from './lib/profile-card/profile-card.component';
 
-export * from './lib/profile-card';
-
-export * from './lib/campaign-card';
+export * from './lib/campaign-card/campaign-card.component';

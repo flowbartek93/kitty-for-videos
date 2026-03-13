@@ -70,11 +70,9 @@
 <div class="grid grid-cols-4 gap-4">
   <div class="col-span-2 row-span-2 bg-indigo-600 ...">...</div>
 
-  <lib-stat-card label="Aktywne kampanie" [value]="store.entities().length" />
+  <lib-stat-card label="Aktywne kampanie" [value]="0" />
 
   <lib-profile-card name="Hubert" />
 
-  @for (campaign of store.entities(); track campaign.id) {
-  <lib-campaign-card [campaign]="campaign" class="col-span-2" />
-  }
+  <lib-campaign-card [campaign]="{}" class="col-span-2" />
 </div>
