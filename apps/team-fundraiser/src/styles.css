@@ -1,4 +1,8 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* W v4 pluginy (jak DaisyUI) importujemy bezpośrednio w CSS! */
 @plugin "daisyui";
+
+body {
+  /* @apply bg-slate-950 text-slate-100; */
+}

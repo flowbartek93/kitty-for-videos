@@ -35,6 +35,7 @@ export default [
               sourceTag: 'type:data-access',
               onlyDependOnLibsWithTags: ['type:models', 'type:data-access'],
             },
+
             // 4. Modele nie powinny zależeć od niczego (są na dnie łańcucha)
             {
               sourceTag: 'type:models',
@@ -42,7 +43,7 @@ export default [
             },
             {
               sourceTag: 'scope:app',
-              onlyDependOnLibsWithTags: ['type:data-access'],
+              onlyDependOnLibsWithTags: ['type:data-access', 'type:ui'],
             },
           ],
         },
