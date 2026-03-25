@@ -1,8 +1,57 @@
-<div class="w-64 h-screen bg-indigo-600 p-4 flex flex-col">
-  <ul class="menu h-100 rounded-box w-56">
-    <li class="menu-title">Menu</li>
-    <li><a>Zrzutki</a></li>
-    <li><a>Ustawienia</a></li>
-  </ul>
-  <button class="btn btn-neutral mt-auto self-center px-8 rounded-full normal-case">Nowa zrzutka</button>
+<div class="flex flex-col h-screen w-64 bg-base-200 border-r border-neutral p-6">
+  <div class="flex items-center gap-3 mb-12 px-2">
+    <div
+      class="w-10 h-10 bg-primary rounded-2xl flex items-center justify-center shadow-[0_0_20px_rgba(81,89,255,0.3)]"
+    >
+      <span class="text-white font-black italic text-xl">T</span>
+    </div>
+    <div class="flex flex-col leading-none">
+      <span class="text-lg font-black text-white tracking-tighter uppercase"
+        >TEAM<span class="text-primary">FUND</span></span
+      >
+      <span class="text-[10px] text-slate-500 font-bold tracking-[0.2em] uppercase">Manager</span>
+    </div>
+  </div>
+
+  <nav class="flex-1">
+    <ul class="menu p-0 gap-2">
+      <li class="menu-title text-slate-600 text-[10px] uppercase tracking-[0.2em] mb-2 px-4">Navigation</li>
+
+      <li>
+        <a
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}"
+          class="active bg-primary/10 text-primary rounded-2xl py-3 px-4 font-bold border-l-4 border-primary"
+        >
+          Dashboard
+        </a>
+      </li>
+
+      <li>
+        <a
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}"
+          class="text-slate-400 hover:text-white hover:bg-base-300 rounded-2xl py-3 px-4 transition-all"
+        >
+          Odkrywaj
+        </a>
+      </li>
+      <li>
+        <a
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact: true}"
+          class="text-slate-400 hover:text-white hover:bg-base-300 rounded-2xl py-3 px-4 transition-all"
+        >
+          Moje Udziały
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="mt-auto pt-6 border-t border-neutral/50">
+    <button class="btn btn-primary w-full rounded-2xl font-black normal-case shadow-lg shadow-primary/20">
+      Nowa zbiórka
+    </button>
+  </div>
 </div>

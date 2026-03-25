@@ -3,18 +3,25 @@ const { join } = require('path');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    // To mówi Tailwindowi: "Skanuj moją apkę i wszystkie liby, od których ona zależy"
-    join(__dirname, 'apps/team-fundraiser/src/**/*.{html,ts}'),
-    ...createGlobPatternsForDependencies(__dirname),
-  ],
+  content: ['./apps/**/*.{html,ts}', './libs/**/*.{html,ts}'],
   theme: {
-    extend: {
-      // Tu będziemy dodawać customowe kolory, żeby UI wyglądał "drogo"
-    },
+    extend: {},
   },
-
+  plugins: [require('daisyui')],
   daisyui: {
-    themes: ['light', 'dark'],
+    themes: [
+      {
+        teamfund: {
+          primary: '#5159ff', // Ten żywy fiolet/niebieski
+          'primary-content': '#ffffff',
+          'base-100': '#0f111a', // Najciemniejsze tło (pod spodem)
+          'base-200': '#161926', // Tło Sidebaru i Topbaru
+          'base-300': '#1c2033', // Tło Kart i Kafelków
+          neutral: '#252a41', // Kolor borderów i linii
+          accent: '#00d2ff', // Opcjonalny akcent
+          success: '#10b981', // Zielony (Online)
+        },
+      },
+    ],
   },
 };
