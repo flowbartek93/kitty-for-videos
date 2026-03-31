@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CampaignsStore } from '@kitty-for-videos/campaigns-data-access';
+import { CampaignsStore } from 'libs/auth/data-access/src';
 import {
   CampaignCardComponent,
   ProfileCardComponent,

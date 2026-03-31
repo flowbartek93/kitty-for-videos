@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CampaignsStore } from '@kitty-for-videos/campaigns-data-access';
+import { CampaignsStore } from 'libs/auth/data-access/src';
 import { SidebarComponent, TopBar } from '@kitty-for-videos/campaigns-ui';
 @Component({
   imports: [RouterModule, SidebarComponent, TopBar],
