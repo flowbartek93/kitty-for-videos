@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CampaignsStore } from '@kitty-for-videos/campaigns-data-access';
 import { SidebarComponent, TopBar } from '@kitty-for-videos/campaigns-ui';
 @Component({
   imports: [RouterModule, SidebarComponent, TopBar],
@@ -7,4 +8,6 @@ import { SidebarComponent, TopBar } from '@kitty-for-videos/campaigns-ui';
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
-export class App {}
+export class App {
+  store = inject(CampaignsStore);
+}
