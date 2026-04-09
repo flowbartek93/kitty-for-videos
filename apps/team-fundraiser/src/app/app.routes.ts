@@ -1,17 +1,25 @@
 import { Route } from '@angular/router';
-import { loginGuard } from 'libs/auth/data-access/src';
+import { ShellComponent } from './shell/shell';
 
 export const appRoutes: Route[] = [
   {
-    path: '',
-    pathMatch: 'full', // Obowiązkowe przy pustym path
-    redirectTo: 'dashboard', // Przekierowanie do ścieżki obok
+    path: 'login',
+    loadComponent: () => import('@kitty-for-videos/login').then((m) => m.Login),
   },
   {
-    path: 'dashboard',
-    canActivate: [loginGuard],
-
-    loadComponent: () =>
-      import('@kitty-for-videos/campaigns-feature-dashboard').then((m) => m.CampaignsFeatureDashboard),
+    path: '',
+    component: ShellComponent,
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'dashboard',
+      },
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('@kitty-for-videos/campaigns-feature-dashboard').then((m) => m.CampaignsFeatureDashboard),
+      },
+    ],
   },
 ];

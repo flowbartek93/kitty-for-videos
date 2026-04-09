@@ -8,26 +8,24 @@
       <p class="text-slate-500 text-sm">Zaloguj się do swojego portalu</p>
     </div>
 
-    <form class="space-y-4" (submit)="handleLogin($event)">
+    <form class="space-y-4" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="form-control">
         <label class="label"><span class="label-text font-bold text-slate-400">Email</span></label>
         <input
-          #email
           type="email"
+          formControlName="email"
           class="input bg-base-100 border-neutral rounded-2xl focus:border-primary"
           placeholder="hubert@teamfund.pl"
-          required
         />
       </div>
 
       <div class="form-control">
         <label class="label"><span class="label-text font-bold text-slate-400">Hasło</span></label>
         <input
-          #password
+          formControlName="password"
           type="password"
           class="input bg-base-100 border-neutral rounded-2xl focus:border-primary"
           placeholder="••••••••"
-          required
         />
       </div>
 
