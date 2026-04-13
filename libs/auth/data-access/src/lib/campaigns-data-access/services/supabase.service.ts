@@ -28,4 +28,8 @@ export class SupabaseService {
       .select('*')
       .then((promise) => promise.data);
   }
+
+  getSession() {
+    return this.supabaseClient.auth.getSession().then((promise) => promise.data.session);
+  }
 }

@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
 import { ShellComponent } from './shell/shell';
+import { loginGuard } from 'auth-data-access';
 
 export const appRoutes: Route[] = [
   {
@@ -9,10 +10,12 @@ export const appRoutes: Route[] = [
   {
     path: '',
     component: ShellComponent,
+    canActivate: [loginGuard],
     children: [
       {
         path: '',
         pathMatch: 'full',
+
         redirectTo: 'dashboard',
       },
       {
