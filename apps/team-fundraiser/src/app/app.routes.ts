@@ -4,7 +4,7 @@ import { ShellComponent } from './shell/shell';
 export const appRoutes: Route[] = [
   {
     path: 'login',
-    loadComponent: () => import('@kitty-for-videos/login').then((m) => m.Login),
+    loadComponent: () => import('login').then((m) => m.Login),
   },
   {
     path: '',
@@ -17,8 +17,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'dashboard',
-        loadComponent: () =>
-          import('@kitty-for-videos/campaigns-feature-dashboard').then((m) => m.CampaignsFeatureDashboard),
+        loadComponent: () => import('campaigns-feature-dashboard').then((m) => m.CampaignsFeatureDashboard),
       },
     ],
   },

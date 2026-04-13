@@ -1,11 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CampaignsStore } from 'libs/auth/data-access/src';
-import {
-  CampaignCardComponent,
-  ProfileCardComponent,
-  SidebarComponent,
-  StatCardComponent,
-} from '@kitty-for-videos/campaigns-ui';
+import { CampaignCardComponent, ProfileCardComponent, SidebarComponent, StatCardComponent } from 'campaigns-ui';
 @Component({
   selector: 'lib-campaigns-feature-dashboard',
   imports: [StatCardComponent, ProfileCardComponent, CampaignCardComponent, SidebarComponent],

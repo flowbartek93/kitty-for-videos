@@ -2,7 +2,16 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "types": []
+    "types": [],
+    "paths": {
+      "auth-data-access": ["libs/auth/data-access/src/index.ts"],
+      "campaigns-data-access": ["libs/campaigns/data-access/src/index.ts"],
+      "campaigns-ui": ["libs/campaigns/ui/src/index.ts"],
+      "campaigns-feature-dashboard": ["libs/campaigns/feature-dashboard/src/index.ts"],
+      "shared-util": ["libs/shared/util/src/index.ts"],
+      "login": ["libs/auth/feature-login/src/index.ts"],
+      "models": ["libs/shared/models/src/index.ts"]
+    }
   },
   "include": ["src/**/*.ts"],
   "exclude": [

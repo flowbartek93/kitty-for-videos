@@ -1,4 +1,4 @@
-import { Campaign } from '@kitty-for-videos/models';
+import { Campaign } from 'models';
 import { entityConfig, withEntities } from '@ngrx/signals/entities';
 
 export const campaignsConfig = entityConfig({
