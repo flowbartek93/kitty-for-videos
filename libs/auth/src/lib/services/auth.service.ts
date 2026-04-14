@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { SupabaseClientService } from 'shared-util';
+import { AuthTokenResponsePassword } from '@supabase/supabase-js';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -11,5 +12,12 @@ export class AuthService {
 
   login(email: string, password: string) {
     return this.supabase.client.auth.signInWithPassword({ email, password });
+  }
+
+  setSession(data: AuthTokenResponsePassword) {
+    return this.supabase.client.auth.setSession({
+      access_token: data.data.session?.access_token ?? '',
+      refresh_token: data.data.session?.refresh_token ?? '',
+    });
   }
 }

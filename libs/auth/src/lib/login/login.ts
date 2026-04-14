@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { from, tap } from 'rxjs';
+import { AuthTokenResponsePassword } from '@supabase/supabase-js';
 
 @Component({
   selector: 'lib-login',
@@ -29,7 +31,9 @@ export class Login {
     const password = this.password?.value;
 
     if (email && password) {
-      this.authSrv.login(email, password);
+      return from(this.authSrv.login(email, password))
+        .pipe(tap((authRes: AuthTokenResponsePassword) => {}))
+        .subscribe();
     }
   }
 }
