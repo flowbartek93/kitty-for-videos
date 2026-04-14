@@ -1,9 +1,10 @@
 import { Component, DestroyRef, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { from, tap } from 'rxjs';
+import { from, tap, catchError, EMPTY } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'lib-login',
@@ -40,6 +41,10 @@ export class Login {
             if (!error) {
               this.router.navigate(['/dashboard']);
             }
+          }),
+          catchError((err: HttpErrorResponse) => {
+            console.log('error while signin in');
+            return EMPTY;
           }),
           takeUntilDestroyed(this.destroyRef),
         )
