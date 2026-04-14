@@ -6,7 +6,6 @@ import { AuthService } from '../services/auth.service';
   selector: 'lib-login',
   imports: [ReactiveFormsModule],
   templateUrl: './login.html',
-  styleUrl: './login.css',
 })
 export class Login {
   private fb = inject(FormBuilder);
