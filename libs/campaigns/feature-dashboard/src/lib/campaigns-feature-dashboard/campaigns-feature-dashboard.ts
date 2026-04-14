@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CampaignsStore } from 'libs/auth/data-access/src';
+import { CampaignsStore } from 'campaigns-data-access';
 import { CampaignCardComponent, ProfileCardComponent, SidebarComponent, StatCardComponent } from 'campaigns-ui';
 @Component({
   selector: 'lib-campaigns-feature-dashboard',

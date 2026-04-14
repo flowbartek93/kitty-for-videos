@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CampaignsStore } from 'auth-data-access';
+import { CampaignsStore } from 'campaigns-data-access';
 
 @Component({
   imports: [RouterModule],

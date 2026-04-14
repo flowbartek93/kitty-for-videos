@@ -1,0 +1,13 @@
+import { inject, Injectable } from '@angular/core';
+import { SupabaseClientService } from 'shared-util';
+import { Campaign } from 'models';
+
+@Injectable({ providedIn: 'root' })
+export class CampaignsApiService {
+  private supabase = inject(SupabaseClientService);
+
+  async getAllCampaigns(): Promise<Campaign[] | null> {
+    const { data } = await this.supabase.client.from('campaigns').select('*');
+    return data as Campaign[] | null;
+  }
+}

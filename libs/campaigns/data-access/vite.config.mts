@@ -6,14 +6,10 @@ import { nxCopyAssetsPlugin } from '@nx/vite/plugins/nx-copy-assets.plugin';
 
 export default defineConfig(() => ({
   root: __dirname,
-  cacheDir: '../../../node_modules/.vite/libs/auth/feature-login',
+  cacheDir: '../../../node_modules/.vite/libs/campaigns/data-access',
   plugins: [angular(), nxViteTsPaths(), nxCopyAssetsPlugin(['*.md'])],
-  // Uncomment this if you are using workers.
-  // worker: {
-  //   plugins: () => [ nxViteTsPaths() ],
-  // },
   test: {
-    name: 'login',
+    name: 'campaigns-data-access',
     watch: false,
     globals: true,
     environment: 'jsdom',
@@ -21,7 +17,7 @@ export default defineConfig(() => ({
     setupFiles: ['src/test-setup.ts'],
     reporters: ['default'],
     coverage: {
-      reportsDirectory: '../../../coverage/libs/auth/feature-login',
+      reportsDirectory: '../../../coverage/libs/campaigns/data-access',
       provider: 'v8' as const,
     },
   },

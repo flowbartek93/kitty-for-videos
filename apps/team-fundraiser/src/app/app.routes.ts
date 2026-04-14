@@ -5,7 +5,7 @@ import { loginGuard } from 'auth-data-access';
 export const appRoutes: Route[] = [
   {
     path: 'login',
-    loadComponent: () => import('login').then((m) => m.Login),
+    loadComponent: () => import('auth-data-access').then((m) => m.Login),
   },
   {
     path: '',

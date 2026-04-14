@@ -1,10 +1,10 @@
 {
-  "name": "auth-data-access",
+  "name": "campaigns-data-access",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/auth/data-access/src",
+  "sourceRoot": "libs/campaigns/data-access/src",
   "prefix": "lib",
   "projectType": "library",
-  "tags": ["scope:auth", "type:data-access"],
+  "tags": ["scope:campaigns", "type:data-access"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"

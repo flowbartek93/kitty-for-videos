@@ -21,8 +21,7 @@
       "@env/*": ["src/environments/*"],
       "campaigns-ui": ["libs/campaigns/ui/src/index.ts"],
       "campaigns-feature-dashboard": ["libs/campaigns/feature-dashboard/src/index.ts"],
-      "shared-util": ["libs/shared/util/src/index.ts"],
-      "login": ["libs/auth/feature-login/src/index.ts"]
+      "shared-util": ["libs/shared/util/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
