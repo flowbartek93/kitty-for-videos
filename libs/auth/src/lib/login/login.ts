@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { from, tap } from 'rxjs';
-import { AuthTokenResponsePassword } from '@supabase/supabase-js';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lib-login',
@@ -12,6 +13,8 @@ import { AuthTokenResponsePassword } from '@supabase/supabase-js';
 export class Login {
   private fb = inject(FormBuilder);
   private authSrv = inject(AuthService);
+  private destroyRef = inject(DestroyRef);
+  private router = inject(Router);
 
   get email() {
     return this.loginForm.get('email');
@@ -31,8 +34,15 @@ export class Login {
     const password = this.password?.value;
 
     if (email && password) {
-      return from(this.authSrv.login(email, password))
-        .pipe(tap((authRes: AuthTokenResponsePassword) => {}))
+      from(this.authSrv.login(email, password))
+        .pipe(
+          tap(({ error }) => {
+            if (!error) {
+              this.router.navigate(['/dashboard']);
+            }
+          }),
+          takeUntilDestroyed(this.destroyRef),
+        )
         .subscribe();
     }
   }
