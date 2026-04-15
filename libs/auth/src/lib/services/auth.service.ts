@@ -1,13 +1,16 @@
 import { inject, Injectable } from '@angular/core';
 import { SupabaseClientService } from 'shared-util';
 import { Router } from '@angular/router';
+import { AuthStore } from '../store/auth.store';
+import { Session } from '@supabase/supabase-js';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private supabase = inject(SupabaseClientService);
+  protected supabase = inject(SupabaseClientService);
+  private authStore = inject(AuthStore);
 
-  getSession() {
-    return this.supabase.client.auth.getSession().then((r) => r.data.session);
+  getClientAuth() {
+    return this.supabase.client.auth;
   }
 
   login(email: string, password: string) {
@@ -16,5 +19,13 @@ export class AuthService {
 
   logout() {
     return this.supabase.client.auth.signOut();
+  }
+
+  setSession(session: Session) {
+    this.authStore.setSession(session);
+  }
+
+  getSession() {
+    return this.authStore.currentSession();
   }
 }

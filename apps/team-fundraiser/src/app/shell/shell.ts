@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { SidebarComponent, TopBar } from 'campaigns-ui';
 import { AuthService } from 'auth-data-access';
+import { Session } from '@supabase/supabase-js';
 
 @Component({
   imports: [RouterModule, SidebarComponent, TopBar],
@@ -15,5 +16,13 @@ export class ShellComponent {
   async logout() {
     await this.authSrv.logout();
     this.router.navigate(['/login']);
+  }
+
+  ngOnInit() {
+    this.authSrv.getClientAuth().onAuthStateChange((event, session) => {
+      if (session) {
+        this.authSrv.setSession(session);
+      }
+    });
   }
 }
