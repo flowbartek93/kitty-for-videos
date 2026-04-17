@@ -1,5 +1,6 @@
 import { computed } from '@angular/core';
 import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from '@ngrx/signals';
+import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { Session } from '@supabase/supabase-js';
 
 interface AuthState {
@@ -16,6 +17,7 @@ const initialAuthState: AuthState = {
 
 export const AuthStore = signalStore(
   { providedIn: 'root' },
+  withDevtools('auth'),
   withState<AuthState>(initialAuthState),
   withMethods((store) => ({
     setSession(newSession: Session | null) {
