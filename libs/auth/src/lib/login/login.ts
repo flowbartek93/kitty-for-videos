@@ -39,7 +39,6 @@ export class Login {
         .pipe(
           tap(({ data, error }) => {
             if (!error && data.session) {
-              this.authSrv.setSession(data.session);
               this.router.navigate(['/dashboard']);
             }
           }),
@@ -52,4 +51,6 @@ export class Login {
         .subscribe();
     }
   }
+
+  //sub na sejse
 }

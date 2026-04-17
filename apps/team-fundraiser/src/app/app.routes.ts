@@ -1,10 +1,11 @@
 import { Route } from '@angular/router';
 import { ShellComponent } from './shell/shell';
-import { loginGuard } from 'auth-data-access';
+import { loginGuard, guestGuard } from 'auth-data-access';
 
 export const appRoutes: Route[] = [
   {
     path: 'login',
+    canActivate: [guestGuard],
     loadComponent: () => import('auth-data-access').then((m) => m.Login),
   },
   {

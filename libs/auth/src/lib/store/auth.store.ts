@@ -1,18 +1,19 @@
-import { computed } from '@angular/core';
+import { computed, inject } from '@angular/core';
 import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from '@ngrx/signals';
 import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { Session } from '@supabase/supabase-js';
+import { SupabaseClientService } from 'shared-util';
 
 interface AuthState {
-  session: Session | null; // Tu żyje Access i Refresh token w RAMie
+  session: Session | null;
   user: unknown;
   isLoading: boolean;
 }
 
 const initialAuthState: AuthState = {
-  session: null, // Tu żyje Access i Refresh token w RAMie
+  session: null,
   user: null,
-  isLoading: false,
+  isLoading: true,
 };
 
 export const AuthStore = signalStore(
@@ -25,8 +26,17 @@ export const AuthStore = signalStore(
     },
   })),
   withComputed((store) => ({
-    currentSession: computed(() => {
-      return store.session;
-    }),
+    currentSession: computed(() => store.session()),
+    loaded: computed(() => !store.isLoading()),
   })),
+  withHooks((store) => {
+    const supabase = inject(SupabaseClientService);
+    return {
+      onInit() {
+        supabase.client.auth.onAuthStateChange((_event, session) => {
+          store.setSession(session);
+        });
+      },
+    };
+  }),
 );

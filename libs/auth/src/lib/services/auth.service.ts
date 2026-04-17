@@ -3,6 +3,7 @@ import { SupabaseClientService } from 'shared-util';
 import { Router } from '@angular/router';
 import { AuthStore } from '../store/auth.store';
 import { Session } from '@supabase/supabase-js';
+import { from } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -25,7 +26,11 @@ export class AuthService {
     this.authStore.setSession(session);
   }
 
-  getSession() {
+  getStoreSession() {
     return this.authStore.currentSession();
+  }
+
+  getSessionStorageSession() {
+    return from(this.supabase.client.auth.getSession());
   }
 }

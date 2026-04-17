@@ -6,6 +6,6 @@ import { SUPABASE_CONFIG } from './supabase.config';
 export class SupabaseClientService {
   private config = inject(SUPABASE_CONFIG);
   readonly client: SupabaseClient = createClient(this.config.url, this.config.key, {
-    auth: { autoRefreshToken: true, persistSession: false },
+    auth: { autoRefreshToken: true, persistSession: true, storage: window.sessionStorage },
   });
 }
