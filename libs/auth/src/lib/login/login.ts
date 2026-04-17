@@ -37,8 +37,9 @@ export class Login {
     if (email && password) {
       from(this.authSrv.login(email, password))
         .pipe(
-          tap(({ error }) => {
-            if (!error) {
+          tap(({ data, error }) => {
+            if (!error && data.session) {
+              this.authSrv.setSession(data.session);
               this.router.navigate(['/dashboard']);
             }
           }),
