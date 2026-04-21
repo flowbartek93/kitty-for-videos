@@ -108,7 +108,11 @@
       "unitTestRunner": "vitest-analog"
     },
     "@nx/angular:component": {
-      "style": "css"
+      "style": "none",
+      "skipTests": true,
+      "standalone": true,
+      "changeDetection": "OnPush",
+      "export": true
     }
   },
   "nxCloudId": "69a738978055056018615dce"
