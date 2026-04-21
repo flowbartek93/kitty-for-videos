@@ -2,7 +2,7 @@ import { computed, inject } from '@angular/core';
 import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from '@ngrx/signals';
 import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { Session } from '@supabase/supabase-js';
-import { SupabaseClientService } from 'shared-util';
+import { SupabaseClientService } from '@teamfund/shared';
 
 interface AuthState {
   session: Session | null;

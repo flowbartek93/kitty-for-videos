@@ -1,4 +1,4 @@
-import { Campaign } from 'models';
+import { Campaign } from '@teamfund/shared';
 import { entityConfig, withEntities } from '@ngrx/signals/entities';
 
 export const campaignsConfig = entityConfig({

@@ -1,6 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { SupabaseClientService } from 'shared-util';
-import { Campaign } from 'models';
+import { SupabaseClientService, Campaign } from '@teamfund/shared';
 
 @Injectable({ providedIn: 'root' })
 export class CampaignsApiService {

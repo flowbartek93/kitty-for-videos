@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { SupabaseClientService } from 'shared-util';
+import { SupabaseClientService } from '@teamfund/shared';
 import { Router } from '@angular/router';
 import { AuthStore } from '../store/auth.store';
 import { Session } from '@supabase/supabase-js';

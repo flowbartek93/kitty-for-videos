@@ -3,7 +3,7 @@ import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
 
 import { CampaignsStore } from 'campaigns-data-access';
-import { provideSupabaseConfig } from 'shared-util';
+import { provideSupabaseConfig } from '@teamfund/shared';
 import { environment } from '../environments/environment';
 import { AuthStore } from 'auth-data-access';
 

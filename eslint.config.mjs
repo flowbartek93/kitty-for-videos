@@ -16,7 +16,7 @@ export default [
           enforceBuildableLibDependency: true,
           allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'],
           depConstraints: [
-            // 1. Shared może zależeć tylko od innego Shared (czysta logika/modele)
+            // 1. Shared nie zależy od niczego domenowego
             {
               sourceTag: 'scope:shared',
               onlyDependOnLibsWithTags: ['scope:shared'],
@@ -26,16 +26,10 @@ export default [
               sourceTag: 'scope:campaigns',
               onlyDependOnLibsWithTags: ['scope:campaigns', 'scope:shared'],
             },
-            // 3. Data-access może zależeć od modeli (to jest Twój przypadek!)
+            // 3. Data-access może zależeć od shared (modele + util) i od innego data-access
             {
               sourceTag: 'type:data-access',
-              onlyDependOnLibsWithTags: ['type:models', 'type:data-access'],
-            },
-
-            // 4. Modele nie powinny zależeć od niczego (są na dnie łańcucha)
-            {
-              sourceTag: 'type:models',
-              onlyDependOnLibsWithTags: ['type:models'],
+              onlyDependOnLibsWithTags: ['scope:shared', 'type:data-access'],
             },
             {
               sourceTag: 'scope:app',
