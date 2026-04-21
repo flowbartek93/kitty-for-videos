@@ -111,8 +111,7 @@
       "style": "none",
       "skipTests": true,
       "standalone": true,
-      "changeDetection": "OnPush",
-      "export": true
+      "changeDetection": "OnPush"
     }
   },
   "nxCloudId": "69a738978055056018615dce"
