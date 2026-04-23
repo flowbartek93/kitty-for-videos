@@ -5,6 +5,7 @@ import { from, tap, catchError, EMPTY } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { PopupService } from '@teamfund/shared';
 
 @Component({
   selector: 'lib-login',
@@ -16,6 +17,9 @@ export class Login {
   private authSrv = inject(AuthService);
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
+
+  //serwis do dialogów
+  private popupSrv = inject(PopupService);
 
   get email() {
     return this.loginForm.get('email');
@@ -41,9 +45,12 @@ export class Login {
             if (!error && data.session) {
               this.router.navigate(['/dashboard']);
             }
+
+            if (error) {
+              this.popupSrv.show('Błąd logowania');
+            }
           }),
-          catchError((err: HttpErrorResponse) => {
-            console.log('error while signin in');
+          catchError((err) => {
             return EMPTY;
           }),
           takeUntilDestroyed(this.destroyRef),
