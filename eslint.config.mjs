@@ -33,7 +33,7 @@ export default [
             },
             {
               sourceTag: 'scope:app',
-              onlyDependOnLibsWithTags: ['type:data-access', 'type:ui'],
+              onlyDependOnLibsWithTags: ['type:data-access', 'type:ui', 'scope:campaigns', 'scope:shared'],
             },
           ],
         },

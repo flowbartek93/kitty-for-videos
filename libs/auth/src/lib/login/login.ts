@@ -1,11 +1,10 @@
 import { Component, DestroyRef, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
-import { from, tap, catchError, EMPTY } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
 import { PopupService } from '@teamfund/shared';
+import { catchError, EMPTY, from, tap } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'lib-login',

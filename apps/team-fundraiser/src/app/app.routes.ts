@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { guestGuard, loginGuard } from 'auth-data-access';
 import { ShellComponent } from './shell/shell';
-import { loginGuard, guestGuard } from 'auth-data-access';
 
 export const appRoutes: Route[] = [
   {
