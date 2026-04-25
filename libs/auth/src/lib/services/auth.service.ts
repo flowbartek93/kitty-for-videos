@@ -12,4 +12,7 @@ export class AuthService {
   logout() {
     return this.supabase.client.auth.signOut();
   }
+
+
+
 }

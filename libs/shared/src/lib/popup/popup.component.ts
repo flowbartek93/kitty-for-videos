@@ -8,20 +8,12 @@ import { Component, signal, output, ChangeDetectionStrategy } from '@angular/cor
   templateUrl: './popup.component.html', // Tu podpinasz ten HTML, co Ci dałem wcześniej
 })
 export class ErrorPopupComponent {
-  /**
-   * SIGNAL: Treść błędu.
-   * Używamy zwykłego sygnału zamiast input(), żeby ToastService
-   * mógł go łatwo ustawić po stworzeniu komponentu "z palca".
-   */
-  public readonly message = signal<string>(''); /**
-   * OUTPUT: Sygnał do bazy o zakończeniu misji.
-   * Wyzwalany przez kliknięcie 'X' lub timeout w serwisie.
-   */
+
+  public readonly message = signal<string>('');
+
   public readonly close = output<void>();
 
-  /**
-   * TACTICAL EXIT: Wywoływane przez przycisk w HTML.
-   */
+
   public dismiss(): void {
     this.close.emit();
   }

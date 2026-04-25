@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { guestGuard, Login, loginGuard } from 'auth';
+import { guestGuard, Login, loginGuard, Register } from 'auth';
 import { ShellComponent } from './shell/shell';
 
 export const appRoutes: Route[] = [
@@ -7,6 +7,11 @@ export const appRoutes: Route[] = [
     path: 'login',
     canActivate: [guestGuard],
     component: Login,
+  },
+  {
+    path: 'register',
+    canActivate: [],
+    component: Register,
   },
   {
     path: '',

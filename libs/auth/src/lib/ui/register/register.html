@@ -1,0 +1,99 @@
+<div class="min-h-screen bg-base-100 flex items-center justify-center p-6">
+  <div class="w-full max-w-md bg-base-200 border border-neutral rounded-[2.5rem] p-10 shadow-2xl">
+    <div class="flex flex-col items-center mb-10">
+      <div class="w-14 h-14 bg-primary rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20 mb-4">
+        <span class="text-white font-black italic text-2xl">T</span>
+      </div>
+      <h1 class="text-2xl font-black text-white uppercase tracking-tight">Dołącz do nas</h1>
+      <p class="text-slate-500 text-sm">Załóż konto w systemie TeamFundraiser</p>
+    </div>
+
+    <form class="space-y-4" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-control">
+        <label for="reg-name" class="label">
+          <span class="label-text font-bold text-slate-400">Imię i nazwisko</span>
+        </label>
+        <input
+          id="reg-name"
+          type="text"
+          formControlName="fullName"
+          class="input bg-base-100 border-neutral rounded-2xl focus:border-primary w-full transition-all"
+          placeholder="np. Hubert Nowak"
+        />
+      </div>
+
+      <div class="form-control">
+        <label for="reg-email" class="label">
+          <span class="label-text font-bold text-slate-400">Email służbowy</span>
+        </label>
+        <input
+          id="reg-email"
+          type="email"
+          formControlName="email"
+          class="input bg-base-100 border-neutral rounded-2xl focus:border-primary w-full transition-all"
+          placeholder="hubert@teamfund.pl"
+        />
+      </div>
+
+      <div class="form-control">
+        <label for="reg-password" class="label">
+          <span class="label-text font-bold text-slate-400">Hasło</span>
+        </label>
+        <input
+          id="reg-password"
+          type="password"
+          formControlName="password"
+          class="input bg-base-100 border-neutral rounded-2xl focus:border-primary w-full transition-all"
+          placeholder="••••••••"
+        />
+      </div>
+
+      <div class="form-control">
+        <label for="reg-confirm" class="label">
+          <span class="label-text font-bold text-slate-400">Powtórz hasło</span>
+        </label>
+        <input
+          id="reg-confirm"
+          type="password"
+          formControlName="confirmPassword"
+          class="input bg-base-100 border-neutral rounded-2xl focus:border-primary w-full transition-all"
+          placeholder="••••••••"
+        />
+      </div>
+
+      <div class="form-control py-2">
+        <label class="label cursor-pointer justify-start gap-3">
+          <input type="checkbox" formControlName="terms" class="checkbox checkbox-primary checkbox-sm rounded-lg" />
+          <span class="label-text text-xs text-slate-500 italic">
+            Akceptuję <a class="text-primary link link-hover font-bold">Regulamin</a> i
+            <a class="text-primary link link-hover font-bold">Politykę Prywatności</a>
+          </span>
+        </label>
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="registerForm.invalid"
+        class="btn btn-primary w-full rounded-2xl font-black mt-4 shadow-lg shadow-primary/20 uppercase tracking-widest disabled:opacity-50"
+      >
+        Załóż konto
+      </button>
+
+      <div class="divider text-slate-500 text-[10px] uppercase font-black tracking-[0.3em] my-8">Masz już konto?</div>
+
+      <button
+        type="button"
+        (click)="goToLogin()"
+        class="btn btn-outline btn-primary w-full rounded-2xl font-black border-2 hover:bg-primary/10 uppercase tracking-widest transition-all"
+      >
+        Wróć do logowania
+      </button>
+    </form>
+
+    <div class="mt-10 text-center">
+      <p class="text-[10px] text-slate-600 font-medium uppercase tracking-tighter opacity-50">
+        TeamFundraiser Platform &copy; 2026. Security Protocol Active.
+      </p>
+    </div>
+  </div>
+</div>

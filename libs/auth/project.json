@@ -2,7 +2,7 @@
   "name": "auth",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/auth/src",
-  "prefix": "lib",
+  "prefix": "none",
   "projectType": "library",
   "tags": ["scope:auth"],
   "targets": {
