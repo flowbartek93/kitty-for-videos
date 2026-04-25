@@ -1,13 +1,12 @@
 import { Route } from '@angular/router';
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { guestGuard, loginGuard } from 'auth-data-access';
+import { guestGuard, Login, loginGuard } from 'auth';
 import { ShellComponent } from './shell/shell';
 
 export const appRoutes: Route[] = [
   {
     path: 'login',
     canActivate: [guestGuard],
-    loadComponent: () => import('auth-data-access').then((m) => m.Login),
+    component: Login,
   },
   {
     path: '',

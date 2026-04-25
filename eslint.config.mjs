@@ -26,6 +26,10 @@ export default [
               sourceTag: 'scope:campaigns',
               onlyDependOnLibsWithTags: ['scope:campaigns', 'scope:shared'],
             },
+            {
+              sourceTag: 'scope:auth',
+              onlyDependOnLibsWithTags: ['scope:auth', 'scope:shared'],
+            },
             // 3. Data-access może zależeć od shared (modele + util) i od innego data-access
             {
               sourceTag: 'type:data-access',
@@ -33,7 +37,13 @@ export default [
             },
             {
               sourceTag: 'scope:app',
-              onlyDependOnLibsWithTags: ['type:data-access', 'type:ui', 'scope:campaigns', 'scope:shared'],
+              onlyDependOnLibsWithTags: [
+                'type:data-access',
+                'type:ui',
+                'scope:auth',
+                'scope:campaigns',
+                'scope:shared',
+              ],
             },
           ],
         },

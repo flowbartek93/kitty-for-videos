@@ -3,10 +3,9 @@ import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
 
 import { provideSupabaseConfig } from '@teamfund/shared';
+import { AuthStore } from 'auth';
 import { CampaignsStore } from 'campaigns-data-access';
 import { environment } from '../environments/environment';
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { AuthStore } from 'auth-data-access';
 
 export const appConfig: ApplicationConfig = {
   providers: [

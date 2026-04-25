@@ -2,9 +2,11 @@ import { Component, DestroyRef, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PopupService } from '@teamfund/shared';
 import { catchError, EMPTY, from, tap } from 'rxjs';
-import { AuthService } from '../services/auth.service';
+
+import { PopupService } from '@teamfund/shared';
+
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'lib-login',
@@ -16,8 +18,6 @@ export class Login {
   private authSrv = inject(AuthService);
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
-
-  //serwis do dialogów
   private popupSrv = inject(PopupService);
 
   get email() {
@@ -49,7 +49,7 @@ export class Login {
               this.popupSrv.show('Błąd logowania');
             }
           }),
-          catchError((err) => {
+          catchError(() => {
             return EMPTY;
           }),
           takeUntilDestroyed(this.destroyRef),
@@ -58,6 +58,7 @@ export class Login {
     }
   }
 
-  public onRegisterNavigation() {}
-  //sub na sejse
+  public onRegisterNavigation() {
+    this.router.navigate(['/register']);
+  }
 }

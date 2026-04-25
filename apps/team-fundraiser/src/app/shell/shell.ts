@@ -1,8 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { AuthService } from 'auth';
 import { SidebarComponent, TopBar } from 'campaigns-ui';
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { AuthService } from 'auth-data-access';
 
 @Component({
   imports: [RouterModule, SidebarComponent, TopBar],
