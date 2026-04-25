@@ -1,9 +1,8 @@
-import { Component, inject } from '@angular/core';
-import { CampaignsStore } from 'campaigns-data-access';
-import { CampaignCardComponent, ProfileCardComponent, SidebarComponent, StatCardComponent } from 'campaigns-ui';
+import { Component } from '@angular/core';
+
 @Component({
   selector: 'lib-campaigns-feature-dashboard',
-  imports: [StatCardComponent, ProfileCardComponent, CampaignCardComponent, SidebarComponent],
+  imports: [],
   templateUrl: './campaigns-feature-dashboard.html',
 })
 export class CampaignsFeatureDashboard {
