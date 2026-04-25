@@ -58,5 +58,6 @@ export class Login {
     }
   }
 
+  public onRegisterNavigation() {}
   //sub na sejse
 }

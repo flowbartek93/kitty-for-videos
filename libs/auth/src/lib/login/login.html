@@ -4,34 +4,65 @@
       <div class="w-14 h-14 bg-primary rounded-2xl flex items-center justify-center shadow-lg shadow-primary/20 mb-4">
         <span class="text-white font-black italic text-2xl">T</span>
       </div>
-      <h1 class="text-2xl font-black text-white">Witaj ponownie</h1>
+      <h1 class="text-2xl font-black text-white uppercase tracking-tight">Witaj ponownie</h1>
       <p class="text-slate-500 text-sm">Zaloguj się do swojego portalu</p>
     </div>
 
     <form class="space-y-4" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="form-control">
-        <label class="label"><span class="label-text font-bold text-slate-400">Email</span></label>
+        <label for="email-field" class="label">
+          <span class="label-text font-bold text-slate-400">Email</span>
+        </label>
         <input
+          id="email-field"
           type="email"
           formControlName="email"
-          class="input bg-base-100 border-neutral rounded-2xl focus:border-primary"
+          class="input bg-base-100 border-neutral rounded-2xl focus:border-primary w-full transition-all"
           placeholder="hubert@teamfund.pl"
         />
       </div>
 
       <div class="form-control">
-        <label class="label"><span class="label-text font-bold text-slate-400">Hasło</span></label>
+        <label for="password-field" class="label">
+          <span class="label-text font-bold text-slate-400">Hasło</span>
+        </label>
         <input
+          id="password-field"
           formControlName="password"
           type="password"
-          class="input bg-base-100 border-neutral rounded-2xl focus:border-primary"
+          class="input bg-base-100 border-neutral rounded-2xl focus:border-primary w-full transition-all"
           placeholder="••••••••"
         />
+        <label class="label mt-1">
+          <span class="label-text-alt">
+            <a class="link link-hover text-slate-500 hover:text-primary transition-colors">Zapomniałeś hasła?</a>
+          </span>
+        </label>
       </div>
 
-      <button type="submit" class="btn btn-primary w-full rounded-2xl font-black mt-6 shadow-lg shadow-primary/20">
-        ZALOGUJ SIĘ
+      <button
+        type="submit"
+        [disabled]="loginForm.invalid"
+        class="btn btn-primary w-full rounded-2xl font-black mt-4 shadow-lg shadow-primary/20 uppercase tracking-widest disabled:opacity-50"
+      >
+        Zaloguj się
+      </button>
+
+      <div class="divider text-slate-500 text-[10px] uppercase font-black tracking-[0.3em] my-8">Lub</div>
+
+      <button
+        type="button"
+        (click)="onRegisterNavigation()"
+        class="btn btn-outline btn-primary w-full rounded-2xl font-black border-2 hover:bg-primary/10 uppercase tracking-widest transition-all"
+      >
+        Stwórz nowe konto
       </button>
     </form>
+
+    <div class="mt-10 text-center">
+      <p class="text-[10px] text-slate-600 font-medium uppercase tracking-tighter opacity-50">
+        TeamFundraiser Platform &copy; 2026. All rights reserved.
+      </p>
+    </div>
   </div>
 </div>
