@@ -14,14 +14,14 @@
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": ".",
+
     "paths": {
-      "@teamfund/shared": ["libs/shared/src/index.ts"],
-      "auth-data-access": ["libs/auth/src/index.ts"],
-      "campaigns-data-access": ["libs/campaigns/data-access/src/index.ts"],
-      "@env/*": ["src/environments/*"],
-      "campaigns-ui": ["libs/campaigns/ui/src/index.ts"],
-      "campaigns-feature-dashboard": ["libs/campaigns/feature-dashboard/src/index.ts"]
+      "@teamfund/shared": ["./libs/shared/src/index.ts"],
+      "auth-data-access": ["./libs/auth/src/index.ts"],
+      "campaigns-data-access": ["./libs/campaigns/data-access/src/index.ts"],
+      "@env/*": ["./apps/team-fundraiser/src/environments/*"],
+      "campaigns-ui": ["./libs/campaigns/ui/src/index.ts"],
+      "campaigns-feature-dashboard": ["./libs/campaigns/feature-dashboard/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
