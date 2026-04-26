@@ -9,7 +9,7 @@
     </div>
 
     <form class="space-y-4" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <div class="form-control">
+      <div class="form-control w-full">
         <label for="reg-name" class="label">
           <span class="label-text font-bold text-slate-400">Imię i nazwisko</span>
         </label>
@@ -18,11 +18,17 @@
           type="text"
           formControlName="fullName"
           class="input bg-base-100 border-neutral rounded-2xl focus:border-primary w-full transition-all"
+          [class.input-error]="registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched"
           placeholder="np. Hubert Nowak"
         />
+        @if (registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched) {
+        <label class="label py-1 px-2">
+          <span class="label-text-alt text-error font-bold uppercase text-[10px]">Imię i nazwisko jest wymagane</span>
+        </label>
+        }
       </div>
 
-      <div class="form-control">
+      <div class="form-control w-full">
         <label for="reg-email" class="label">
           <span class="label-text font-bold text-slate-400">Email służbowy</span>
         </label>
@@ -31,11 +37,17 @@
           type="email"
           formControlName="email"
           class="input bg-base-100 border-neutral rounded-2xl focus:border-primary w-full transition-all"
+          [class.input-error]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
           placeholder="hubert@teamfund.pl"
         />
+        @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+        <label class="label py-1 px-2">
+          <span class="label-text-alt text-error font-bold uppercase text-[10px]">Poprawny email jest wymagany</span>
+        </label>
+        }
       </div>
 
-      <div class="form-control">
+      <div class="form-control w-full">
         <label for="reg-password" class="label">
           <span class="label-text font-bold text-slate-400">Hasło</span>
         </label>
@@ -44,11 +56,17 @@
           type="password"
           formControlName="password"
           class="input bg-base-100 border-neutral rounded-2xl focus:border-primary w-full transition-all"
+          [class.input-error]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
           placeholder="••••••••"
         />
+        @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+        <label class="label py-1 px-2">
+          <span class="label-text-alt text-error font-bold uppercase text-[10px]">Hasło jest wymagane</span>
+        </label>
+        }
       </div>
 
-      <div class="form-control">
+      <div class="form-control w-full">
         <label for="reg-confirm" class="label">
           <span class="label-text font-bold text-slate-400">Powtórz hasło</span>
         </label>
@@ -57,18 +75,37 @@
           type="password"
           formControlName="confirmPassword"
           class="input bg-base-100 border-neutral rounded-2xl focus:border-primary w-full transition-all"
+          [class.input-error]="registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched"
           placeholder="••••••••"
         />
+        @if (registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched) {
+        <label class="label py-1 px-2">
+          <span class="label-text-alt text-error font-bold uppercase text-[10px]"
+            >Potwierdzenie hasła jest wymagane</span
+          >
+        </label>
+        }
       </div>
 
-      <div class="form-control py-2">
+      <div class="form-control py-2 flex flex-col items-start">
         <label class="label cursor-pointer justify-start gap-3">
-          <input type="checkbox" formControlName="terms" class="checkbox checkbox-primary checkbox-sm rounded-lg" />
+          <input
+            type="checkbox"
+            formControlName="terms"
+            class="checkbox checkbox-primary checkbox-sm rounded-lg"
+            [class.checkbox-error]="registerForm.get('terms')?.invalid && registerForm.get('terms')?.touched"
+          />
           <span class="label-text text-xs text-slate-500 italic">
             Akceptuję <a class="text-primary link link-hover font-bold">Regulamin</a> i
             <a class="text-primary link link-hover font-bold">Politykę Prywatności</a>
           </span>
         </label>
+
+        @if (registerForm.get('terms')?.invalid && registerForm.get('terms')?.touched) {
+        <span class="label-text-alt text-error font-bold uppercase text-[10px] py-3"
+          >Musisz zaakceptować regulamin</span
+        >
+        }
       </div>
 
       <button
