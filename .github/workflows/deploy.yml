@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main # Wyzwala akcję przy każdym pushu na gałąź główną
+      - main
 
 permissions:
   contents: write
@@ -11,9 +11,13 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      NX_PACKAGE_MANAGER: npm # WYMUSZENIE NPM
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Nx potrzebuje historii do affected
 
       - name: Setup Node.js ⚙️
         uses: actions/setup-node@v4
@@ -22,17 +26,17 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies 🔧
-        run: npm install
+        run: npm install --legacy-peer-deps # Czasem pomaga przy konfliktach wersji
 
       - name: Build Application 🏗️
-        # UWAGA: Upewnij się, że 'team-fundraiser' to poprawna nazwa projektu w Nx
         run: |
+          # Dodajemy NX_REJECT_UNKNOWN_LOCAL_CACHE, żeby nie pluł się o pnpm
           npx nx build team-fundraiser --configuration=production --base-href=/kitty-for-videos/
-          # Fix dla Angular Router (SPA) - kopiujemy index.html jako 404.html
           cp dist/apps/team-fundraiser/browser/index.html dist/apps/team-fundraiser/browser/404.html
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: dist/apps/team-fundraiser/browser
-          branch: gh-pages # Tu wylądują gotowe pliki
+          branch: gh-pages
+          clean: true
