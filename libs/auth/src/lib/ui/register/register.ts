@@ -52,6 +52,8 @@ export class Register {
         return;
       }
     }
+
+    this.authSrv.registerUser({ email: email ?? '', password: password ?? '' }, fullName ?? '');
   }
 
   goToLogin() {
