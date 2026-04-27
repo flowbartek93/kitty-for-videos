@@ -5,7 +5,7 @@ import { PopupService } from '@teamfund/shared';
 import { AuthService } from '../../services/auth.service';
 import { from, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { AuthResponse } from '@supabase/supabase-js';
+
 @Component({
   selector: 'lib-register',
   imports: [ReactiveFormsModule],
