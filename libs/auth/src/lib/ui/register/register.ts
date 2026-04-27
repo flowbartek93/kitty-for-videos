@@ -1,9 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PopupService } from '@teamfund/shared';
 import { AuthService } from '../../services/auth.service';
-
+import { from, tap } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AuthResponse } from '@supabase/supabase-js';
 @Component({
   selector: 'lib-register',
   imports: [ReactiveFormsModule],
@@ -15,6 +17,8 @@ export class Register {
   private router = inject(Router);
   private popUpSrv = inject(PopupService);
   private authSrv = inject(AuthService);
+
+  private destroyRef = inject(DestroyRef);
 
   get email() {
     return this.registerForm.get('email');
@@ -53,7 +57,22 @@ export class Register {
       }
     }
 
-    this.authSrv.registerUser({ email: email ?? '', password: password ?? '' }, fullName ?? '');
+    return from(this.authSrv.registerUser({ email: email ?? '', password: password ?? '' }, fullName ?? ''))
+      .pipe(
+        tap(({ data, error }) => {
+          if (data.session && data.user) {
+            this.router.navigate(['/dashboard']);
+          } else {
+            this.router.navigate(['/register']);
+          }
+
+          if (error) {
+            this.popUpSrv.show(error.message);
+          }
+        }),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe();
   }
 
   goToLogin() {

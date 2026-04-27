@@ -1,6 +1,7 @@
 {
-  "typescript.preferences.includePackageJsonAutoImports": "on",
-  "typescript.preferences.autoImportFileExcludePatterns": [],
-  "typescript.preferences.importModuleSpecifier": "non-relative",
-  "typescript.workspaceSymbols.scope": "allOpenProjects"
+  "js/ts.tsdk.path": "node_modules/typescript/lib",
+  "js/ts.preferences.includePackageJsonAutoImports": "on",
+  "js/ts.preferences.autoImportFileExcludePatterns": [],
+  "js/ts.preferences.importModuleSpecifier": "non-relative",
+  "js/ts.suggest.autoImports": true
 }
