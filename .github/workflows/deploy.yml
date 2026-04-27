@@ -12,12 +12,13 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     env:
-      NX_PACKAGE_MANAGER: npm # WYMUSZENIE NPM
+      NX_PACKAGE_MANAGER: npm
+      NX_NO_CLOUD: true # <--- KLUCZOWE: WYŁĄCZAMY BLOKADĘ NX CLOUD
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Nx potrzebuje historii do affected
+          fetch-depth: 0
 
       - name: Setup Node.js ⚙️
         uses: actions/setup-node@v4
@@ -26,12 +27,12 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies 🔧
-        run: npm install --legacy-peer-deps # Czasem pomaga przy konfliktach wersji
+        run: npm install --legacy-peer-deps
 
       - name: Build Application 🏗️
         run: |
-          # Dodajemy NX_REJECT_UNKNOWN_LOCAL_CACHE, żeby nie pluł się o pnpm
-          npx nx build team-fundraiser --configuration=production --base-href=/kitty-for-videos/
+          # Dodajemy flagę --skip-nx-cache, aby upewnić się, że budujemy na czysto bez Clouda
+          npx nx build team-fundraiser --configuration=production --base-href=/kitty-for-videos/ --skip-nx-cache
           cp dist/apps/team-fundraiser/browser/index.html dist/apps/team-fundraiser/browser/404.html
 
       - name: Deploy 🚀
