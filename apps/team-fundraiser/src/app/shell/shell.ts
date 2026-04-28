@@ -12,6 +12,8 @@ export class ShellComponent {
   private authSrv = inject(AuthService);
   private router = inject(Router);
 
+  public currentUser = this.authSrv.getCurrentUser();
+
   async logout() {
     await this.authSrv.logout();
     this.router.navigate(['/login']);
