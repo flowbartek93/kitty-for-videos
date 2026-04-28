@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NX_PACKAGE_MANAGER: npm
-      NX_NO_CLOUD: true # <--- KLUCZOWE: WYŁĄCZAMY BLOKADĘ NX CLOUD
+      NX_NO_CLOUD: true
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
@@ -31,7 +31,7 @@ jobs:
 
       - name: Build Application 🏗️
         run: |
-          # Dodajemy flagę --skip-nx-cache, aby upewnić się, że budujemy na czysto bez Clouda
+
           npx nx build team-fundraiser --configuration=production --base-href=/kitty-for-videos/ --skip-nx-cache
           cp dist/apps/team-fundraiser/browser/index.html dist/apps/team-fundraiser/browser/404.html
 
