@@ -1,0 +1,13 @@
+{
+  "name": "user-feature-settings",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/user/feature-settings/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "tags": ["scope:user", "type:feature"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

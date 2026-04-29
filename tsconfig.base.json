@@ -22,7 +22,10 @@
       "@env/*": ["./apps/team-fundraiser/src/environments/*"],
       "campaigns-ui": ["./libs/campaigns/ui/src/index.ts"],
       "layout-ui": ["./libs/layout/ui/src/index.ts"],
-      "campaigns-feature-dashboard": ["./libs/campaigns/feature-dashboard/src/index.ts"]
+      "campaigns-feature-dashboard": ["./libs/campaigns/feature-dashboard/src/index.ts"],
+      "user-data-access": ["./libs/user/data-access/src/index.ts"],
+      "user-feature-profile": ["./libs/user/feature-profile/src/index.ts"],
+      "user-feature-settings": ["./libs/user/feature-settings/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
