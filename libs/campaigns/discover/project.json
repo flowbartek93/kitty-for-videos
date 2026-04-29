@@ -1,10 +1,10 @@
 {
-  "name": "campaigns-ui",
+  "name": "campaigns-discover",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/campaigns/ui/src",
+  "sourceRoot": "libs/campaigns/discover/src",
   "prefix": "lib",
   "projectType": "library",
-  "tags": ["scope:campaigns", "type:ui"],
+  "tags": ["scope:campaigns", "type:feature"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"
