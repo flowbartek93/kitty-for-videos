@@ -1,0 +1,81 @@
+<section
+  class="p-6 border bg-zinc-900/40 border-zinc-800 rounded-2xl animate-in fade-in slide-in-from-right-4 duration-300"
+>
+  <div class="mb-6">
+    <h2 class="text-xl font-bold text-white">Protokół Łączności</h2>
+    <p class="text-sm text-zinc-500">Skonfiguruj kanały raportowania o stanie zbiórek i alertach systemu.</p>
+  </div>
+
+  <div class="space-y-6">
+    <div class="space-y-3">
+      <h3 class="text-xs font-bold text-zinc-500 uppercase tracking-widest px-1">Dostępne Kanały</h3>
+
+      <div class="divide-y divide-zinc-800 border border-zinc-800 rounded-xl overflow-hidden bg-zinc-900/20">
+        <div class="flex items-center justify-between p-4">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+              ></path>
+            </svg>
+            <div>
+              <p class="text-sm font-medium text-white">Raporty Email</p>
+              <p class="text-xs text-zinc-500">Podsumowania zbiórek i potwierdzenia wpłat.</p>
+            </div>
+          </div>
+          <button class="relative inline-flex h-6 w-11 items-center rounded-full bg-indigo-600">
+            <span class="inline-block h-4 w-4 transform rounded-full bg-white transition translate-x-6"></span>
+          </button>
+        </div>
+
+        <div class="flex items-center justify-between p-4">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+              ></path>
+            </svg>
+            <div>
+              <p class="text-sm font-medium text-white">Powiadomienia Push</p>
+              <p class="text-xs text-zinc-500">Błyskawiczne alerty o nowych wspierających.</p>
+            </div>
+          </div>
+          <button class="relative inline-flex h-6 w-11 items-center rounded-full bg-zinc-700">
+            <span class="inline-block h-4 w-4 transform rounded-full bg-white transition translate-x-1"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-y-3">
+      <h3 class="text-xs font-bold text-zinc-500 uppercase tracking-widest px-1">Priorytety Raportowania</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <label
+          class="flex items-center p-3 border border-zinc-800 rounded-lg bg-zinc-900/20 cursor-pointer hover:bg-zinc-800/40 transition-colors"
+        >
+          <input
+            type="checkbox"
+            checked
+            class="w-4 h-4 rounded border-zinc-700 bg-zinc-800 text-indigo-600 focus:ring-indigo-500"
+          />
+          <span class="ml-3 text-sm text-zinc-300">Tylko krytyczne alerty OpSec</span>
+        </label>
+        <label
+          class="flex items-center p-3 border border-zinc-800 rounded-lg bg-zinc-900/20 cursor-pointer hover:bg-zinc-800/40 transition-colors"
+        >
+          <input
+            type="checkbox"
+            class="w-4 h-4 rounded border-zinc-700 bg-zinc-800 text-indigo-600 focus:ring-indigo-500"
+          />
+          <span class="ml-3 text-sm text-zinc-300">Kamienie milowe kampanii</span>
+        </label>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,75 @@
+<section
+  class="p-6 border bg-zinc-900/40 border-zinc-800 rounded-2xl animate-in fade-in slide-in-from-right-4 duration-300"
+>
+  <div class="mb-6 flex justify-between items-start">
+    <div>
+      <h2 class="text-xl font-bold text-white">Logistyka Finansowa</h2>
+      <p class="text-sm text-zinc-500">Zarządzaj metodami płatności i historią transferów.</p>
+    </div>
+    <button
+      class="px-4 py-2 text-xs font-bold uppercase tracking-wider bg-indigo-600 text-white rounded-lg hover:bg-indigo-500 transition-all"
+    >
+      + Dodaj Metodę
+    </button>
+  </div>
+
+  <div class="space-y-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="p-4 border border-indigo-500/30 bg-indigo-500/5 rounded-xl relative overflow-hidden group">
+        <div class="absolute top-0 right-0 p-2 opacity-20 group-hover:opacity-100 transition-opacity">
+          <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
+            />
+          </svg>
+        </div>
+        <p class="text-xs font-mono text-indigo-400 uppercase tracking-widest">Główna Metoda</p>
+        <p class="mt-4 text-lg font-bold text-white leading-none">•••• •••• •••• 4421</p>
+        <div class="mt-6 flex justify-between items-end">
+          <span class="text-xs text-zinc-500 uppercase">Wygasa: 12/28</span>
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg"
+            class="h-6 opacity-80"
+            alt="Mastercard"
+          />
+        </div>
+      </div>
+
+      <div
+        class="p-4 border border-zinc-800 bg-zinc-900/20 rounded-xl border-dashed flex flex-col items-center justify-center text-zinc-600 group hover:border-zinc-700 hover:text-zinc-400 cursor-pointer transition-all"
+      >
+        <svg class="w-8 h-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+        </svg>
+        <p class="text-xs font-bold uppercase tracking-tighter">Zapasowe źródło finansowania</p>
+      </div>
+    </div>
+
+    <div class="space-y-3">
+      <h3 class="text-xs font-bold text-zinc-500 uppercase tracking-widest px-1">Ostatnie Operacje</h3>
+      <div class="overflow-hidden border border-zinc-800 rounded-xl">
+        <table class="w-full text-left text-sm">
+          <thead class="bg-zinc-800/50 text-zinc-400 font-mono text-[10px] uppercase">
+            <tr>
+              <th class="px-4 py-3">Data</th>
+              <th class="px-4 py-3">Cel</th>
+              <th class="px-4 py-3 text-right">Kwota</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-zinc-800 bg-zinc-900/10 text-zinc-300">
+            <tr>
+              <td class="px-4 py-3 font-mono text-xs text-zinc-500">24.03.24</td>
+              <td class="px-4 py-3">Zbiórka: Trening CQB Level 2</td>
+              <td class="px-4 py-3 text-right font-bold text-white">-250,00 PLN</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-mono text-xs text-zinc-500">20.03.24</td>
+              <td class="px-4 py-3">Zasilenie portfela</td>
+              <td class="px-4 py-3 text-right font-bold text-green-500">+1000,00 PLN</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

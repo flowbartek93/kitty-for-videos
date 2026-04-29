@@ -34,7 +34,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'user-settings',
-        loadComponent: () => import('user-feature-settings').then((m) => m.UserSettingsComponent),
+        loadChildren: () => import('user-feature-settings').then((m) => m.USER_ROUTES),
       },
     ],
   },
