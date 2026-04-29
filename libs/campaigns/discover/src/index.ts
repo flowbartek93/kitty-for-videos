@@ -1,1 +1,1 @@
-export * from './lib/campaign-card/campaign-card.component';
+export * from './lib/discover/discover.component';

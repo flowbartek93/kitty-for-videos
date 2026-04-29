@@ -1,11 +1,11 @@
 import { Component, computed, input } from '@angular/core';
 
 @Component({
-  selector: 'lib-campaign-card',
+  selector: 'lib-discover',
   imports: [],
-  templateUrl: './campaign-card.component.html',
+  templateUrl: './discover.component.html',
 })
-export class CampaignCardComponent {
+export class DiscoverComponent {
   campaign = input.required<any>();
 
   // Przykładowa logika - potem weźmiemy realne currentAmount z bazy
