@@ -1,8 +1,9 @@
 import { Component, inject, input, output } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'lib-top-bar',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './top-bar.html',
 })
 export class TopBar {
