@@ -10,11 +10,9 @@
     "importHelpers": true,
     "target": "es2022",
     "module": "esnext",
-
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-
     "paths": {
       "@teamfund/shared": ["./libs/shared/src/index.ts"],
       "auth": ["./libs/auth/src/index.ts"],
@@ -25,7 +23,8 @@
       "campaigns-feature-dashboard": ["./libs/campaigns/feature-dashboard/src/index.ts"],
       "user-data-access": ["./libs/user/data-access/src/index.ts"],
       "user-feature-profile": ["./libs/user/feature-profile/src/index.ts"],
-      "user-feature-settings": ["./libs/user/feature-settings/src/index.ts"]
+      "user-feature-settings": ["./libs/user/feature-settings/src/index.ts"],
+      "my-contributions": ["./libs/campaigns/my-contributions/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -29,6 +29,14 @@ export const appRoutes: Route[] = [
         loadComponent: () => import('campaigns-feature-dashboard').then((m) => m.CampaignsFeatureDashboard),
       },
       {
+        path: 'discover',
+        loadComponent: () => import('campaigns-discover').then((m) => m.DiscoverComponent),
+      },
+      {
+        path: 'contributions',
+        loadComponent: () => import('my-contributions').then((m) => m.MyContributions),
+      },
+      {
         path: 'user-info',
         loadComponent: () => import('user-feature-profile').then((m) => m.UserInfoComponent),
       },

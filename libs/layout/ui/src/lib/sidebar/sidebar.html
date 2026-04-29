@@ -14,15 +14,17 @@
   </div>
 
   <nav class="flex-1">
-    <ul class="menu p-0 gap-2">
-      <li class="menu-title text-slate-600 text-[10px] uppercase tracking-[0.2em] mb-2 px-4">Navigation</li>
+    <ul class="menu p-0 gap-2 font-sans">
+      <li class="menu-title text-slate-600 text-[10px] uppercase tracking-[0.2em] mb-2 px-4 italic opacity-50">
+        Nawigacja Operacyjna
+      </li>
 
       <li>
         <a
-          routerLink="/"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}"
-          class="active bg-primary/10 text-primary rounded-2xl py-3 px-4 font-bold border-l-4 border-primary"
+          routerLink="/dashboard"
+          routerLinkActive="bg-primary/10 text-primary font-bold border-l-4 border-primary"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="flex items-center text-slate-400 hover:text-white hover:bg-base-300 rounded-2xl py-3 px-4 transition-all duration-200"
         >
           Dashboard
         </a>
@@ -30,18 +32,19 @@
 
       <li>
         <a
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}"
-          class="text-slate-400 hover:text-white hover:bg-base-300 rounded-2xl py-3 px-4 transition-all"
+          routerLink="/discover"
+          routerLinkActive="bg-primary/10 text-primary font-bold border-l-4 border-primary"
+          class="flex items-center text-slate-400 hover:text-white hover:bg-base-300 rounded-2xl py-3 px-4 transition-all duration-200"
         >
           Odkrywaj
         </a>
       </li>
+
       <li>
         <a
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}"
-          class="text-slate-400 hover:text-white hover:bg-base-300 rounded-2xl py-3 px-4 transition-all"
+          routerLink="/contributions"
+          routerLinkActive="bg-primary/10 text-primary font-bold border-l-4 border-primary"
+          class="flex items-center text-slate-400 hover:text-white hover:bg-base-300 rounded-2xl py-3 px-4 transition-all duration-200"
         >
           Moje Udziały
         </a>
