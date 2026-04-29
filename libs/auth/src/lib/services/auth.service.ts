@@ -21,6 +21,6 @@ export class AuthService {
   }
 
   getCurrentUser() {
-    return this.store.currentUser();
+    return this.store.currentUser;
   }
 }
