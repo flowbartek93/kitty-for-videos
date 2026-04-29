@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'auth';
-import { SidebarComponent, TopBar } from 'campaigns-ui';
+import { SidebarComponent, TopBar } from 'layout-ui';
 
 @Component({
   imports: [RouterModule, SidebarComponent, TopBar],
