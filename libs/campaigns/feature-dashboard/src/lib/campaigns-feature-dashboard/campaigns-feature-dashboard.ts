@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AuthService } from 'auth';
 
 @Component({
   selector: 'lib-campaigns-feature-dashboard',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   templateUrl: './campaigns-feature-dashboard.html',
 })
 export class CampaignsFeatureDashboard {
-  // protected readonly store = inject(CampaignsStore);
+  readonly authSrv = inject(AuthService);
+
+  public username = this.authSrv.getCurrentUser();
 }

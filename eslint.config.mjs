@@ -24,7 +24,7 @@ export default [
             // 2. Domenowe rzeczy (campaigns) mogą zależeć od siebie i od Shared
             {
               sourceTag: 'scope:campaigns',
-              onlyDependOnLibsWithTags: ['scope:campaigns', 'scope:shared'],
+              onlyDependOnLibsWithTags: ['scope:campaigns', 'scope:shared', 'scope:auth', 'type:data-access'],
             },
             {
               sourceTag: 'scope:auth',
