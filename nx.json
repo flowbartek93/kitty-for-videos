@@ -47,6 +47,14 @@
       "cache": true,
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
+    },
+
+    "serve": {
+      "options": {
+        "ssl": true,
+        "sslKey": "localhost-key.pem",
+        "sslCert": "localhost.pem"
+      }
     }
   },
   "release": {
