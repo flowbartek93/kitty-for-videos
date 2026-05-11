@@ -3,21 +3,20 @@ import { patchState, signalStore, withComputed, withHooks, withMethods, withProp
 import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { Session } from '@supabase/supabase-js';
 import { PopupService, SupabaseClientService } from '@teamfund/shared';
+import { UserProfile } from 'user-data-access';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { catchError, EMPTY, from, pipe, switchMap, tap } from 'rxjs';
 
 interface AuthState {
   session: Session | null;
-  user: unknown;
+  profile: UserProfile | null;
   isLoading: boolean;
-  displayName: string | undefined;
 }
 
 const initialAuthState: AuthState = {
   session: null,
-  user: null,
+  profile: null,
   isLoading: true,
-  displayName: undefined,
 };
 
 export const AuthStore = signalStore(
@@ -30,16 +29,18 @@ export const AuthStore = signalStore(
   withState<AuthState>(initialAuthState),
   withMethods((store) => ({
     setSession(newSession: Session | null) {
-      patchState(store, { session: newSession, isLoading: false, user: newSession?.user ?? null });
+      patchState(store, { session: newSession, isLoading: false });
     },
 
     setFullProfile: rxMethod<string>(
       pipe(
         switchMap((userId) => {
-          return from(store.supabaseClient.client.from('profiles').select('*').eq('id', userId).single()).pipe(
-            tap(({ data, error }) => {
+          return from(
+            store.supabaseClient.client.from('profiles').select('*').eq('id', userId).single<UserProfile>(),
+          ).pipe(
+            tap(({ data }) => {
               if (data) {
-                patchState(store, { displayName: data.display_name ?? '' });
+                patchState(store, { profile: data });
               }
             }),
             catchError((err: any) => {
@@ -54,7 +55,8 @@ export const AuthStore = signalStore(
   withComputed((store) => ({
     currentSession: computed(() => store.session()),
     loaded: computed(() => !store.isLoading()),
-    currentUser: computed(() => store.displayName() ?? ''),
+    currentUser: computed(() => store.profile()?.display_name ?? ''),
+    currentProfile: computed(() => store.profile()),
   })),
   withHooks((store) => {
     const supabase = inject(SupabaseClientService);

@@ -50,11 +50,11 @@
     },
 
     "serve": {
-      "options": {
-        "ssl": true,
-        "sslKey": "localhost-key.pem",
-        "sslCert": "localhost.pem"
-      }
+      // "options": {
+      //   "ssl": true,
+      //   "sslKey": "localhost-key.pem",
+      //   "sslCert": "localhost.pem"
+      // }
     }
   },
   "release": {

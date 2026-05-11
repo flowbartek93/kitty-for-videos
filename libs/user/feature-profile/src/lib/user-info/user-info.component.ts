@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, inject, Injector } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { UserStore } from 'user-data-access';
 
 @Component({
   selector: 'app-user-info',
@@ -9,5 +10,5 @@ import { CommonModule } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserInfoComponent {
-  readonly #injector = inject(Injector);
+  readonly store = inject(UserStore);
 }

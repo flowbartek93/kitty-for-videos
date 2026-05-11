@@ -7,7 +7,7 @@
       <div class="relative">
         <div class="w-32 h-32 p-1 border-2 border-indigo-500 rounded-full">
           <img
-            src="https://api.dicebear.com/7.x/avataaars/svg?seed=Bartek"
+            [src]="'https://api.dicebear.com/7.x/avataaars/svg?seed=' + store.displayName()"
             alt="Avatar Operatora"
             class="object-cover w-full h-full bg-zinc-800 rounded-full"
           />
@@ -20,17 +20,17 @@
 
       <div class="flex-1 text-center md:text-left">
         <div class="flex items-center justify-center gap-3 md:justify-start">
-          <h1 class="text-3xl font-bold tracking-tight text-white">Bartek (Admin)</h1>
+          <h1 class="text-3xl font-bold tracking-tight text-white">{{ store.displayName() }}</h1>
           <span
             class="px-2 py-1 text-[10px] font-black tracking-widest uppercase rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"
           >
             Klasa Pierwsza
           </span>
         </div>
-        <p class="mt-1 text-zinc-400 font-mono text-sm uppercase tracking-wider">Ksywa: "TacticDev"</p>
+        <p class="mt-1 text-zinc-400 font-mono text-sm uppercase tracking-wider">Ksywa: {{ store.secondName() }}</p>
 
         <div class="flex flex-wrap items-center justify-center gap-4 mt-4 md:justify-start">
-          <div class="text-xs text-zinc-500 font-mono uppercase tracking-tight">ID: #TF-092-2024</div>
+          <div class="text-xs text-zinc-500 font-mono uppercase tracking-tight">{{ store.email() }}</div>
           <div class="flex items-center gap-1.5 text-[10px] text-green-500 font-black uppercase tracking-widest">
             <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Status: Ready
           </div>
@@ -51,7 +51,7 @@
     <div class="p-6 border bg-zinc-900/30 border-zinc-800 rounded-2xl relative overflow-hidden group">
       <p class="text-[10px] font-black uppercase text-zinc-500 tracking-[0.2em]">Suma zebrana</p>
       <p class="mt-2 text-2xl font-black text-white font-mono">
-        12 450,00 <span class="text-xs text-zinc-500">PLN</span>
+        {{ store.fundsSummary() }} <span class="text-xs text-zinc-500">PLN</span>
       </p>
       <div class="mt-4 w-full h-1 bg-zinc-800 rounded-full overflow-hidden">
         <div class="w-[75%] h-full bg-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.5)]"></div>
@@ -70,8 +70,10 @@
     <!-- Prowadzone Kampanie -->
     <div class="p-6 border bg-zinc-900/30 border-zinc-800 rounded-2xl">
       <p class="text-[10px] font-black uppercase text-zinc-500 tracking-[0.2em]">Aktywne zbiórki</p>
-      <p class="mt-2 text-2xl font-black text-white font-mono">03</p>
-      <p class="mt-1 text-[10px] text-indigo-400 font-bold uppercase tracking-tighter">Zorganizowane: 14</p>
+      <p class="mt-2 text-2xl font-black text-white font-mono">{{ store.campaignsCount() }}</p>
+      <p class="mt-1 text-[10px] text-indigo-400 font-bold uppercase tracking-tighter">
+        Zorganizowane: {{ store.organisedCampaignsCount() }}
+      </p>
     </div>
   </section>
 
