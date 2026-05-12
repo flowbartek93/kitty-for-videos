@@ -41,6 +41,10 @@ export const appRoutes: Route[] = [
         loadComponent: () => import('user-feature-profile').then((m) => m.UserInfoComponent),
       },
       {
+        path: 'user-edit',
+        loadComponent: () => import('user-feature-profile').then((m) => m.UserEditComponent),
+      },
+      {
         path: 'user-settings',
         loadChildren: () => import('user-feature-settings').then((m) => m.USER_ROUTES),
       },

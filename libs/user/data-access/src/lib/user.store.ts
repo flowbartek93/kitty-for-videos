@@ -18,5 +18,6 @@ export const UserStore = signalStore(
     campaignsCount: computed(() => _auth.currentProfile()?.campaigns_count ?? 0),
     organisedCampaignsCount: computed(() => _auth.currentProfile()?.organised_funds?.length ?? 0),
     isLoaded: computed(() => _auth.loaded()),
+    expenses: computed(() => _auth.currentProfile()?.expenses_count ?? 0),
   })),
 );
