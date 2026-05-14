@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-// Importuj swój Store - nazwa zależna od Twojej implementacji, np. UserStore lub ProfileStore
-// import { UserStore } from '@teamfund/user-data-access';
+import { UpdateProfile, UserStore } from 'user-data-access';
 
 @Component({
   selector: 'app-user-edit',
@@ -14,7 +13,7 @@ import { RouterLink } from '@angular/router';
 })
 export class UserEditComponent {
   private readonly fb = inject(FormBuilder);
-  // readonly store = inject(UserStore); // Podepnij swój Store
+  readonly store = inject(UserStore); // Podepnij swój Store
 
   // Signal na podgląd avatara (Base64 lub URL)
   avatarPreview = signal<string | null>(null);
@@ -27,16 +26,12 @@ export class UserEditComponent {
   });
 
   constructor() {
-    // RECON: Inicjalizacja formularza danymi ze Store
-    // patchState lub ręczne wypełnienie
-    /*
     effect(() => {
       this.profileForm.patchValue({
-        callsign: this.store.displayName(),
-        email: this.store.email()
+        callsign: this.store.secondName(),
+        email: this.store.email(),
       });
     });
-    */
   }
 
   /**
@@ -47,12 +42,6 @@ export class UserEditComponent {
     if (!input.files || input.files.length === 0) return;
 
     const file = input.files[0];
-
-    // DEFENSIVE CHECK: Rozmiar (Max 2MB)
-    if (file.size > 2 * 1024 * 1024) {
-      alert('BREACH: Plik zbyt duży. Max 2MB.');
-      return;
-    }
 
     // DEFENSIVE CHECK: Typ MIME
     if (!file.type.startsWith('image/')) {
@@ -79,14 +68,14 @@ export class UserEditComponent {
       return;
     }
 
-    const payload = {
-      ...this.profileForm.getRawValue(),
-      avatar: this.selectedFile,
+    const payload: UpdateProfile = {
+      avatar: this.selectedFile ?? null,
+      callsign: this.profileForm.get('callsign')?.value ?? '',
+      email: this.profileForm.get('email')?.value ?? '',
     };
 
     console.log('COMMIT DATA:', payload);
 
-    // Tu wywołujesz metodę ze Store:
-    // this.store.updateProfile(payload);
+    this.store.updateProfile(payload);
   }
 }

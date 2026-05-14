@@ -11,6 +11,12 @@ export interface UserProfile {
   status: UserStatus;
 }
 
+export interface UpdateProfile {
+  callsign: string;
+  email: string;
+  avatar: File | null;
+}
+
 export enum UserStatus {
   ACTIVE = 'active',
   OFFLINE = 'offline',
