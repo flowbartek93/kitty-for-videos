@@ -76,6 +76,6 @@ export class UserEditComponent {
 
     console.log('COMMIT DATA:', payload);
 
-    this.store.updateProfile(payload);
+    if (payload.avatar) this.store.updateAvatar(payload.avatar);
   }
 }

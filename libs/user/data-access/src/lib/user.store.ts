@@ -1,11 +1,9 @@
 import { computed, inject } from '@angular/core';
-import { email } from '@angular/forms/signals';
 import { signalStore, withComputed, withMethods, withProps } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { SupabaseClientService } from '@teamfund/shared';
 import { AuthStore } from 'auth';
-import { EMPTY, from, of, pipe, switchMap } from 'rxjs';
-import { UpdateProfile } from 'user-data-access';
+import { from, of, pipe, switchMap, tap } from 'rxjs';
 
 export const UserStore = signalStore(
   { providedIn: 'root' },
@@ -13,6 +11,7 @@ export const UserStore = signalStore(
     _auth: inject(AuthStore),
     _supabase: inject(SupabaseClientService),
   })),
+
   withComputed(({ _auth, _supabase }) => ({
     profile: computed(() => _auth.currentProfile()),
     displayName: computed(() => _auth.currentProfile()?.display_name ?? ''),
@@ -37,36 +36,38 @@ export const UserStore = signalStore(
     isLoaded: computed(() => _auth.loaded()),
     expenses: computed(() => _auth.currentProfile()?.expenses_count ?? 0),
   })),
-
   withMethods(({ _auth, _supabase }) => ({
-    updateProfile: rxMethod<UpdateProfile>(
+    updateAvatar: rxMethod<File>(
       pipe(
-        switchMap((data: UpdateProfile) => {
+        switchMap((file: File) => {
           const userId = _auth.currentProfile()?.id;
           if (!userId) return of(null);
 
-          const updateProfile = (callsign: string, avatarUrl?: string) =>
-            _supabase.client
-              .from('profiles')
-              .update({
-                second_name: callsign,
-                avatar_url: avatarUrl,
-              })
-              .eq('id', userId);
+          const storagePath = `${userId}/avatar`;
 
-          if (!data.avatar) {
-            from(updateProfile(data.callsign));
-          }
+          return from(_supabase.client.storage.from('avatars').upload(storagePath, file, { upsert: true })).pipe(
+            tap((res) => console.log('UPLOAD RESULT:', res)),
+            switchMap((res) => {
+              if (res.error) throw res.error;
 
-          if (data.avatar) {
-            return from(_supabase.client.storage.from('avatars').update(userId, data.avatar)).pipe(
-              switchMap((res) => {
-                return from(updateProfile(data.callsign, res.data?.fullPath ?? ''));
-              }),
-            );
-          }
-
-          return EMPTY;
+              console.log('Updating profile avatar_url to:', res.data.path);
+              return from(
+                _supabase.client
+                  .from('profiles')
+                  .update({ avatar_url: res.data.path })
+                  .eq('id', userId)
+                  .select()
+                  .single(),
+              );
+            }),
+            tap({
+              next: (res) => {
+                console.log('PROFILE UPDATE RESULT:', res);
+                _auth.setFullProfile(userId);
+              },
+              error: (err) => console.error('Upload avatar failed:', err),
+            }),
+          );
         }),
       ),
     ),
