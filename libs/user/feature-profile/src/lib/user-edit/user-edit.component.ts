@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { PopupService } from '@teamfund/shared';
 import { UpdateProfile, UserStore } from 'user-data-access';
 
 @Component({
@@ -14,6 +15,7 @@ import { UpdateProfile, UserStore } from 'user-data-access';
 export class UserEditComponent {
   private readonly fb = inject(FormBuilder);
   readonly store = inject(UserStore); // Podepnij swój Store
+  readonly popupSrv = inject(PopupService); // Podepnij swój Store
 
   // Signal na podgląd avatara (Base64 lub URL)
   avatarPreview = signal<string | null>(null);
@@ -45,7 +47,7 @@ export class UserEditComponent {
 
     // DEFENSIVE CHECK: Typ MIME
     if (!file.type.startsWith('image/')) {
-      alert('BREACH: Nieprawidłowy format pliku.');
+      this.popupSrv.show('niepoprawny plik. Dozowolone to jpg/png', 'error');
       return;
     }
 
@@ -64,7 +66,7 @@ export class UserEditComponent {
    */
   saveProfile(): void {
     if (this.profileForm.invalid) {
-      console.error('SOP: Formularz zawiera błędy. Przerwij operację.');
+      this.popupSrv.show('fromularz zawiera błędy', 'error');
       return;
     }
 

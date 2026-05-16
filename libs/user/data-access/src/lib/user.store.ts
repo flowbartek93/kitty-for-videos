@@ -64,8 +64,9 @@ export const UserStore = signalStore(
           return avatarPath$.pipe(
             switchMap((avatarPath) => store._usersStoreSrv.saveProfile(userId, avatarPath, data.callsign)),
             tap({
-              next: (res) => {
+              next: () => {
                 store._auth.setFullProfile(userId);
+                store._popupSrv.show('profil zaktualizowany', 'message');
               },
               error: (err) => store._popupSrv.show(err.message),
             }),
