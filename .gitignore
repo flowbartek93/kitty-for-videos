@@ -57,3 +57,5 @@ localhost+2.pem
 mkcert-v1.4.4-linux-amd64
 localhost.pem
 localhost-key.pem
+
+repomix-output.*
