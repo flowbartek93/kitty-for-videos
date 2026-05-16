@@ -6,9 +6,6 @@ import { from } from 'rxjs';
 export class UserProfileDataService {
   private _supabase = inject(SupabaseClientService);
 
-  /**
-   * Wykonuje bezpośredni update w tabeli profiles
-   */
   saveProfile(userId: string, avatarUrl: string, secondName: string) {
     return from(
       this._supabase.client

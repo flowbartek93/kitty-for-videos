@@ -33,7 +33,20 @@ export class UserEditComponent {
         callsign: this.store.secondName(),
         email: this.store.email(),
       });
+
+      this.profileForm.markAsPristine();
+      this.selectedFile = null;
+      this.avatarPreview.set(null);
     });
+  }
+
+  hasProfileChanges(): boolean {
+    const currentCallsign = this.profileForm.get('callsign')?.value ?? '';
+    return this.selectedFile !== null || currentCallsign !== this.store.secondName();
+  }
+
+  isSaveDisabled(): boolean {
+    return this.profileForm.invalid || !this.hasProfileChanges();
   }
 
   /**
@@ -67,6 +80,10 @@ export class UserEditComponent {
   saveProfile(): void {
     if (this.profileForm.invalid) {
       this.popupSrv.show('fromularz zawiera błędy', 'error');
+      return;
+    }
+
+    if (!this.hasProfileChanges()) {
       return;
     }
 

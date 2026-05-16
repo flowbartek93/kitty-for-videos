@@ -96,7 +96,7 @@
       </button>
       <button
         type="submit"
-        [disabled]="profileForm.invalid"
+        [disabled]="isSaveDisabled()"
         class="px-8 py-2 bg-emerald-600 hover:bg-emerald-500 disabled:bg-slate-900 disabled:text-slate-700 disabled:border-slate-800 border border-emerald-500 text-white font-black uppercase tracking-tighter transition-all shadow-[4px_4px_0px_0px_rgba(16,185,129,0.2)] active:shadow-none active:translate-x-0.5 active:translate-y-0.5"
       >
         Zapisz Profil (Commit)
