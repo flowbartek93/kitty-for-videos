@@ -71,11 +71,8 @@ export class UserEditComponent {
     const payload: UpdateProfile = {
       avatar: this.selectedFile ?? null,
       callsign: this.profileForm.get('callsign')?.value ?? '',
-
     };
 
-    console.log('COMMIT DATA:', payload);
-
-    if (payload.avatar) this.store.updateProfile(payload);
+    this.store.updateProfile(payload);
   }
 }

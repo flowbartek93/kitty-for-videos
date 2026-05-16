@@ -1,7 +1,7 @@
 import { computed, inject } from '@angular/core';
 import { signalStore, withComputed, withMethods, withProps } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { SupabaseClientService } from '@teamfund/shared';
+import { PopupService, SupabaseClientService } from '@teamfund/shared';
 import { AuthStore } from 'auth';
 import { from, of, pipe, switchMap, tap } from 'rxjs';
 import { UserProfileDataService } from './services/user-profile.service';
@@ -13,6 +13,7 @@ export const UserStore = signalStore(
     _auth: inject(AuthStore),
     _supabase: inject(SupabaseClientService),
     _usersStoreSrv: inject(UserProfileDataService),
+    _popupSrv: inject(PopupService),
   })),
 
   withComputed((store) => ({
@@ -55,7 +56,7 @@ export const UserStore = signalStore(
               ).pipe(
                 switchMap((res) => {
                   if (res.error) throw res.error;
-                  return of(res.data.path); // Zwracamy nową ścieżkę z magazynu
+                  return of(res.data.path);
                 }),
               )
             : of(rawAvatarPath);
@@ -64,10 +65,9 @@ export const UserStore = signalStore(
             switchMap((avatarPath) => store._usersStoreSrv.saveProfile(userId, avatarPath, data.callsign)),
             tap({
               next: (res) => {
-                console.log('PROFILE UPDATE SUCCESS:', res);
-                store._auth.setFullProfile(userId); // WYWOŁANE RAZ W JEDNYM MIEJSCU
+                store._auth.setFullProfile(userId);
               },
-              error: (err) => console.error('Tactical failure during profile update:', err),
+              error: (err) => store._popupSrv.show(err.message),
             }),
           );
         }),
