@@ -1,5 +1,5 @@
 import { ApplicationRef, ComponentRef, EnvironmentInjector, Injectable, createComponent, inject } from '@angular/core';
-import { ErrorPopupComponent } from './popup.component';
+import { ErrorPopupComponent, PopupType } from './popup.component';
 
 @Injectable({ providedIn: 'root' })
 export class PopupService {
@@ -10,7 +10,7 @@ export class PopupService {
 
   private currentPopup: ComponentRef<ErrorPopupComponent> | null = null;
 
-  show(msg: string) {
+  show(msg: string, type: PopupType = 'error') {
     if (this.currentPopup) {
       this.destroyPopup();
     }
@@ -18,6 +18,7 @@ export class PopupService {
     const popupRef = createComponent(ErrorPopupComponent, { environmentInjector: this.envInjector });
 
     popupRef.instance.message.set(msg);
+    popupRef.instance.type.set(type);
 
     popupRef.instance.close.subscribe(() => {
       this.destroyPopup();
