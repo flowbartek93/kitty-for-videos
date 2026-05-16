@@ -4,6 +4,7 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { SupabaseClientService } from '@teamfund/shared';
 import { AuthStore } from 'auth';
 import { from, of, pipe, switchMap, tap } from 'rxjs';
+import { UpdateProfile } from './user-profile.model';
 
 export const UserStore = signalStore(
   { providedIn: 'root' },
@@ -37,36 +38,43 @@ export const UserStore = signalStore(
     expenses: computed(() => _auth.currentProfile()?.expenses_count ?? 0),
   })),
   withMethods(({ _auth, _supabase }) => ({
-    updateAvatar: rxMethod<File>(
+    updateProfile: rxMethod<UpdateProfile>(
       pipe(
-        switchMap((file: File) => {
+        switchMap((data: UpdateProfile) => {
           const userId = _auth.currentProfile()?.id;
           if (!userId) return of(null);
 
           const storagePath = `${userId}/avatar`;
 
-          return from(_supabase.client.storage.from('avatars').upload(storagePath, file, { upsert: true })).pipe(
-            tap((res) => console.log('UPLOAD RESULT:', res)),
-            switchMap((res) => {
-              if (res.error) throw res.error;
+          if (data.avatar) {
+            return from(
+              _supabase.client.storage.from('avatars').upload(storagePath, data.avatar, { upsert: true }),
+            ).pipe(
+              switchMap((res) => {
+                if (res.error) throw res.error;
 
-              console.log('Updating profile avatar_url to:', res.data.path);
-              return from(
-                _supabase.client
-                  .from('profiles')
-                  .update({ avatar_url: res.data.path })
-                  .eq('id', userId)
-                  .select()
-                  .single(),
-              );
-            }),
-            tap({
-              next: (res) => {
-                console.log('PROFILE UPDATE RESULT:', res);
-                _auth.setFullProfile(userId);
-              },
-              error: (err) => console.error('Upload avatar failed:', err),
-            }),
+                console.log('Updating profile avatar_url to:', res.data.path);
+                return from(
+                  _supabase.client
+                    .from('profiles')
+                    .update({ avatar_url: res.data.path, second_name: data.callsign })
+                    .eq('id', userId)
+                    .select()
+                    .single(),
+                );
+              }),
+              tap({
+                next: (res) => {
+                  console.log('PROFILE UPDATE RESULT:', res);
+                  _auth.setFullProfile(userId);
+                },
+                error: (err) => console.error('Upload avatar failed:', err),
+              }),
+            );
+          }
+
+          return from(
+            _supabase.client.from('profiles').update({ second_name: data.callsign }).eq('id', userId).select().single(),
           );
         }),
       ),

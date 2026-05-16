@@ -1,10 +1,9 @@
+import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { computed, inject } from '@angular/core';
 import { patchState, signalStore, withComputed, withHooks, withMethods, withProps, withState } from '@ngrx/signals';
-import { withDevtools } from '@angular-architects/ngrx-toolkit';
-import { Session } from '@supabase/supabase-js';
-import { PopupService, SupabaseClientService } from '@teamfund/shared';
-import { UserProfile } from 'user-data-access';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
+import { Session } from '@supabase/supabase-js';
+import { PopupService, SupabaseClientService, UserProfile } from '@teamfund/shared';
 import { catchError, EMPTY, from, pipe, switchMap, tap } from 'rxjs';
 
 interface AuthState {

@@ -1,4 +1,5 @@
 // Models
+export * from './lib/models/auth/user-profile.model';
 export * from './lib/models/auth/user.model';
 export * from './lib/models/fundraisers/campaign.model';
 export * from './lib/models/fundraisers/participant.model';

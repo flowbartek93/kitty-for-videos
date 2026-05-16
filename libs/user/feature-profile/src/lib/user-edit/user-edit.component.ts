@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { UpdateProfile, UserStore } from 'user-data-access';
 
 @Component({
-  selector: 'app-user-edit',
+  selector: 'lib-app-user-edit',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './user-edit.component.html',
@@ -71,11 +71,11 @@ export class UserEditComponent {
     const payload: UpdateProfile = {
       avatar: this.selectedFile ?? null,
       callsign: this.profileForm.get('callsign')?.value ?? '',
-      email: this.profileForm.get('email')?.value ?? '',
+
     };
 
     console.log('COMMIT DATA:', payload);
 
-    if (payload.avatar) this.store.updateAvatar(payload.avatar);
+    if (payload.avatar) this.store.updateProfile(payload);
   }
 }

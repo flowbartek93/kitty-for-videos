@@ -33,7 +33,11 @@ export default [
             // 3. Data-access może zależeć od shared (modele + util) i od innego data-access
             {
               sourceTag: 'type:data-access',
-              onlyDependOnLibsWithTags: ['scope:shared', 'type:data-access'],
+              onlyDependOnLibsWithTags: ['scope:shared', 'type:data-access', 'scope:auth'],
+            },
+            {
+              sourceTag: 'scope:user',
+              onlyDependOnLibsWithTags: ['scope:user', 'scope:shared', 'type:data-access', 'scope:auth'],
             },
             {
               sourceTag: 'scope:app',
