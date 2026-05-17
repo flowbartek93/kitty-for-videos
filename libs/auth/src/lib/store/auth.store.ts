@@ -54,7 +54,6 @@ export const AuthStore = signalStore(
   withComputed((store) => ({
     currentSession: computed(() => store.session()),
     loaded: computed(() => !store.isLoading()),
-    currentUser: computed(() => store.profile()?.display_name ?? ''),
     currentProfile: computed(() => store.profile()),
   })),
   withHooks((store) => {

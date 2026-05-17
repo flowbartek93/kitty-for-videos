@@ -9,5 +9,5 @@ import { AuthService } from 'auth';
 export class CampaignsFeatureDashboard {
   readonly authSrv = inject(AuthService);
 
-  public username = this.authSrv.getCurrentUser();
+  public profile = this.authSrv.getCurrentUser();
 }

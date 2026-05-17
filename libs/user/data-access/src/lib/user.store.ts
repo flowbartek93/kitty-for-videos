@@ -23,7 +23,7 @@ export const UserStore = signalStore(
 
     avatarUrl: computed(() => {
       const path = store._auth.currentProfile()?.avatar_url ?? null;
-      if (!path) return null;
+      if (!path) return 'https://api.dicebear.com/7.x/avataaars/svg?seed=Hubert';
 
       const { data } = store._supabase.client.storage.from('avatars').getPublicUrl(path);
       return data.publicUrl;

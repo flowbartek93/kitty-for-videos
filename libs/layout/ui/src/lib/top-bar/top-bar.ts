@@ -1,5 +1,6 @@
-import { Component, inject, input, output } from '@angular/core';
+import { Component, effect, inject, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { UserProfile } from '@teamfund/shared';
 
 @Component({
   selector: 'lib-top-bar',
@@ -8,10 +9,17 @@ import { RouterLink } from '@angular/router';
 })
 export class TopBar {
   readonly logoutClicked = output<void>();
+  readonly avatarUrl = input<string>('');
 
-  currentUser = input<string>('');
+  readonly currentProfile = input<UserProfile | null>(null);
 
   public logout() {
     this.logoutClicked.emit();
+  }
+
+  constructor() {
+    effect(() => {
+      console.log('Current profile in TopBar:', this.currentProfile());
+    });
   }
 }
