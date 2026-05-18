@@ -25,7 +25,7 @@
       "user-feature-profile": ["./libs/user/feature-profile/src/index.ts"],
       "user-feature-settings": ["./libs/user/feature-settings/src/index.ts"],
       "my-contributions": ["./libs/campaigns/my-contributions/src/index.ts"],
-      "@teamfund/feature-create": ["./libs/campaigns/feature-create/src/index.ts"]
+      "feature-create": ["./libs/campaigns/feature-create/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

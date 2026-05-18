@@ -32,6 +32,10 @@ export const appRoutes: Route[] = [
         loadComponent: () => import('campaigns-discover').then((m) => m.DiscoverComponent),
       },
       {
+        path: 'create',
+        loadComponent: () => import('feature-create').then((m) => m.CampaignCreateComponent),
+      },
+      {
         path: 'contributions',
         loadComponent: () => import('my-contributions').then((m) => m.MyContributions),
       },

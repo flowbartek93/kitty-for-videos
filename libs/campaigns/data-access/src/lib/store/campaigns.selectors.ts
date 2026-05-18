@@ -8,5 +8,8 @@ export function withCampaignsSelectors() {
     withComputed((store) => ({
       allCampaigns: computed(() => []),
     })),
+    withComputed((store) => ({
+      isLoading: () => store.loading(), // Alias zabezpieczający komponenty
+    })),
   );
 }

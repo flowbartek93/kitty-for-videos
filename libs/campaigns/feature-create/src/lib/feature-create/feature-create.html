@@ -1,1 +1,163 @@
-<p>FeatureCreate works!</p>
+<div class="p-4 md:p-8 max-w-4xl mx-auto">
+  <div class="mb-6 flex items-center justify-between">
+    <a
+      routerLink="/campaigns"
+      class="flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-white transition-colors group"
+    >
+      <svg
+        class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+      </svg>
+      Powrót do panelu
+    </a>
+    <span
+      class="text-[10px] font-bold uppercase tracking-wider bg-neutral text-slate-400 border border-neutral px-3 py-1 rounded-full"
+    >
+      Nowa misja // KREATOR
+    </span>
+  </div>
+
+  <main class="bg-base-300 border border-neutral rounded-3xl p-6 md:p-8 shadow-xl transition-all">
+    <header class="mb-8 border-b border-neutral pb-6">
+      <h1 class="text-2xl font-black text-white tracking-tight">Inicjuj Nową Zbiórkę</h1>
+      <p class="text-sm text-slate-400 mt-1">
+        Definiujesz parametry zrzutki na specjalistyczne szkolenia taktyczne i combat (np. systemy Kevina Secoursa).
+      </p>
+    </header>
+
+    <form [formGroup]="createForm" (ngSubmit)="executeLaunch()" class="space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-[10px] uppercase font-bold text-slate-400 mb-2 tracking-wider">
+            Kryptonim Zbiórki (Nazwa) *
+          </label>
+          <input
+            type="text"
+            formControlName="title"
+            placeholder="np. Kevin Secours - Integrated Combat"
+            class="input bg-base-100 border-neutral rounded-2xl focus:border-primary w-full transition-all placeholder:text-slate-600 text-white"
+            [ngClass]="{'border-error focus:border-error': isFieldInvalid('title')}"
+          />
+          @if (isFieldInvalid('title')) {
+          <span class="text-xs text-error mt-1 block">Wymagane minimum 5 znaków.</span>
+          }
+        </div>
+
+        <div>
+          <label class="block text-[10px] uppercase font-bold text-slate-400 mb-2 tracking-wider">
+            Link do Oficjalnego Szkolenia *
+          </label>
+          <input
+            type="url"
+            formControlName="courseUrl"
+            placeholder="https://www.combatprofessor.com/..."
+            class="input bg-base-100 border-neutral rounded-2xl focus:border-primary w-full transition-all placeholder:text-slate-600 text-white font-mono text-sm"
+            [ngClass]="{'border-error focus:border-error': isFieldInvalid('courseUrl')}"
+          />
+          @if (isFieldInvalid('courseUrl')) {
+          <span class="text-xs text-error mt-1 block">Wymagany bezpieczny odnośnik źródłowy (HTTPS).</span>
+          }
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div>
+          <label class="block text-[10px] uppercase font-bold text-slate-400 mb-2 tracking-wider">
+            Budżet Łączny (PLN) *
+          </label>
+          <div class="relative flex items-center">
+            <input
+              type="number"
+              formControlName="targetAmount"
+              placeholder="0"
+              class="input bg-base-100 border-neutral rounded-2xl focus:border-primary w-full transition-all text-white font-mono"
+              [ngClass]="{'border-error focus:border-error': isFieldInvalid('targetAmount')}"
+            />
+            <span class="absolute right-4 text-xs font-bold text-slate-500 pointer-events-none">PLN</span>
+          </div>
+          @if (isFieldInvalid('targetAmount')) {
+          <span class="text-xs text-error mt-1 block">Minimalna kwota to 100 PLN.</span>
+          }
+        </div>
+
+        <div>
+          <label class="block text-[10px] uppercase font-bold text-slate-400 mb-2 tracking-wider">
+            Min. Stan Osobowy *
+          </label>
+          <input
+            type="number"
+            formControlName="minParticipants"
+            placeholder="Liczba Operatorów"
+            class="input bg-base-100 border-neutral rounded-2xl focus:border-primary w-full transition-all text-white font-mono"
+            [ngClass]="{'border-error focus:border-error': isFieldInvalid('minParticipants')}"
+          />
+          @if (isFieldInvalid('minParticipants')) {
+          <span class="text-xs text-error mt-1 block">Minimum 1 uczestnik.</span>
+          }
+        </div>
+
+        <div>
+          <label class="block text-[10px] uppercase font-bold text-slate-400 mb-2 tracking-wider">
+            Klasyfikacja Priorytetu
+          </label>
+          <select
+            formControlName="priorityTier"
+            class="select bg-base-100 border-neutral rounded-2xl focus:border-primary w-full transition-all text-white"
+          >
+            <option value="TIER_1">TIER 1 - STRZELECTWO / COMBAT</option>
+            <option value="TIER_2">TIER 2 - TAKTYKA INTERNETOWA</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-[10px] uppercase font-bold text-slate-400 mb-2 tracking-wider">
+          Briefing Operacyjny (Opis Celu) *
+        </label>
+        <textarea
+          formControlName="description"
+          rows="5"
+          placeholder="Opisz czego dotyczy szkolenie, jaki element combat i logistyki zostanie pokryty ze środków..."
+          class="textarea bg-base-100 border-neutral rounded-2xl focus:border-primary w-full transition-all text-slate-200 resize-none p-4"
+          [ngClass]="{'border-error focus:border-error': isFieldInvalid('description')}"
+        ></textarea>
+        @if (isFieldInvalid('description')) {
+        <span class="text-xs text-error mt-1 block">Wymagany konkretny opis (min. 20 znaków).</span>
+        }
+      </div>
+
+      @if (store.error()) {
+      <div
+        class="alert alert-error bg-error/10 border-error/20 rounded-2xl text-xs text-error flex gap-2 items-center p-4"
+      >
+        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+          ></path>
+        </svg>
+        <span>BLĄD SYSTEMOWY: {{ store.error() }}</span>
+      </div>
+      }
+
+      <div class="pt-4 border-t border-neutral flex justify-end gap-3">
+        <a routerLink="/campaigns" class="btn btn-ghost rounded-xl px-6">Anuluj</a>
+        <button
+          type="submit"
+          [disabled]="createForm.invalid || store.isLoading()"
+          class="btn btn-primary rounded-xl px-8 min-w-[160px]"
+        >
+          @if (store.isLoading()) {
+          <span class="loading loading-spinner loading-xs"></span>
+          Przetwarzanie... } @else { Uruchom Zbiórkę }
+        </button>
+      </div>
+    </form>
+  </main>
+</div>
