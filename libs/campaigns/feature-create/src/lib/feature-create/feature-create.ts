@@ -1,8 +1,16 @@
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy, signal, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { CampaignsStore } from 'campaigns-data-access';
+import { CampaignsApiService, CampaignsStore } from 'campaigns-data-access';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { debounceTime, distinctUntilChanged, tap, filter, switchMap, EMPTY } from 'rxjs';
+
+interface LinkPreview {
+  title: string;
+  description: string;
+  image: string;
+}
 
 @Component({
   selector: 'lib-campaign-create',
@@ -13,8 +21,13 @@ import { CampaignsStore } from 'campaigns-data-access';
 })
 export class CampaignCreateComponent {
   private fb = inject(FormBuilder);
+  private apiService = inject(CampaignsApiService);
   private router = inject(Router);
+  private destroyRef = inject(DestroyRef);
   store = inject(CampaignsStore);
+
+  protected linkPreview = signal<LinkPreview | null>(null);
+  protected isScraping = signal<boolean>(false);
 
   // Bezkompromisowa walidacja i brak wartości null
   protected createForm = this.fb.nonNullable.group({
@@ -25,6 +38,34 @@ export class CampaignCreateComponent {
     priorityTier: ['TIER_1'],
     description: ['', [Validators.required, Validators.minLength(20)]],
   });
+
+  constructor() {
+    this.setupLinkScraperPipeline();
+  }
+
+  private setupLinkScraperPipeline(): void {
+    this.createForm.controls.courseUrl.valueChanges
+      .pipe(
+        debounceTime(700),
+        distinctUntilChanged(),
+        tap(() => this.linkPreview.set(null)),
+        filter((url) => this.createForm.controls.courseUrl.valid && !!url),
+        tap(() => this.isScraping.set(true)),
+        switchMap((url) =>
+          this.apiService.getLinkIntel(url).pipe(
+            tap({
+              next: (intel) => {
+                this.linkPreview.set(intel);
+                this.isScraping.set(false);
+              },
+              error: () => this.isScraping.set(false),
+            }),
+          ),
+        ),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe();
+  }
 
   protected isFieldInvalid(fieldName: string): boolean {
     const control = this.createForm.get(fieldName);
@@ -37,10 +78,18 @@ export class CampaignCreateComponent {
       return;
     }
 
-    const payload = this.createForm.getRawValue();
-    console.log('Deploying payload to database:', payload);
+    const formValues = this.createForm.getRawValue();
+    const currentPreview = this.linkPreview();
 
-    // store.createNewCampaign(payload);
+    // Łączenie danych formularza z wywiadem Open Graph (Zapis w bazie)
+    const enrichedPayload = {
+      ...formValues,
+      preview_title: currentPreview?.title || formValues.title,
+      preview_description: currentPreview?.description || formValues.description,
+      preview_image_url: currentPreview?.image || '',
+    };
+
+    // this.store.createCampaign(enrichedPayload);
     this.router.navigate(['/campaigns']);
   }
 }
