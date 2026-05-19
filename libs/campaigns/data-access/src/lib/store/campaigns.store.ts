@@ -12,7 +12,7 @@ export const CampaignsStore = signalStore(
   withCampaignsSelectors(),
   withHooks((store) => ({
     onInit: () => {
-      store.loadAllCampaigns();
+      // store.loadAllCampaigns();
     },
   })),
 );

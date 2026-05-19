@@ -12,29 +12,31 @@ export function withCampaignsMethods() {
     { state: type<CampaignsState>() },
     withCampaignsProps(),
     withMethods((store) => ({
-      loadAllCampaigns: rxMethod<void>(
-        pipe(
-          tap(() => patchState(store, { loading: true })),
-          switchMap(() => from(store.campaignsApi.getAllCampaigns())),
-          tapResponse({
-            next: () => {
-              // patchState(store, setAllEntities(campaigns ?? []), { loading: false });
-              patchState(store, { loading: false });
-            },
-            error: (err) => {
-              console.error('Błąd pobierania:', err);
-              patchState(store, { loading: false, error: 'Nie udało się pobrać danych' });
-            },
-            finalize: () => console.log('Zakończono proces ładowania'),
-          }),
-        ),
-      ),
+      // loadAllCampaigns: rxMethod<void>(
+      //   pipe(
+      //     tap(() => patchState(store, { loading: true })),
+      //     switchMap(() => from(store.campaignsApi.getAllCampaigns())),
+      //     tapResponse({
+      //       next: () => {
+      //         // patchState(store, setAllEntities(campaigns ?? []), { loading: false });
+      //         patchState(store, { loading: false });
+      //       },
+      //       error: (err) => {
+      //         console.error('Błąd pobierania:', err);
+      //         patchState(store, { loading: false, error: 'Nie udało się pobrać danych' });
+      //       },
+      //       finalize: () => console.log('Zakończono proces ładowania'),
+      //     }),
+      //   ),
+      // ),
 
       createCampaign: rxMethod<CreateCampaignPayload>(
         pipe(
-          switchMap(() => from(store.campaignsApi.getAllCampaigns())),
+          switchMap((payload: CreateCampaignPayload) => {
+            return store.campaignsApi.createCampaign(payload);
+          }),
           tapResponse({
-            next: () => {
+            next: (res) => {
               // patchState(store, setAllEntities(campaigns ?? []), { loading: false });
               patchState(store, { loading: false });
             },
