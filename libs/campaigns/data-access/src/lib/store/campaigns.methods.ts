@@ -5,6 +5,7 @@ import { pipe, tap, switchMap } from 'rxjs';
 import { from } from 'rxjs';
 import { CampaignsState } from './campaigns.state';
 import { withCampaignsProps } from './campaigns.props';
+import { CreateCampaignPayload } from '@teamfund/shared';
 
 export function withCampaignsMethods() {
   return signalStoreFeature(
@@ -16,7 +17,24 @@ export function withCampaignsMethods() {
           tap(() => patchState(store, { loading: true })),
           switchMap(() => from(store.campaignsApi.getAllCampaigns())),
           tapResponse({
-            next: (campaigns) => {
+            next: () => {
+              // patchState(store, setAllEntities(campaigns ?? []), { loading: false });
+              patchState(store, { loading: false });
+            },
+            error: (err) => {
+              console.error('Błąd pobierania:', err);
+              patchState(store, { loading: false, error: 'Nie udało się pobrać danych' });
+            },
+            finalize: () => console.log('Zakończono proces ładowania'),
+          }),
+        ),
+      ),
+
+      createCampaign: rxMethod<CreateCampaignPayload>(
+        pipe(
+          switchMap(() => from(store.campaignsApi.getAllCampaigns())),
+          tapResponse({
+            next: () => {
               // patchState(store, setAllEntities(campaigns ?? []), { loading: false });
               patchState(store, { loading: false });
             },

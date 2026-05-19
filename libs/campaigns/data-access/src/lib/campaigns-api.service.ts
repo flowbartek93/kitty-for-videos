@@ -1,12 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { SupabaseClientService, Campaign } from '@teamfund/shared';
+import { SupabaseClientService, Campaign, LinkPreview } from '@teamfund/shared';
 import { Observable, from, map } from 'rxjs';
-
-export interface LinkPreview {
-  title: string;
-  description: string;
-  image: string;
-}
 
 @Injectable({ providedIn: 'root' })
 export class CampaignsApiService {

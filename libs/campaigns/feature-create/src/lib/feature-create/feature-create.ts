@@ -3,14 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CampaignsApiService, CampaignsStore } from 'campaigns-data-access';
+import { LinkPreview, CreateCampaignPayload } from '@teamfund/shared';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { debounceTime, distinctUntilChanged, tap, filter, switchMap, EMPTY } from 'rxjs';
-
-interface LinkPreview {
-  title: string;
-  description: string;
-  image: string;
-}
+import { debounceTime, distinctUntilChanged, tap, filter, switchMap } from 'rxjs';
 
 @Component({
   selector: 'lib-campaign-create',
@@ -33,7 +28,6 @@ export class CampaignCreateComponent {
   protected createForm = this.fb.nonNullable.group({
     title: ['', [Validators.required, Validators.minLength(5)]],
     courseUrl: ['', [Validators.required, Validators.pattern('^https:\\/\\/.*')]],
-    targetAmount: [0, [Validators.required, Validators.min(100)]],
     minParticipants: [15, [Validators.required, Validators.min(15)]],
     priorityTier: ['TIER_1'],
     description: ['', [Validators.required, Validators.minLength(20)]],
@@ -82,14 +76,14 @@ export class CampaignCreateComponent {
     const currentPreview = this.linkPreview();
 
     // Łączenie danych formularza z wywiadem Open Graph (Zapis w bazie)
-    const enrichedPayload = {
+    const enrichedPayload: CreateCampaignPayload = {
       ...formValues,
       preview_title: currentPreview?.title || formValues.title,
       preview_description: currentPreview?.description || formValues.description,
       preview_image_url: currentPreview?.image || '',
     };
 
-    // this.store.createCampaign(enrichedPayload);
+    this.store.createCampaign(enrichedPayload);
     this.router.navigate(['/campaigns']);
   }
 }

@@ -20,3 +20,20 @@ export interface CampaignWithStats extends Campaign {
   costPerPersonUSD: number;
   costPerPersonPLN: number;
 }
+
+export interface LinkPreview {
+  title: string;
+  description: string;
+  image: string;
+}
+
+export interface CreateCampaignPayload {
+  title: string;
+  courseUrl: string;
+  minParticipants: number;
+  priorityTier: string;
+  description: string;
+  preview_title: string;
+  preview_description: string;
+  preview_image_url: string;
+}

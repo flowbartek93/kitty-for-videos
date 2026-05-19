@@ -5,7 +5,7 @@ import { CampaignsState } from './campaigns.state';
 export function withCampaignsSelectors() {
   return signalStoreFeature(
     { state: type<CampaignsState>() },
-    withComputed((store) => ({
+    withComputed(() => ({
       allCampaigns: computed(() => []),
     })),
     withComputed((store) => ({
