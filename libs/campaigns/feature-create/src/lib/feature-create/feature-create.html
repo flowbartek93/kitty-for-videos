@@ -92,16 +92,16 @@
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
-          <label for="targetAmount" class="block text-[10px] uppercase font-bold text-slate-400 mb-2 tracking-wider"
-            >Budżet Łączny (PLN) *</label
+          <label for="price" class="block text-[10px] uppercase font-bold text-slate-400 mb-2 tracking-wider"
+            >CENA</label
           >
           <div class="relative flex items-center">
             <input
-              id="targetAmount"
+              id="price"
               type="number"
-              formControlName="targetAmount"
+              formControlName="price"
               class="input bg-base-100 border-neutral rounded-2xl w-full text-white font-mono focus:border-primary transition-all"
-              [ngClass]="{'border-error': isFieldInvalid('targetAmount')}"
+              [ngClass]="{'border-error': isFieldInvalid('price')}"
             />
             <span class="absolute right-4 text-xs font-bold text-slate-500 pointer-events-none">PLN</span>
           </div>

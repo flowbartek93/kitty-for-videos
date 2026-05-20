@@ -28,6 +28,7 @@ export class CampaignCreateComponent {
   protected createForm = this.fb.nonNullable.group({
     title: ['', [Validators.required, Validators.minLength(5)]],
     courseUrl: ['', [Validators.required, Validators.pattern('^https:\\/\\/.*')]],
+    price: [0, [Validators.required, Validators.min(15)]],
     minParticipants: [15, [Validators.required, Validators.min(15)]],
     priorityTier: ['TIER_1'],
     description: ['', [Validators.required, Validators.minLength(20)]],

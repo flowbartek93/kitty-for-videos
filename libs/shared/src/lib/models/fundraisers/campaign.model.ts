@@ -31,6 +31,7 @@ export interface CreateCampaignPayload {
   title: string;
   courseUrl: string;
   minParticipants: number;
+  price: number;
   priorityTier: string;
   description: string;
   preview_title: string;
