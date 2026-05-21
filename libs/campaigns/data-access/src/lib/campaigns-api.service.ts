@@ -1,10 +1,13 @@
 import { inject, Injectable } from '@angular/core';
 import { SupabaseClientService, Campaign, LinkPreview, CreateCampaignPayload } from '@teamfund/shared';
 import { Observable, from, map } from 'rxjs';
+import { SupabaseCampaignInsert } from './utils/campaigns.factory';
+import { AuthService } from 'auth';
 
 @Injectable({ providedIn: 'root' })
 export class CampaignsApiService {
   private supabase = inject(SupabaseClientService);
+  private authSrv = inject(AuthService);
 
   getLinkIntel(targetUrl: string): Observable<LinkPreview> {
     return from(this.supabase.client.rpc('scrape_metadata', { target_url: targetUrl })).pipe(
@@ -15,7 +18,7 @@ export class CampaignsApiService {
     );
   }
 
-  createCampaign(payload: CreateCampaignPayload) {
+  createCampaign(payload: SupabaseCampaignInsert) {
     return from(
       this.supabase.client
         .from('campaigns')

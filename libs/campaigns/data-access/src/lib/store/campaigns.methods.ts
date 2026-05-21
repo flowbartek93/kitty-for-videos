@@ -6,6 +6,7 @@ import { from } from 'rxjs';
 import { CampaignsState } from './campaigns.state';
 import { withCampaignsProps } from './campaigns.props';
 import { CreateCampaignPayload } from '@teamfund/shared';
+import { CampaignFactory, SupabaseCampaignInsert } from '../utils/campaigns.factory';
 
 export function withCampaignsMethods() {
   return signalStoreFeature(
@@ -33,7 +34,9 @@ export function withCampaignsMethods() {
       createCampaign: rxMethod<CreateCampaignPayload>(
         pipe(
           switchMap((payload: CreateCampaignPayload) => {
-            return store.campaignsApi.createCampaign(payload);
+            const campaignDto: SupabaseCampaignInsert = CampaignFactory.createCampaignToSave(payload);
+
+            return store.campaignsApi.createCampaign(campaignDto);
           }),
           tapResponse({
             next: (res) => {
