@@ -1,7 +1,7 @@
 <div
-  class="max-w-4xl mx-auto p-6 bg-slate-950 text-slate-200 border border-slate-800 rounded-sm shadow-2xl animate-in fade-in duration-500"
+  class="w-full max-w-6xl mx-auto border border-slate-800 rounded-sm bg-slate-950 p-5 sm:p-6 md:p-7 text-slate-200 shadow-2xl animate-in fade-in duration-500"
 >
-  <header class="mb-8 border-b border-slate-800 pb-4 flex justify-between items-end">
+  <header class="mb-6 flex items-end justify-between border-b border-slate-800 pb-4">
     <div>
       <h1 class="text-2xl font-black tracking-tighter uppercase text-white">
         Profil Operatora: <span class="text-emerald-500">Edit Mode</span>
@@ -13,8 +13,8 @@
     </div>
   </header>
 
-  <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" class="space-y-8">
-    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center border-b border-slate-800/50 pb-8">
+  <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" class="space-y-6">
+    <section class="grid grid-cols-1 items-center gap-5 border-b border-slate-800/50 pb-6 md:grid-cols-3">
       <div class="col-span-1">
         <h3 class="text-indigo-500 font-bold uppercase text-xs tracking-widest text-opacity-90">
           00. Identyfikacja Wizualna
@@ -65,7 +65,7 @@
       </div>
     </section>
 
-    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <section class="grid grid-cols-1 gap-5 md:grid-cols-3">
       <div class="col-span-1">
         <h3 class="text-emerald-500 font-bold uppercase text-xs tracking-widest">01. Dane Operacyjne</h3>
         <p class="text-slate-500 text-xs mt-1">Pseudonim używany podczas transmisji danych.</p>
@@ -86,7 +86,7 @@
       </div>
     </section>
 
-    <footer class="pt-6 flex justify-end space-x-4 border-t border-slate-800">
+    <footer class="flex justify-end space-x-4 border-t border-slate-800 pt-5">
       <button
         type="button"
         routerLink="/user-info"

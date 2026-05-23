@@ -1,10 +1,10 @@
-<div class="max-w-6xl mx-auto animate-in slide-in-from-bottom-4 duration-500">
-  <div class="flex flex-col gap-8 md:flex-row">
-    <aside class="w-full md:w-64 space-y-2">
+<div class="w-full max-w-7xl mx-auto animate-in slide-in-from-bottom-4 duration-500">
+  <div class="flex flex-col gap-6 lg:gap-8 md:flex-row">
+    <aside class="w-full md:w-56 lg:w-64 space-y-2">
       <nav class="flex flex-row md:flex-col gap-1 overflow-x-auto">
         <a
           [routerLink]="['security']"
-          class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-white bg-indigo-600/10 border-l-2 border-indigo-500 rounded-r-lg group"
+          class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-white bg-indigo-600/10 border-l-2 border-indigo-500 rounded-r-lg group"
         >
           <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
@@ -18,7 +18,7 @@
         </a>
         <a
           [routerLink]="['notifications']"
-          class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800/50 transition-all rounded-lg group"
+          class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800/50 transition-all rounded-lg group"
         >
           <svg class="w-5 h-5 group-hover:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
@@ -32,7 +32,7 @@
         </a>
         <a
           [routerLink]="['payments']"
-          class="flex items-center gap-3 px-4 py-3 text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800/50 transition-all rounded-lg group"
+          class="flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-800/50 transition-all rounded-lg group"
         >
           <svg class="w-5 h-5 group-hover:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
@@ -47,7 +47,7 @@
       </nav>
     </aside>
 
-    <main class="flex-1 space-y-6">
+    <main class="flex-1 space-y-5">
       <router-outlet></router-outlet>
     </main>
   </div>

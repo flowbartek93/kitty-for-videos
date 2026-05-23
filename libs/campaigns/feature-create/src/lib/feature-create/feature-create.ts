@@ -1,11 +1,11 @@
-import { Component, inject, ChangeDetectionStrategy, signal, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { CreateCampaignPayload, LinkPreview } from '@teamfund/shared';
 import { CampaignsApiService, CampaignsStore } from 'campaigns-data-access';
-import { LinkPreview, CreateCampaignPayload } from '@teamfund/shared';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { debounceTime, distinctUntilChanged, tap, filter, switchMap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'lib-campaign-create',
@@ -26,12 +26,12 @@ export class CampaignCreateComponent {
 
   // Bezkompromisowa walidacja i brak wartości null
   protected createForm = this.fb.nonNullable.group({
-    title: ['', [Validators.required, Validators.minLength(5)]],
-    courseUrl: ['', [Validators.required, Validators.pattern('^https:\\/\\/.*')]],
+    title: ['Example campaign title', [Validators.required, Validators.minLength(5)]],
+    courseUrl: ['https://example.com/course', [Validators.required, Validators.pattern('^https:\\/\\/.*')]],
     price: [0, [Validators.required, Validators.min(15)]],
     minParticipants: [15, [Validators.required, Validators.min(15)]],
     priorityTier: ['TIER_1'],
-    description: ['', [Validators.required, Validators.minLength(20)]],
+    description: ['This is an example campaign description.', [Validators.required, Validators.minLength(20)]],
   });
 
   constructor() {
@@ -85,6 +85,6 @@ export class CampaignCreateComponent {
     };
 
     this.store.createCampaign(enrichedPayload);
-    this.router.navigate(['/campaigns']);
+    this.router.navigate(['/dashboard']);
   }
 }

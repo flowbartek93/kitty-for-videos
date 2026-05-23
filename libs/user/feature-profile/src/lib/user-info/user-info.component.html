@@ -1,9 +1,9 @@
-<div class="max-w-5xl mx-auto space-y-6 animate-in fade-in duration-500">
+<div class="w-full max-w-7xl mx-auto space-y-5 animate-in fade-in duration-500">
   <!-- HEADER: Identyfikacja Operatora -->
-  <header class="relative p-8 overflow-hidden border bg-zinc-900/50 border-zinc-800 rounded-2xl">
+  <header class="relative overflow-hidden border bg-zinc-900/50 border-zinc-800 rounded-2xl p-6 md:p-7">
     <div class="absolute top-0 right-0 w-64 h-64 opacity-10 bg-indigo-600 blur-3xl -mr-20 -mt-20"></div>
 
-    <div class="relative flex flex-col items-center gap-6 md:flex-row">
+    <div class="relative flex flex-col items-center gap-5 md:flex-row">
       <div class="relative">
         <div class="w-32 h-32 p-1 border-2 border-indigo-500 rounded-full">
           <img
@@ -48,7 +48,7 @@
 
   <!-- STATS GRID: Logistyka Finansowa -->
   <section class="grid grid-cols-1 gap-4 md:grid-cols-3">
-    <div class="p-6 border bg-zinc-900/30 border-zinc-800 rounded-2xl relative overflow-hidden group">
+    <div class="p-5 md:p-6 border bg-zinc-900/30 border-zinc-800 rounded-2xl relative overflow-hidden group">
       <p class="text-[10px] font-black uppercase text-zinc-500 tracking-[0.2em]">Suma zebrana</p>
       <p class="mt-2 text-2xl font-black text-white font-mono">0 <span class="text-xs text-zinc-500">PLN</span></p>
       <div class="mt-4 w-full h-1 bg-zinc-800 rounded-full overflow-hidden">
@@ -56,13 +56,13 @@
       </div>
     </div>
 
-    <div class="p-6 border bg-zinc-900/30 border-zinc-800 rounded-2xl">
+    <div class="p-5 md:p-6 border bg-zinc-900/30 border-zinc-800 rounded-2xl">
       <p class="text-[10px] font-black uppercase text-zinc-500 tracking-[0.2em]">Suma wydana</p>
       <p class="mt-2 text-2xl font-black text-rose-500 font-mono">0<span class="text-xs text-zinc-500"> PLN</span></p>
       <p class="mt-1 text-[10px] text-zinc-600 font-bold uppercase tracking-tighter">Na szkolenia i amunicję</p>
     </div>
 
-    <div class="p-6 border bg-zinc-900/30 border-zinc-800 rounded-2xl">
+    <div class="p-5 md:p-6 border bg-zinc-900/30 border-zinc-800 rounded-2xl">
       <p class="text-[10px] font-black uppercase text-zinc-500 tracking-[0.2em]">Aktywne zbiórki</p>
       <p class="mt-2 text-2xl font-black text-white font-mono">0</p>
       <p class="mt-1 text-[10px] text-indigo-400 font-bold uppercase tracking-tighter">Zorganizowane: 0</p>
@@ -70,7 +70,7 @@
   </section>
 
   <!-- OPERACJE: Historia zbiórek -->
-  <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+  <section class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-6">
     <!-- Moduł: Moje Inicjatywy (Organizator) -->
     <div class="space-y-4">
       <h2 class="text-xs font-black text-white uppercase tracking-[0.3em] px-2 flex items-center gap-2">
@@ -81,7 +81,7 @@
         @if (true) {
           <!-- Zmień na store.myInitiatives().length === 0 po zaciągnięciu danych -->
           <div
-            class="p-8 border-2 border-dashed border-zinc-800 rounded-2xl flex flex-col items-center justify-center bg-zinc-900/10 opacity-60"
+            class="p-6 md:p-7 border-2 border-dashed border-zinc-800 rounded-2xl flex flex-col items-center justify-center bg-zinc-900/10 opacity-60"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -118,7 +118,7 @@
         @if (true) {
           <!-- Zmień na store.supportedMissions().length === 0 -->
           <div
-            class="p-8 border-2 border-dashed border-zinc-800 rounded-2xl flex flex-col items-center justify-center bg-zinc-900/10 opacity-60"
+            class="p-6 md:p-7 border-2 border-dashed border-zinc-800 rounded-2xl flex flex-col items-center justify-center bg-zinc-900/10 opacity-60"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

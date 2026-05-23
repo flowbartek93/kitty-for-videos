@@ -1,18 +1,9 @@
-<div class="p-4 md:p-8 max-w-4xl mx-auto">
+<div class="p-2 md:p-4 max-w-7xl mx-auto">
   <div class="mb-6 flex items-center justify-between">
     <a
       routerLink="/campaigns"
       class="flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-white transition-colors group"
     >
-      <svg
-        class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-      </svg>
-      Powrót do panelu
     </a>
     <span
       class="text-[10px] font-bold uppercase tracking-wider bg-neutral text-slate-400 border border-neutral px-3 py-1 rounded-full"
@@ -157,7 +148,7 @@
       }
 
       <div class="pt-4 border-t border-neutral flex justify-end gap-3">
-        <a routerLink="/campaigns" class="btn btn-ghost rounded-xl px-6">Anuluj</a>
+        <a routerLink="/dashboard" class="btn btn-ghost rounded-xl px-6">Anuluj</a>
         <button type="submit" [disabled]="createForm.invalid" class="btn btn-primary rounded-xl px-8 min-w-40">
           @if (store.isLoading()) { <span class="loading loading-spinner loading-xs"></span> Przetwarzanie... } @else {
           Uruchom Zbiórkę }
