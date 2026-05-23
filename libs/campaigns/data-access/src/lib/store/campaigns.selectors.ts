@@ -1,15 +1,14 @@
-import { signalStoreFeature, type, withComputed } from '@ngrx/signals';
 import { computed } from '@angular/core';
+import { signalStoreFeature, type, withComputed } from '@ngrx/signals';
 import { CampaignsState } from './campaigns.state';
 
 export function withCampaignsSelectors() {
   return signalStoreFeature(
     { state: type<CampaignsState>() },
-    withComputed(() => ({
-      allCampaigns: computed(() => []),
-    })),
     withComputed((store) => ({
-      isLoading: () => store.loading(), // Alias zabezpieczający komponenty
+      allCampaigns: computed(() => store.allCampaigns()),
+      userCampaigns: computed(() => store.userCampaigns()),
+      isLoading: computed(() => store.loading()),
     })),
   );
 }
