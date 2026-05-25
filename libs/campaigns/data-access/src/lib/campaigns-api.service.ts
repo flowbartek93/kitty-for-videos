@@ -2,20 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { LinkPreview, SupabaseClientService } from '@teamfund/shared';
 import { AuthStore } from 'auth';
 import { from, map, Observable } from 'rxjs';
-import { SupabaseCampaignInsert } from './utils/campaigns.factory';
-
-interface SupabaseCampaignRecord {
-  id: string;
-  creator_id: string | null;
-  user_id: string | null;
-  title: string;
-  description: string;
-  video_url: string;
-  total_cost_usd: number | null;
-  status: string | null;
-  created_at: string | null;
-  deadline?: string | null;
-}
+import { SupabaseCampaignInsert, SupabaseCampaignRecord } from './utils/campaigns.factory';
 
 @Injectable({ providedIn: 'root' })
 export class CampaignsApiService {
@@ -43,11 +30,16 @@ export class CampaignsApiService {
     );
   }
 
-  getAllCampaigns() {
-    return from(this.supabase.client.from('campaigns').select('*'));
+  getAllCampaigns(): Observable<SupabaseCampaignRecord[]> {
+    return from(this.supabase.client.from('campaigns').select('*')).pipe(
+      map(({ data, error }) => {
+        if (error) throw new Error(error.message);
+        return (data ?? []) as SupabaseCampaignRecord[];
+      }),
+    );
   }
 
-  getUserCampaigns() {
+  getUserCampaigns(): Observable<SupabaseCampaignRecord[]> {
     const currentUserId = this.authStore.currentSession()?.user.id;
 
     if (!currentUserId) {
@@ -60,6 +52,11 @@ export class CampaignsApiService {
         .select('*')
         .eq('creator_id', currentUserId)
         .order('created_at', { ascending: false }),
+    ).pipe(
+      map(({ data, error }) => {
+        if (error) throw new Error(error.message);
+        return (data ?? []) as SupabaseCampaignRecord[];
+      }),
     );
   }
 }

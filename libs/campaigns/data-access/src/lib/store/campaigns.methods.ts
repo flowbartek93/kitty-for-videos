@@ -17,12 +17,13 @@ export function withCampaignsMethods() {
           tap(() => patchState(store, { loading: true, error: null })),
           switchMap(() => store.campaignsApi.getAllCampaigns()),
           tapResponse({
-            next: (campaigns) => {},
+            next: (records) => {
+              patchState(store, { allCampaigns: CampaignFactory.mapToCampaigns(records), loading: false });
+            },
             error: (err) => {
               console.error('Błąd pobierania:', err);
               patchState(store, { loading: false, error: 'Nie udało się pobrać danych' });
             },
-            finalize: () => console.log('Zakończono proces ładowania'),
           }),
         ),
       ),
@@ -32,12 +33,13 @@ export function withCampaignsMethods() {
           tap(() => patchState(store, { loading: true, error: null })),
           switchMap(() => store.campaignsApi.getUserCampaigns()),
           tapResponse({
-            next: (campaigns) => {},
+            next: (records) => {
+              patchState(store, { userCampaigns: CampaignFactory.mapToCampaigns(records), loading: false });
+            },
             error: (err) => {
               console.error('Błąd pobierania:', err);
               patchState(store, { loading: false, error: 'Nie udało się pobrać danych' });
             },
-            finalize: () => console.log('Zakończono proces ładowania'),
           }),
         ),
       ),

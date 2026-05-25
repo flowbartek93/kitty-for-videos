@@ -1,15 +1,15 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Signal } from '@angular/core';
 import { CampaignsStore } from 'campaigns-data-access';
+import { Campaign } from '@teamfund/shared';
+import { CourseCardComponent } from '../shared/components/course-card/course-card.component';
 
 @Component({
   selector: 'lib-discover',
-  imports: [],
+  imports: [CourseCardComponent],
   templateUrl: './discover.component.html',
 })
 export class DiscoverComponent {
-  readonly store = inject(CampaignsStore);
+  private readonly store = inject(CampaignsStore);
 
-  constructor() {
-    this.store.loadAllCampaigns();
-  }
+  readonly campaigns: Signal<Campaign[]> = this.store.allCampaigns;
 }

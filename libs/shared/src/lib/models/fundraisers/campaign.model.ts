@@ -10,6 +10,7 @@ export interface Campaign {
   status: CampaignStatus;
   createdAt: string;
   deadline?: string; // Opcjonalnie: do kiedy zbieramy
+  previewImageUrl?: string;
 }
 
 /** * Model rozszerzony, którego będziesz używał w widoku Dashboardu.
