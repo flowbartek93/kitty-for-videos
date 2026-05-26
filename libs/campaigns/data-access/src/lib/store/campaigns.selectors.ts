@@ -25,7 +25,9 @@ export function withCampaignsSelectors() {
         }
 
         const allCampaigns = store.allCampaigns();
-        return allCampaigns.filter((campaign) => campaign.creatorId === userId);
+
+        const userCampaigns = allCampaigns.filter((campaign) => campaign.creatorId === userId);
+        return userCampaigns;
       }),
     })),
   );
