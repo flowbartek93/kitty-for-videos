@@ -1,0 +1,53 @@
+<main class="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+  <header class="border-b border-zinc-800 pb-6">
+    <h1 class="text-3xl font-black tracking-tighter text-white uppercase italic">Panel Operacyjny</h1>
+    <p class="text-zinc-500 text-sm font-mono uppercase tracking-widest mt-1">
+      Podsumowanie Twoich zaangażowań i inicjatyw
+    </p>
+  </header>
+
+  <nav aria-label="Filtry operacji">
+    <div class="flex p-1 bg-zinc-900/80 border border-zinc-800 rounded-xl w-fit">
+      <a
+        routerLink="supported"
+        routerLinkActive="bg-indigo-600 text-white shadow-lg shadow-indigo-500/20"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="px-6 py-2 text-xs font-bold uppercase tracking-widest rounded-lg transition-all text-zinc-500 hover:text-zinc-300"
+      >
+        Wspierane Misje
+      </a>
+      <a
+        routerLink="my-initiatives"
+        routerLinkActive="bg-indigo-600 text-white shadow-lg shadow-indigo-500/20"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="px-6 py-2 text-xs font-bold uppercase tracking-widest rounded-lg transition-all text-zinc-500 hover:text-zinc-300"
+      >
+        Moje Inicjatywy
+      </a>
+    </div>
+  </nav>
+
+  <section class="grid grid-cols-1 md:grid-cols-4 gap-4" aria-label="Statystyki konta">
+    <div class="p-4 bg-zinc-900/30 border border-zinc-800 rounded-xl">
+      <p class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Łączne wsparcie</p>
+      <p class="text-xl font-black text-white mt-1 font-mono">3 450,00 PLN</p>
+    </div>
+
+    <div class="p-4 bg-zinc-900/30 border border-zinc-800 rounded-xl">
+      <p class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Aktywne misje</p>
+      <p class="text-xl font-black text-indigo-400 mt-1 font-mono">04</p>
+    </div>
+
+    <div class="p-4 bg-zinc-900/30 border border-zinc-800 rounded-xl text-green-500/80">
+      <p class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Ukończone cele</p>
+      <p class="text-xl font-black mt-1 font-mono">12</p>
+    </div>
+
+    <div class="p-4 bg-zinc-900/30 border border-zinc-800 rounded-xl">
+      <p class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Ranga wspierającego</p>
+      <p class="text-xl font-black text-white mt-1 font-mono uppercase tracking-tighter">Sierżant</p>
+    </div>
+  </section>
+
+  <router-outlet></router-outlet>
+</main>

@@ -6,11 +6,14 @@ import { pipe, switchMap, tap } from 'rxjs';
 import { CampaignFactory, SupabaseCampaignInsert } from '../utils/campaigns.factory';
 import { withCampaignsProps } from './campaigns.props';
 import { CampaignsState } from './campaigns.state';
+import { withCampaignsSelectors } from './campaigns.selectors';
 
 export function withCampaignsMethods() {
   return signalStoreFeature(
     { state: type<CampaignsState>() },
+
     withCampaignsProps(),
+
     withMethods((store) => ({
       loadAllCampaigns: rxMethod<void>(
         pipe(

@@ -9,6 +9,8 @@ export class CampaignsApiService {
   private supabase = inject(SupabaseClientService);
   private authStore = inject(AuthStore);
 
+  public session = this.authStore.currentSession;
+
   getLinkIntel(targetUrl: string): Observable<LinkPreview> {
     return from(this.supabase.client.rpc('scrape_metadata', { target_url: targetUrl })).pipe(
       map(({ data, error }) => {
@@ -19,7 +21,7 @@ export class CampaignsApiService {
   }
 
   createCampaign(payload: SupabaseCampaignInsert) {
-    const currentUserId = this.authStore.currentSession()?.user.id;
+    const currentUserId = this.session()?.user.id;
 
     return from(
       this.supabase.client
@@ -40,7 +42,7 @@ export class CampaignsApiService {
   }
 
   getUserCampaigns(): Observable<SupabaseCampaignRecord[]> {
-    const currentUserId = this.authStore.currentSession()?.user.id;
+    const currentUserId = this.session()?.user.id;
 
     if (!currentUserId) {
       throw new Error('User session not found');

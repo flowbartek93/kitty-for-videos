@@ -37,7 +37,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'contributions',
-        loadChildren: () => import('my-contributions').then((m) => m.CONTRIBUTIONS_ROUTES),
+        loadChildren: () => import('supported-initiatives').then((m) => m.CONTRIBUTIONS_ROUTES),
       },
       {
         path: 'user-info',

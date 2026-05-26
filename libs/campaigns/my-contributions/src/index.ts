@@ -1,2 +1,2 @@
-export * from './lib/my-contributions/my-contributions';
+export * from './lib/main-contributions/main-contributions.component';
 export * from './lib/contributions.routes';

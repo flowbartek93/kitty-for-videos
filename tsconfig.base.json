@@ -24,7 +24,7 @@
       "user-data-access": ["./libs/user/data-access/src/index.ts"],
       "user-feature-profile": ["./libs/user/feature-profile/src/index.ts"],
       "user-feature-settings": ["./libs/user/feature-settings/src/index.ts"],
-      "my-contributions": ["./libs/campaigns/my-contributions/src/index.ts"],
+      "supported-initiatives": ["./libs/campaigns/my-contributions/src/index.ts"],
       "feature-create": ["./libs/campaigns/feature-create/src/index.ts"]
     }
   },
