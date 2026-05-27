@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { CreateCampaignPayload, LinkPreview } from '@teamfund/shared';
+import { CreateCampaignPayload, LinkPreview, TierEnum } from '@teamfund/shared';
 import { CampaignsApiService, CampaignsStore } from 'campaigns-data-access';
 import { debounceTime, distinctUntilChanged, filter, switchMap, tap } from 'rxjs';
 
@@ -28,9 +28,9 @@ export class CampaignCreateComponent {
   protected createForm = this.fb.nonNullable.group({
     title: ['Example campaign title', [Validators.required, Validators.minLength(5)]],
     courseUrl: ['https://example.com/course', [Validators.required, Validators.pattern('^https:\\/\\/.*')]],
-    price: [0, [Validators.required, Validators.min(15)]],
-    minParticipants: [15, [Validators.required, Validators.min(15)]],
-    priorityTier: ['TIER_1'],
+    price: [5, [Validators.required, Validators.min(5)]],
+    minParticipants: [15, [Validators.required, Validators.min(2)]],
+    priorityTier: [TierEnum.tier1, [Validators.required]],
     description: ['This is an example campaign description.', [Validators.required, Validators.minLength(20)]],
   });
 
@@ -83,6 +83,8 @@ export class CampaignCreateComponent {
       preview_description: currentPreview?.description || formValues.description,
       preview_image_url: currentPreview?.image || '',
     };
+
+    console.log(enrichedPayload);
 
     this.store.createCampaign(enrichedPayload);
     this.router.navigate(['/dashboard']);

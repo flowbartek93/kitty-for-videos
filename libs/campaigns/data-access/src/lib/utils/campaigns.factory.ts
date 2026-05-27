@@ -1,4 +1,4 @@
-import { Campaign, CampaignStatus, CreateCampaignPayload } from '@teamfund/shared';
+import { Campaign, CampaignStatus, CreateCampaignPayload, TierEnum } from '@teamfund/shared';
 
 export interface SupabaseCampaignRecord {
   id: string;
@@ -19,12 +19,12 @@ export interface SupabaseCampaignInsert {
   description: string;
   video_url: string;
   total_cost_usd?: number;
-  status: string;
   preview_title: string;
   preview_description: string;
   preview_image_url: string;
   creator_id?: string;
   user_id?: string;
+  tier: TierEnum;
 }
 
 export abstract class CampaignFactory {
@@ -52,11 +52,11 @@ export abstract class CampaignFactory {
       title: formData.title,
       description: formData.description,
       video_url: formData.courseUrl,
-      status: 'DRAFT',
       preview_title: formData.preview_title,
       preview_description: formData.preview_description,
       preview_image_url: formData.preview_image_url,
       total_cost_usd: formData.price,
+      tier: formData.priorityTier ?? TierEnum.tier1,
     };
   }
 }

@@ -25,7 +25,12 @@
           </h3>
           <p class="text-xs text-zinc-500 font-mono">
             Status:
-            <span class="text-green-500 uppercase tracking-widest font-bold text-[10px]">{{ campaign().status }}</span>
+            <span
+              class="uppercase tracking-widest font-bold text-[10px]"
+              [class.text-green-500]="campaign().status === 'active'"
+              [class.text-indigo-400]="campaign().status === 'finalized'"
+              >{{ campaign().status }}</span
+            >
           </p>
         </div>
         <div class="text-right">

@@ -1,4 +1,4 @@
-export type CampaignStatus = 'active' | 'funded' | 'completed' | 'canceled';
+export type CampaignStatus = 'active' | 'finalized';
 
 export interface Campaign {
   id: string;
@@ -11,6 +11,12 @@ export interface Campaign {
   createdAt: string;
   deadline?: string; // Opcjonalnie: do kiedy zbieramy
   previewImageUrl?: string;
+}
+
+export enum TierEnum {
+  tier1 = 'tier1',
+  tier2 = 'tier2',
+  tier3 = 'tier3',
 }
 
 /** * Model rozszerzony, którego będziesz używał w widoku Dashboardu.
@@ -33,7 +39,7 @@ export interface CreateCampaignPayload {
   courseUrl: string;
   minParticipants: number;
   price: number;
-  priorityTier: string;
+  priorityTier: TierEnum;
   description: string;
   preview_title: string;
   preview_description: string;
