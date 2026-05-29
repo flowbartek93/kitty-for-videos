@@ -11,6 +11,7 @@ export interface Campaign {
   createdAt: string;
   deadline?: string; // Opcjonalnie: do kiedy zbieramy
   previewImageUrl?: string;
+  tier: TierEnum;
 }
 
 export enum TierEnum {

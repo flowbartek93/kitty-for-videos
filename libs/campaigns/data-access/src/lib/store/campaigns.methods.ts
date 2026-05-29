@@ -5,7 +5,7 @@ import { CreateCampaignPayload } from '@teamfund/shared';
 import { pipe, switchMap, tap } from 'rxjs';
 import { CampaignFactory, SupabaseCampaignInsert } from '../utils/campaigns.factory';
 import { withCampaignsProps } from './campaigns.props';
-import { CampaignsState } from './campaigns.state';
+import { CampaignsState, FilterOption } from './campaigns.state';
 import { withCampaignsSelectors } from './campaigns.selectors';
 
 export function withCampaignsMethods() {
@@ -67,6 +67,12 @@ export function withCampaignsMethods() {
           }),
         ),
       ),
+    })),
+
+    withMethods((store) => ({
+      setDiscoverFilter: (filter: FilterOption) => {
+        patchState(store, { discoverFilterOption: filter });
+      },
     })),
   );
 }

@@ -1,10 +1,14 @@
 import { Campaign } from '@teamfund/shared';
 
+export const FILTER_OPTIONS = ['all', 'tier1', 'tier2', 'tier3'] as const;
+export type FilterOption = (typeof FILTER_OPTIONS)[number];
+
 export type CampaignsState = {
   loading: boolean;
   error: string | null;
   allCampaigns: Campaign[];
   userCampaigns: Campaign[];
+  discoverFilterOption: FilterOption;
 };
 
 export const initialCampaignsState: CampaignsState = {
@@ -12,4 +16,5 @@ export const initialCampaignsState: CampaignsState = {
   error: null,
   allCampaigns: [],
   userCampaigns: [],
+  discoverFilterOption: 'all',
 };

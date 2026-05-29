@@ -12,6 +12,7 @@ export interface SupabaseCampaignRecord {
   created_at: string | null;
   deadline?: string | null;
   preview_image_url?: string | null;
+  tier: TierEnum;
 }
 
 export interface SupabaseCampaignInsert {
@@ -40,6 +41,7 @@ export abstract class CampaignFactory {
       createdAt: record.created_at ?? '',
       deadline: record.deadline ?? undefined,
       previewImageUrl: record.preview_image_url ?? undefined,
+      tier: record.tier,
     };
   }
 
