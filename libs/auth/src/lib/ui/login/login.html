@@ -5,10 +5,10 @@
         <span class="text-white font-black italic text-2xl">T</span>
       </div>
       <h1 class="text-2xl font-black text-white uppercase tracking-tight">Witaj ponownie</h1>
-      <p class="text-slate-500 text-sm">Zaloguj się do swojego portalu</p>
+      <p class="text-slate-500 text-sm">Zaloguj się do swojego  portalu</p>
     </div>
 
-    <form class="space-y-4" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <form class="space-y-4" (submit)="onSubmit($event)">
       <div class="form-control">
         <label for="email-field" class="label">
           <span class="label-text font-bold text-slate-400">Email</span>
@@ -16,7 +16,7 @@
         <input
           id="email-field"
           type="email"
-          formControlName="email"
+          [formField]="loginForm.email"
           class="input bg-base-100 border-neutral rounded-2xl focus:border-primary w-full transition-all"
           placeholder="hubert@teamfund.pl"
         />
@@ -28,7 +28,7 @@
         </label>
         <input
           id="password-field"
-          formControlName="password"
+         [formField]="loginForm.password"
           type="password"
           class="input bg-base-100 border-neutral rounded-2xl focus:border-primary w-full transition-all"
           placeholder="••••••••"
@@ -42,7 +42,7 @@
 
       <button
         type="submit"
-        [disabled]="loginForm.invalid"
+        [disabled]="loginForm().invalid()"
         class="btn btn-primary w-full rounded-2xl font-black mt-4 shadow-lg shadow-primary/20 uppercase tracking-widest disabled:opacity-50"
       >
         Zaloguj się

@@ -1,41 +1,39 @@
-import { Component, DestroyRef, inject } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, EMPTY, from, tap } from 'rxjs';
 
 import { PopupService } from '@teamfund/shared';
 
+import { form, FormField, required } from '@angular/forms/signals';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'lib-login',
-  imports: [ReactiveFormsModule],
+  imports: [FormField],
   templateUrl: './login.html',
 })
 export class Login {
-  private fb = inject(FormBuilder);
   private authSrv = inject(AuthService);
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
   private popupSrv = inject(PopupService);
 
-  get email() {
-    return this.loginForm.get('email');
-  }
-
-  get password() {
-    return this.loginForm.get('password');
-  }
-
-  public loginForm = this.fb.group({
-    email: ['', Validators.required],
-    password: ['', Validators.required],
+  public loginModel = signal({
+    email: '',
+    password: '',
   });
 
-  public onSubmit() {
-    const email = this.email?.value;
-    const password = this.password?.value;
+  public loginForm = form(this.loginModel, (path) => {
+    required(path.email, { message: 'Wprowadź adres email' });
+    required(path.password, { message: 'Wprowadź hasło' });
+  });
+
+  public onSubmit(event: Event) {
+    event.preventDefault();
+    const { email, password } = this.loginModel();
+
+    if (this.loginForm().invalid()) return;
 
     if (email && password) {
       from(this.authSrv.login(email, password))
