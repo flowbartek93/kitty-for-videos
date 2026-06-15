@@ -11,7 +11,10 @@ export function withCampaignsSelectors() {
     },
 
     withComputed((store) => ({
-      allCampaigns: computed(() => store.allCampaigns()),
+      allCampaigns: computed(() => {
+        const campaigns = store.allCampaigns();
+        return campaigns;
+      }),
 
       filteredCampaignsByTier: computed(() => {
         const filterOption: FilterOption = store.discoverFilterOption();

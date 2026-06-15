@@ -13,3 +13,4 @@ export const CampaignsStore = signalStore(
   withCampaignsSelectors(),
   withCampaignsMethods(),
 );
+export type CampaignsStore = InstanceType<typeof CampaignsStore>;

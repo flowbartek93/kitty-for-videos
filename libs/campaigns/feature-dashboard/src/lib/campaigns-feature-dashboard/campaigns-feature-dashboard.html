@@ -5,7 +5,9 @@
     >
       <h1 class="text-3xl font-black text-white">Cześć {{profile()?.display_name}} 👋</h1>
       <p class="text-slate-400 mt-2 max-w-md">
-        Twoje zbiórki idą świetnie. Dzisiaj zebraliśmy kolejne 120 PLN na nowe cele.
+        <!-- tutaj by trzeba te kolejne wyciagnac z jakiegos podsumowania, albo rekordu ktory by pokzazywal sume ze wszystkich zakonczonych akcji  -->
+
+        Twoje zbiórki idą świetnie. W tym miesiącu zebraliśmy kolejne 120 PLN na nowe cele.
       </p>
       <div class="mt-6">
         <button class="btn btn-primary rounded-xl px-8">Sprawdź raport</button>
@@ -17,7 +19,7 @@
     >
       <div>
         <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Aktywne kampanie</span>
-        <div class="text-5xl font-black text-primary mt-2">12</div>
+        <div class="text-5xl font-black text-primary mt-2">{{activeCampaigns().length}}</div>
       </div>
       <p class="text-sm text-slate-400 italic">+2 w tym tygodniu</p>
     </div>
