@@ -38,10 +38,22 @@
       </div>
     </div>
 
-    <button
-      class="w-full mt-6 py-3 bg-zinc-800 text-white text-xs font-black uppercase tracking-[0.2em] rounded-xl hover:bg-indigo-600 transition-all border border-zinc-700 hover:border-indigo-400 group-hover:shadow-lg"
-    >
-      Wesprzyj Misję
-    </button>
+    <div class="mt-6 flex gap-3">
+      <button
+        class="flex-1 py-3 bg-zinc-800 text-white text-xs font-black uppercase tracking-[0.2em] rounded-xl hover:bg-indigo-600 transition-all border border-zinc-700 hover:border-indigo-400 group-hover:shadow-lg"
+      >
+        Wesprzyj Misję
+      </button>
+      @if (campaign().videoUrl) {
+        <a
+          [href]="campaign().videoUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-4 py-3 bg-zinc-800 text-zinc-400 text-xs font-black uppercase tracking-[0.2em] rounded-xl hover:bg-zinc-700 transition-all border border-zinc-700 hover:text-white flex items-center gap-1.5"
+        >
+          Źródło
+        </a>
+      }
+    </div>
   </div>
 </article>
