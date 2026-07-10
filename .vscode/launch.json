@@ -6,6 +6,21 @@
       "request": "launch",
       "url": "http://localhost:4221",
       "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug special-assignments with Nx",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["nx", "serve", "special-assignments"],
+      "env": {
+        "NODE_OPTIONS": "--inspect=9229"
+      },
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"],
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}/apps/special-assignments/dist/**/*.(m|c|)js", "!**/node_modules/**"]
     }
   ]
 }
