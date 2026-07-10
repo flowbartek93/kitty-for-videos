@@ -59,3 +59,5 @@ localhost.pem
 localhost-key.pem
 
 repomix-output.*
+
+.env
