@@ -4,22 +4,20 @@ import Joi from 'joi';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
-import { createClient } from '@supabase/supabase-js';
+// const supapaseProvider: Provider = {
+//   provide: 'SUPABASE_CLIENT',
+//   useFactory: (configSrv: ConfigService) => {
+//     const url = configSrv.get<string>('SUPABASE_URL');
+//     const key = configSrv.get<string>('SUPABASE_SERVICE_ROLE_KEY');
 
-const supapaseProvider: Provider = {
-  provide: 'SUPABASE_CLIENT',
-  useFactory: (configSrv: ConfigService) => {
-    const url = configSrv.get<string>('SUPABASE_URL') || process.env['SUPABASE_URL'];
-    const key = configSrv.get<string>('SUPABASE_SERVICE_ROLE_KEY') || process.env['SUPABASE_SERVICE_ROLE_KEY'];
+//     if (!url || !key) {
+//       throw new Error('CRITICAL BREACH: Supabase env credentials completely unreadable.');
+//     }
 
-    if (!url || !key) {
-      throw new Error('CRITICAL BREACH: Supabase env credentials completely unreadable.');
-    }
-
-    return createClient(url, key, {});
-  },
-  inject: [ConfigService],
-};
+//     return createClient(url, key, {});
+//   },
+//   inject: [ConfigService],
+// };
 
 @Module({
   imports: [
@@ -31,7 +29,7 @@ const supapaseProvider: Provider = {
     }),
   ],
   controllers: [AppController],
-  providers: [AppService, supapaseProvider],
-  exports: [supapaseProvider],
+  providers: [AppService],
+  exports: [],
 })
 export class AppModule {}

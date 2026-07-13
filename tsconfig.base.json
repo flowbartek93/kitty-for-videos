@@ -25,7 +25,8 @@
       "user-feature-profile": ["./libs/user/feature-profile/src/index.ts"],
       "user-feature-settings": ["./libs/user/feature-settings/src/index.ts"],
       "supported-initiatives": ["./libs/campaigns/my-contributions/src/index.ts"],
-      "feature-create": ["./libs/campaigns/feature-create/src/index.ts"]
+      "feature-create": ["./libs/campaigns/feature-create/src/index.ts"],
+      "@teamfund/backend-supabase": ["./libs/backend/supabase/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
