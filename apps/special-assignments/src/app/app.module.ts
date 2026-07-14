@@ -19,6 +19,7 @@ import { AppService } from './app.service';
           url: config.getOrThrow('SUPABASE_URL'),
         };
       },
+      inject: [ConfigService],
     }),
   ],
   controllers: [AppController],
