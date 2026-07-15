@@ -17,6 +17,7 @@ import { AppService } from './app.service';
         return {
           serviceRoleKey: config.getOrThrow('SUPABASE_SERVICE_ROLE_KEY'),
           url: config.getOrThrow('SUPABASE_URL'),
+          anonKey: config.getOrThrow('SUPABASE_KEY'),
         };
       },
       inject: [ConfigService],
