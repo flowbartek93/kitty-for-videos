@@ -1,6 +1,7 @@
 import { ConfigurableModuleBuilder, Module, Provider } from '@nestjs/common';
 import { SUPABASE_CLIENT } from './shared/supabase.const';
 import { createClient } from '@supabase/supabase-js';
+import { SupabaseService } from './shared/supabase.service';
 
 export interface SupabaseModuleOptions {
   url: string;
@@ -17,10 +18,6 @@ const supapaseProvider: Provider = {
     const url = options.url;
     const key = options.serviceRoleKey;
 
-    if (!url || !key) {
-      throw new Error('CRITICAL BREACH: Supabase env credentials completely unreadable.');
-    }
-
     return createClient(url, key, {});
   },
   inject: [MODULE_OPTIONS_TOKEN],
@@ -28,7 +25,7 @@ const supapaseProvider: Provider = {
 
 @Module({
   controllers: [],
-  providers: [supapaseProvider],
-  exports: [],
+  providers: [supapaseProvider, SupabaseService],
+  exports: [SupabaseService],
 })
 export class SupabaseModule extends ConfigurableModuleClass {}
