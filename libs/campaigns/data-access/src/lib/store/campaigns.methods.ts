@@ -31,6 +31,22 @@ export function withCampaignsMethods() {
         ),
       ),
 
+      loadAllParticipants: rxMethod<void>(
+        pipe(
+          tap(() => patchState(store, { loading: true, error: null })),
+          switchMap(() => store.campaignsApi.getAllParticipants()),
+          tapResponse({
+            next: (records) => {
+              patchState(store, { allParticipants: CampaignFactory.mapToParticipants(records), loading: false });
+            },
+            error: (err) => {
+              console.error('Błąd pobierania:', err);
+              patchState(store, { loading: false, error: 'Nie udało się pobrać danych' });
+            },
+          }),
+        ),
+      ),
+
       loadUserCampaigns: rxMethod<void>(
         pipe(
           tap(() => patchState(store, { loading: true, error: null })),

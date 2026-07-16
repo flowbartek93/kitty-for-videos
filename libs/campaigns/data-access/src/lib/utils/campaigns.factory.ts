@@ -1,4 +1,4 @@
-import { Campaign, CampaignStatus, CreateCampaignPayload, TierEnum } from '@teamfund/shared';
+import { Campaign, CampaignStatus, CreateCampaignPayload, Participant, TierEnum } from '@teamfund/shared';
 
 export interface SupabaseCampaignRecord {
   id: string;
@@ -13,6 +13,14 @@ export interface SupabaseCampaignRecord {
   deadline?: string | null;
   preview_image_url?: string | null;
   tier: TierEnum;
+}
+
+export interface SupabaseParticipant {
+  id: string;
+  campaign_id: string;
+  user_id: string;
+  paid: boolean;
+  joined_at: Date;
 }
 
 export interface SupabaseCampaignInsert {
@@ -45,8 +53,22 @@ export abstract class CampaignFactory {
     };
   }
 
+  public static mapToParticipant(record: SupabaseParticipant): Participant {
+    return {
+      id: record.id,
+      campaignId: record.campaign_id,
+      joinedAt: record.joined_at,
+      paid: record.paid,
+      userId: record.user_id,
+    };
+  }
+
   public static mapToCampaigns(records: SupabaseCampaignRecord[]): Campaign[] {
     return records.map(CampaignFactory.mapToCampaign);
+  }
+
+  public static mapToParticipants(records: SupabaseParticipant[]): Participant[] {
+    return records.map(CampaignFactory.mapToParticipant);
   }
 
   public static createCampaignToSave(formData: CreateCampaignPayload): SupabaseCampaignInsert {

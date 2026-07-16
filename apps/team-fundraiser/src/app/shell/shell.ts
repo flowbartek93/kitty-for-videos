@@ -18,6 +18,7 @@ export class ShellComponent {
 
   constructor() {
     this.campaignsStore.loadAllCampaigns();
+    this.campaignsStore.loadAllParticipants();
   }
 
   readonly avatarUrl = this.userStore.avatarUrl;

@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { LinkPreview, SupabaseClientService } from '@teamfund/shared';
 import { AuthStore } from 'auth';
 import { from, map, Observable } from 'rxjs';
-import { SupabaseCampaignInsert, SupabaseCampaignRecord } from './utils/campaigns.factory';
+import { SupabaseCampaignInsert, SupabaseCampaignRecord, SupabaseParticipant } from './utils/campaigns.factory';
 
 @Injectable({ providedIn: 'root' })
 export class CampaignsApiService {
@@ -58,6 +58,15 @@ export class CampaignsApiService {
       map(({ data, error }) => {
         if (error) throw new Error(error.message);
         return (data ?? []) as SupabaseCampaignRecord[];
+      }),
+    );
+  }
+
+  getAllParticipants(): Observable<SupabaseParticipant[]> {
+    return from(this.supabase.client.from('participants').select('*')).pipe(
+      map(({ data, error }) => {
+        if (error) throw new Error(error.message);
+        return (data ?? []) as SupabaseParticipant[];
       }),
     );
   }
