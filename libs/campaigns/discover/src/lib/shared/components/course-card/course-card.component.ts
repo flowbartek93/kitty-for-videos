@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { Campaign } from '@teamfund/shared';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { Campaign, CampaignWithStats } from '@teamfund/shared';
 
 @Component({
   selector: 'lib-course-card',
@@ -8,5 +8,5 @@ import { Campaign } from '@teamfund/shared';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseCardComponent {
-  readonly campaign = input.required<Campaign>();
+  readonly campaign = input.required<CampaignWithStats>();
 }

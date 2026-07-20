@@ -16,6 +16,11 @@ export function withCampaignsSelectors() {
         return campaigns;
       }),
 
+      allParticipants: computed(() => {
+        const participants = store.allParticipants();
+        return participants;
+      }),
+
       filteredCampaignsByTier: computed(() => {
         const filterOption: FilterOption = store.discoverFilterOption();
 

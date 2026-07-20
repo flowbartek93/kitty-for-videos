@@ -24,9 +24,10 @@ export enum TierEnum {
  * Te pola zostaną wyliczone przez Twój SignalStore.
  */
 export interface CampaignWithStats extends Campaign {
-  participantsCount: number;
-  costPerPersonUSD: number;
-  costPerPersonPLN: number;
+  isSupporedByUser: boolean;
+  participantsCount?: number;
+  costPerPersonUSD?: number;
+  costPerPersonPLN?: number;
 }
 
 export interface LinkPreview {
