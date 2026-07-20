@@ -1,47 +1,87 @@
+@let camp = campaign();
+@let isSupported = camp.isSupportedByUser;
+
 <article
   class="group bg-zinc-900/40 border border-zinc-800 rounded-2xl overflow-hidden hover:border-indigo-500/50 transition-all flex flex-col"
 >
   <div class="relative h-48 bg-zinc-800 overflow-hidden">
-    @if (campaign().previewImageUrl) {
-      <img [src]="campaign().previewImageUrl" [alt]="campaign().title" class="w-full h-full object-cover" />
+    @if (camp.previewImageUrl) {
+      <img [src]="camp.previewImageUrl" [alt]="camp.title" class="w-full h-full object-cover" />
     }
     <div class="absolute inset-0 bg-gradient-to from-zinc-900 to-transparent opacity-60"></div>
-    <span
-      class="absolute top-4 left-4 px-2 py-1 bg-indigo-600 text-[10px] font-black uppercase tracking-tighter rounded"
-    >
-      {{ campaign().status }}
-    </span>
+
+    <div class="absolute top-4 left-4 flex items-center gap-2">
+      <span class="px-2 py-1 bg-indigo-600 text-[10px] font-black uppercase tracking-tighter rounded">
+        {{ camp.status }}
+      </span>
+
+      @if (isSupported) {
+        <span class="px-2 py-1 bg-emerald-600 text-[10px] font-black uppercase tracking-tighter rounded">
+          Twoja inicjatywa
+        </span>
+      }
+    </div>
   </div>
 
   <div class="p-6 flex-1 flex flex-col">
     <h3 class="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors">
-      {{ campaign().title }}
+      {{ camp.title }}
     </h3>
     <p class="mt-2 text-zinc-500 text-sm line-clamp-2">
-      {{ campaign().description }}
+      {{ camp.description }}
     </p>
 
-    <div class="mt-auto pt-6 space-y-2">
-      <div class="flex justify-between items-end">
+    <div class="mt-auto pt-6 space-y-3">
+      <div class="flex items-center flex-wrap gap-x-3 gap-y-1">
+        <span class="px-2 py-0.5 bg-amber-500/10 text-amber-400 text-[10px] font-black uppercase tracking-tighter rounded">
+          {{ camp.tier }}
+        </span>
+        <span class="text-[10px] text-zinc-600 uppercase font-bold tracking-tighter">
+          Utworzono: {{ camp.createdAt | date: 'dd.MM.yyyy' }}
+        </span>
+        @if (camp.deadline) {
+          <span class="text-[10px] text-zinc-600 uppercase font-bold tracking-tighter ml-auto">
+            Deadline: {{ camp.deadline }}
+          </span>
+        }
+      </div>
+
+      <div class="grid grid-cols-3 gap-2 border-t border-zinc-800 pt-3">
         <div class="space-y-0.5">
           <p class="text-[10px] uppercase font-bold text-zinc-500 tracking-widest">Cel</p>
-          <p class="text-lg font-black text-white italic">
-            {{ campaign().totalCostUSD }}
+          <p class="text-xl font-black text-white italic">
+            {{ camp.totalCostUSD }}
             <span class="text-xs font-normal text-zinc-500">USD</span>
           </p>
         </div>
-        @if (campaign().deadline) {
-          <div class="text-right">
-            <p class="text-[10px] text-zinc-600 uppercase font-bold tracking-tighter">
-              Deadline: {{ campaign().deadline }}
-            </p>
-          </div>
-        }
+        <div class="space-y-0.5">
+          <p class="text-[10px] uppercase font-bold text-zinc-500 tracking-widest">Uczestnicy</p>
+          <p class="text-xl font-black text-white italic">
+            <!-- participantsCount not wired from the store yet - fallback to mock -->
+            {{ camp.participantsCount ?? 12 }}
+          </p>
+        </div>
+        <div class="space-y-0.5">
+          <p class="text-[10px] uppercase font-bold text-zinc-500 tracking-widest">Wpłaty</p>
+          <p class="text-xl font-black text-white italic">
+            <!-- no backing field yet - mocked -->
+            8
+          </p>
+        </div>
       </div>
+
+      @if (camp.costPerPersonUSD) {
+        <p class="text-[10px] text-zinc-600 uppercase font-bold tracking-tighter">
+          Koszt/os.: {{ camp.costPerPersonUSD }} USD
+          @if (camp.costPerPersonPLN) {
+            <span>&middot; {{ camp.costPerPersonPLN }} PLN</span>
+          }
+        </p>
+      }
     </div>
 
     <div class="mt-6 flex gap-3">
-      @if (campaign().isSupportedByUser) {
+      @if (isSupported) {
         <button
           [disabled]="true"
           class="flex-1 py-3 bg-zinc-800 text-white text-xs font-black uppercase tracking-[0.2em] rounded-xl hover:bg-indigo-600 transition-all border border-zinc-700 hover:border-indigo-400 group-hover:shadow-lg disabled:bg-emerald-950 disabled:text-emerald-400 disabled:border-emerald-700/50 disabled:cursor-not-allowed disabled:hover:bg-emerald-950 disabled:hover:border-emerald-700/50 disabled:group-hover:shadow-none"
@@ -56,9 +96,9 @@
         </button>
       }
 
-      @if (campaign().videoUrl) {
+      @if (camp.videoUrl) {
         <a
-          [href]="campaign().videoUrl"
+          [href]="camp.videoUrl"
           target="_blank"
           rel="noopener noreferrer"
           class="px-4 py-3 bg-zinc-800 text-zinc-400 text-xs font-black uppercase tracking-[0.2em] rounded-xl hover:bg-zinc-700 transition-all border border-zinc-700 hover:text-white flex items-center gap-1.5"

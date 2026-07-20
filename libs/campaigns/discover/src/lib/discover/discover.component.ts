@@ -24,7 +24,7 @@ export class DiscoverComponent {
     const participants: Participant[] = this.participants();
     const userId = this.currentUser()?.id;
 
-    const calculatedCampaigns: CampaignWithStats[] = filtered.map((c, _, campaigns) => ({
+    const calculatedCampaigns: CampaignWithStats[] = filtered.map((c) => ({
       ...c,
       isSupportedByUser: participants.some((p) => p.campaignId === c.id && p.userId === userId),
     }));
