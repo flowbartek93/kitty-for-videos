@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
-import { CampaignsStore, FilterOption } from 'campaigns-data-access';
+import { FilterOption } from '@teamfund/shared';
+import { CampaignsStore } from 'campaigns-data-access';
 
 @Component({
   selector: 'lib-discover-toolbar',

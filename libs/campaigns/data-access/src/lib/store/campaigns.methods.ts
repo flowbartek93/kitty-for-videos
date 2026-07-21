@@ -1,11 +1,11 @@
 import { tapResponse } from '@ngrx/operators';
 import { patchState, signalStoreFeature, type, withMethods } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { CreateCampaignPayload, Participant, SupabaseParticipant } from '@teamfund/shared';
+import { CreateCampaignPayload, FilterOption, Participant, SupabaseParticipant } from '@teamfund/shared';
 import { EMPTY, pipe, switchMap, tap } from 'rxjs';
 import { CampaignFactory, SupabaseCampaignInsert } from '../utils/campaigns.factory';
 import { withCampaignsProps } from './campaigns.props';
-import { CampaignsState, FilterOption } from './campaigns.state';
+import { CampaignsState } from './campaigns.state';
 import { withCampaignsSelectors } from './campaigns.selectors';
 import { PostgrestSingleResponse } from '@supabase/supabase-js';
 

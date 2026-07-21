@@ -20,6 +20,9 @@ export enum TierEnum {
   tier3 = 'tier3',
 }
 
+export const FILTER_OPTIONS = ['all', 'tier1', 'tier2', 'tier3'] as const;
+export type FilterOption = (typeof FILTER_OPTIONS)[number];
+
 /** * Model rozszerzony, którego będziesz używał w widoku Dashboardu.
  * Te pola zostaną wyliczone przez Twój SignalStore.
  */

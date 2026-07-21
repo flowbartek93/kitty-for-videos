@@ -1,7 +1,4 @@
-import { Campaign, Participant } from '@teamfund/shared';
-
-export const FILTER_OPTIONS = ['all', 'tier1', 'tier2', 'tier3'] as const;
-export type FilterOption = (typeof FILTER_OPTIONS)[number];
+import { Campaign, FilterOption, Participant } from '@teamfund/shared';
 
 export type CampaignsState = {
   loading: boolean;

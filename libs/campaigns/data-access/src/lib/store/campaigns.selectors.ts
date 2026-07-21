@@ -1,7 +1,8 @@
 import { computed } from '@angular/core';
 import { signalStoreFeature, type, withComputed } from '@ngrx/signals';
 import { CampaignsApiService } from '../campaigns-api.service';
-import { CampaignsState, FilterOption } from './campaigns.state';
+import { FilterOption } from '@teamfund/shared';
+import { CampaignsState } from './campaigns.state';
 
 export function withCampaignsSelectors() {
   return signalStoreFeature(
