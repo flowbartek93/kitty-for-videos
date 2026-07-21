@@ -3,7 +3,11 @@
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-5">
     @for (campaign of campaigns(); track campaign.id) {
-      <lib-course-card (support)="supportMission($event)" [campaign]="campaign" />
+      <lib-course-card
+        (support)="supportMission($event)"
+        (unsupport)="unsupportMission($event)"
+        [campaign]="campaign"
+      />
     } @empty {
       <div class="col-span-full border border-dashed border-zinc-800 rounded-xl p-12 text-center">
         <p class="text-zinc-500 font-mono uppercase text-xs tracking-widest">

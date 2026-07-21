@@ -2,7 +2,7 @@ import { tapResponse } from '@ngrx/operators';
 import { patchState, signalStoreFeature, type, withMethods } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { CreateCampaignPayload, FilterOption, Participant, SupabaseParticipant } from '@teamfund/shared';
-import { EMPTY, pipe, switchMap, tap } from 'rxjs';
+import { EMPTY, map, pipe, switchMap, tap } from 'rxjs';
 import { CampaignFactory, SupabaseCampaignInsert } from '../utils/campaigns.factory';
 import { withCampaignsProps } from './campaigns.props';
 import { CampaignsState } from './campaigns.state';
@@ -102,6 +102,29 @@ export function withCampaignsMethods() {
             },
             error: (err) => {
               patchState(store, { loading: false, error: 'Nie udało się dodać uczestnika' });
+            },
+          }),
+        ),
+      ),
+
+      unsupportCampaign: rxMethod<string>(
+        pipe(
+          tap(() => patchState(store, { loading: true, error: null })),
+          switchMap((id: string) => store.campaignsApi.deleteParticipant(id).pipe(map((res) => ({ res, id })))),
+          tapResponse({
+            next: ({ res, id }: { res: PostgrestSingleResponse<null>; id: string }) => {
+              if (!res.error) {
+                const currentUserId = store.campaignsApi.session()?.user.id;
+                const existing = store.allParticipants() ?? [];
+
+                patchState(store, {
+                  allParticipants: existing.filter((p) => !(p.campaignId === id && p.userId === currentUserId)),
+                  loading: false,
+                });
+              }
+            },
+            error: (err) => {
+              patchState(store, { loading: false, error: 'Nie udało się usunąć uczestnika' });
             },
           }),
         ),

@@ -36,4 +36,8 @@ export class DiscoverComponent {
   supportMission(id: string) {
     this.store.supportCampaign(id);
   }
+
+  unsupportMission(id: string) {
+    this.store.unsupportCampaign(id);
+  }
 }

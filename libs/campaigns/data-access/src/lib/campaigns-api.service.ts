@@ -45,6 +45,14 @@ export class CampaignsApiService {
     );
   }
 
+  deleteParticipant(campaignId: string) {
+    const currentUserId = this.session()?.user.id;
+
+    return from(
+      this.supabase.client.from('participants').delete().eq('campaign_id', campaignId).eq('user_id', currentUserId),
+    );
+  }
+
   getAllCampaigns(): Observable<SupabaseCampaignRecord[]> {
     return from(this.supabase.client.from('campaigns').select('*')).pipe(
       map(({ data, error }) => {

@@ -82,10 +82,11 @@
     <div class="mt-6 flex gap-3">
       @if (isSupported) {
         <button
-          [disabled]="true"
-          class="flex-1 py-3 bg-zinc-800 text-white text-xs font-black uppercase tracking-[0.2em] rounded-xl hover:bg-indigo-600 transition-all border border-zinc-700 hover:border-indigo-400 group-hover:shadow-lg disabled:bg-emerald-950 disabled:text-emerald-400 disabled:border-emerald-700/50 disabled:cursor-not-allowed disabled:hover:bg-emerald-950 disabled:hover:border-emerald-700/50 disabled:group-hover:shadow-none"
+          (click)="requestLeave(camp.id)"
+          class="group/leave flex-1 py-3 bg-emerald-950 text-emerald-400 text-xs font-black uppercase tracking-[0.2em] rounded-xl border border-emerald-700/50 hover:bg-red-950 hover:text-red-400 hover:border-red-700/60 transition-all"
         >
-          Misja wsparta
+          <span class="group-hover/leave:hidden">Misja wsparta</span>
+          <span class="hidden group-hover/leave:inline">Wycofaj wsparcie</span>
         </button>
       } @else {
         <button

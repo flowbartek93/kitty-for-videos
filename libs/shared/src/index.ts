@@ -10,3 +10,6 @@ export * from './lib/supabase/supabase.config';
 export * from './lib/popup/popup.component';
 export * from './lib/popup/popup.service';
 
+export * from './lib/confirm-dialog/confirm-dialog.component';
+export * from './lib/confirm-dialog/confirm-dialog.service';
+
