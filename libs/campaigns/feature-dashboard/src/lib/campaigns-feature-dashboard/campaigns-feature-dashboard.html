@@ -3,14 +3,18 @@
     <div
       class="col-span-12 lg:col-span-8 bg-base-300 border border-neutral rounded-3xl p-8 min-h-62.5 flex flex-col justify-center"
     >
-      <h1 class="text-3xl font-black text-white">Cześć {{profile()?.display_name}} 👋</h1>
+      <h1 class="text-3xl font-black text-white">Cześć {{ profile()?.display_name }} 👋</h1>
       <p class="text-slate-400 mt-2 max-w-md">
-        <!-- tutaj by trzeba te kolejne wyciagnac z jakiegos podsumowania, albo rekordu ktory by pokzazywal sume ze wszystkich zakonczonych akcji  -->
-
-        Twoje zbiórki idą świetnie. W tym miesiącu zebraliśmy kolejne 120 PLN na nowe cele.
+        @if (organizedCount() > 0) {
+          Zarządzasz {{ organizedCount() }}
+          {{ organizedCount() === 1 ? 'zbiórką' : 'zbiórkami' }}, z czego {{ activeCampaignsCount() }} wciąż aktywnych.
+          Trzymaj rękę na pulsie i wspieraj misje zespołu.
+        } @else {
+          Nie masz jeszcze żadnej zbiórki. Rozpocznij pierwszą misję i zbieraj środki razem z zespołem.
+        }
       </p>
       <div class="mt-6">
-        <button class="btn btn-primary rounded-xl px-8">Sprawdź raport</button>
+        <a routerLink="/contributions" class="btn btn-primary rounded-xl px-8">Sprawdź raport</a>
       </div>
     </div>
 
@@ -19,33 +23,64 @@
     >
       <div>
         <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Aktywne kampanie</span>
-        <div class="text-5xl font-black text-primary mt-2">{{activeCampaigns().length}}</div>
+        <div class="text-5xl font-black text-primary mt-2">{{ activeCampaignsCount() }}</div>
       </div>
 
-      <!-- to by musuial obyc jakos wyliczane datowo -->
-      <p class="text-sm text-slate-400 italic">+2 w tym tygodniu</p>
+      <p class="text-sm text-slate-400 italic">Łącznie zorganizowanych: {{ organizedCount() }}</p>
     </div>
 
-    <!-- karty zbiorki to ostatnio wsparte -->
     <div class="col-span-12 mt-4">
-      <h2 class="text-xl font-black text-white mb-6 px-2">Twoje ostatnie zrzutki</h2>
+      <div class="flex items-center justify-between mb-6 px-2">
+        <h2 class="text-xl font-black text-white">Twoje ostatnie zrzutki</h2>
+
+        @if (hasMoreCampaigns()) {
+          <a
+            routerLink="/contributions"
+            class="group inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-primary hover:text-primary/80 transition-colors"
+          >
+            Zobacz wszystkie w Moje Udziały
+            <span class="transition-transform group-hover:translate-x-0.5">→</span>
+          </a>
+        }
+      </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-7">
-        <div
-          class="bg-base-300 border border-neutral rounded-2xl p-6 h-40 flex items-center justify-center text-slate-600 italic"
-        >
-          Tu wpadnie Twoja karta zbiórki
-        </div>
-        <div
-          class="bg-base-300 border border-neutral rounded-2xl p-6 h-40 flex items-center justify-center text-slate-600 italic"
-        >
-          Tu wpadnie Twoja karta zbiórki
-        </div>
-        <div
-          class="bg-base-300 border border-neutral rounded-2xl p-6 h-40 flex items-center justify-center text-slate-600 italic"
-        >
-          Tu wpadnie Twoja karta zbiórki
-        </div>
+        @for (campaign of recentCampaigns(); track campaign.id) {
+          <article
+            class="group bg-base-300 border border-neutral rounded-2xl overflow-hidden flex flex-col hover:border-primary/50 transition-all"
+          >
+            <div class="h-28 bg-base-100 overflow-hidden relative">
+              @if (campaign.previewImageUrl) {
+                <img [src]="campaign.previewImageUrl" [alt]="campaign.title" class="w-full h-full object-cover" />
+              }
+              <span
+                class="absolute top-3 left-3 px-2 py-1 text-[10px] font-black uppercase tracking-tighter rounded"
+                [class.bg-emerald-600]="campaign.status === 'active'"
+                [class.text-white]="campaign.status === 'active'"
+                [class.bg-neutral]="campaign.status !== 'active'"
+                [class.text-slate-400]="campaign.status !== 'active'"
+              >
+                {{ campaign.status }}
+              </span>
+            </div>
+
+            <div class="p-5 flex-1 flex flex-col">
+              <h3 class="text-base font-bold text-white truncate group-hover:text-primary transition-colors">
+                {{ campaign.title }}
+              </h3>
+              <p class="mt-1 text-xs text-slate-500 line-clamp-2 flex-1">{{ campaign.description }}</p>
+              <p class="mt-4 text-lg font-black text-white font-mono">
+                {{ campaign.totalCostUSD }} <span class="text-xs font-normal text-slate-500">USD</span>
+              </p>
+            </div>
+          </article>
+        } @empty {
+          <div
+            class="col-span-full bg-base-300 border border-dashed border-neutral rounded-2xl p-12 flex items-center justify-center text-slate-600 italic"
+          >
+            Nie masz jeszcze żadnych zrzutek. Rozpocznij pierwszą, klikając „Nowa zbiórka".
+          </div>
+        }
       </div>
     </div>
   </div>
