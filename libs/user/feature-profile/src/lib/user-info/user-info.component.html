@@ -64,8 +64,10 @@
 
     <div class="p-5 md:p-6 border bg-zinc-900/30 border-zinc-800 rounded-2xl">
       <p class="text-[10px] font-black uppercase text-zinc-500 tracking-[0.2em]">Aktywne zbiórki</p>
-      <p class="mt-2 text-2xl font-black text-white font-mono">0</p>
-      <p class="mt-1 text-[10px] text-indigo-400 font-bold uppercase tracking-tighter">Zorganizowane: 0</p>
+      <p class="mt-2 text-2xl font-black text-white font-mono">{{ activeInitiativesCount() }}</p>
+      <p class="mt-1 text-[10px] text-indigo-400 font-bold uppercase tracking-tighter">
+        Zorganizowane: {{ organizedCount() }}
+      </p>
     </div>
   </section>
 
@@ -76,10 +78,31 @@
       <h2 class="text-xs font-black text-white uppercase tracking-[0.3em] px-2 flex items-center gap-2">
         <span class="w-2 h-2 bg-indigo-500 rounded-full"></span> Moje Inicjatywy
       </h2>
-      <div class="space-y-3">
-        <!-- Warunek: Brak Inicjatyw -->
-        @if (true) {
-          <!-- Zmień na store.myInitiatives().length === 0 po zaciągnięciu danych -->
+      <div class="space-y-2">
+        @for (campaign of myInitiatives(); track campaign.id) {
+          <div
+            class="flex items-center gap-3 p-3 border border-zinc-800 rounded-xl bg-zinc-900/20 hover:bg-zinc-900/40 transition-colors"
+          >
+            <div class="w-10 h-10 rounded-lg bg-zinc-800 shrink-0 overflow-hidden border border-zinc-700">
+              @if (campaign.previewImageUrl) {
+                <img [src]="campaign.previewImageUrl" [alt]="campaign.title" class="w-full h-full object-cover" />
+              }
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-bold text-white truncate">{{ campaign.title }}</p>
+              <p
+                class="text-[10px] uppercase font-black tracking-widest"
+                [class.text-green-500]="campaign.status === 'active'"
+                [class.text-zinc-500]="campaign.status !== 'active'"
+              >
+                {{ campaign.status }}
+              </p>
+            </div>
+            <p class="text-xs font-mono font-black text-zinc-400 shrink-0">
+              {{ campaign.totalCostUSD }} <span class="text-zinc-600">USD</span>
+            </p>
+          </div>
+        } @empty {
           <div
             class="p-6 md:p-7 border-2 border-dashed border-zinc-800 rounded-2xl flex flex-col items-center justify-center bg-zinc-900/10 opacity-60"
           >
@@ -102,8 +125,6 @@
               <span class="text-indigo-500/50">Rozpocznij nową misję zbiórkową.</span>
             </p>
           </div>
-        } @else {
-          <!-- Tu wleci @for pętla inicjatyw -->
         }
       </div>
     </div>
@@ -113,10 +134,31 @@
       <h2 class="text-xs font-black text-white uppercase tracking-[0.3em] px-2 flex items-center gap-2">
         <span class="w-2 h-2 bg-emerald-500 rounded-full"></span> Wspierane Misje
       </h2>
-      <div class="space-y-3">
-        <!-- Warunek: Brak Wspieranych Misji -->
-        @if (true) {
-          <!-- Zmień na store.supportedMissions().length === 0 -->
+      <div class="space-y-2">
+        @for (campaign of supportedMissions(); track campaign.id) {
+          <div
+            class="flex items-center gap-3 p-3 border border-zinc-800 rounded-xl bg-zinc-900/20 hover:bg-zinc-900/40 transition-colors"
+          >
+            <div class="w-10 h-10 rounded-lg bg-zinc-800 shrink-0 overflow-hidden border border-zinc-700">
+              @if (campaign.previewImageUrl) {
+                <img [src]="campaign.previewImageUrl" [alt]="campaign.title" class="w-full h-full object-cover" />
+              }
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-bold text-white truncate">{{ campaign.title }}</p>
+              <p
+                class="text-[10px] uppercase font-black tracking-widest"
+                [class.text-green-500]="campaign.status === 'active'"
+                [class.text-zinc-500]="campaign.status !== 'active'"
+              >
+                {{ campaign.status }}
+              </p>
+            </div>
+            <p class="text-xs font-mono font-black text-zinc-400 shrink-0">
+              {{ campaign.totalCostUSD }} <span class="text-zinc-600">USD</span>
+            </p>
+          </div>
+        } @empty {
           <div
             class="p-6 md:p-7 border-2 border-dashed border-zinc-800 rounded-2xl flex flex-col items-center justify-center bg-zinc-900/10 opacity-60"
           >
@@ -139,8 +181,6 @@
               <span class="text-emerald-500/50">Znajdź cel w Centrum Rozpoznania.</span>
             </p>
           </div>
-        } @else {
-          <!-- Tu wleci @for pętla wspieranych misji -->
         }
       </div>
     </div>
