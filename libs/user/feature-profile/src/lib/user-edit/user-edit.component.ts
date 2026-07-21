@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { PopupService } from '@teamfund/shared';
-import { UpdateProfile, UserStore } from 'user-data-access';
+import { PopupService, UpdateProfile } from '@teamfund/shared';
+import { UserStore } from 'user-data-access';
 
 @Component({
   selector: 'lib-app-user-edit',
