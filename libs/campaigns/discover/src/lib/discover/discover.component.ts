@@ -27,6 +27,7 @@ export class DiscoverComponent {
     const calculatedCampaigns: CampaignWithStats[] = filtered.map((c) => ({
       ...c,
       isSupportedByUser: participants.some((p) => p.campaignId === c.id && p.userId === userId),
+      participantsCount: participants.filter((p) => p.campaignId === c.id).length,
     }));
 
     return calculatedCampaigns;

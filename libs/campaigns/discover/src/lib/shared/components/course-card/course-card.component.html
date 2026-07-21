@@ -60,15 +60,12 @@
           <p class="text-[10px] uppercase font-bold text-zinc-500 tracking-widest">Uczestnicy</p>
           <p class="text-xl font-black text-white italic">
             <!-- participantsCount not wired from the store yet - fallback to mock -->
-            {{ camp.participantsCount ?? 12 }}
+            {{ camp.participantsCount ?? 0 }}
           </p>
         </div>
         <div class="space-y-0.5">
           <p class="text-[10px] uppercase font-bold text-zinc-500 tracking-widest">Wpłaty</p>
-          <p class="text-xl font-black text-white italic">
-            <!-- no backing field yet - mocked -->
-            8
-          </p>
+          <p class="text-xl font-black text-white italic">0</p>
         </div>
       </div>
 
