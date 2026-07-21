@@ -30,22 +30,29 @@
   <section class="grid grid-cols-1 md:grid-cols-4 gap-4" aria-label="Statystyki konta">
     <div class="p-4 bg-zinc-900/30 border border-zinc-800 rounded-xl">
       <p class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Łączne wsparcie</p>
-      <p class="text-xl font-black text-white mt-1 font-mono">3 450,00 PLN</p>
+      <p class="text-xl font-black text-white mt-1 font-mono">{{ totalSupportPLN | number: '1.2-2' }} PLN</p>
     </div>
 
     <div class="p-4 bg-zinc-900/30 border border-zinc-800 rounded-xl">
       <p class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Aktywne misje</p>
-      <p class="text-xl font-black text-indigo-400 mt-1 font-mono">04</p>
+      <p class="text-xl font-black text-indigo-400 mt-1 font-mono">
+        {{ activeInitiativesCount() | number: '2.0-0' }}
+      </p>
     </div>
 
     <div class="p-4 bg-zinc-900/30 border border-zinc-800 rounded-xl text-green-500/80">
       <p class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Ukończone cele</p>
-      <p class="text-xl font-black mt-1 font-mono">12</p>
+      <p class="text-xl font-black mt-1 font-mono" title="Liczone po zakończeniu zrzutki i wpłatach">—</p>
     </div>
 
     <div class="p-4 bg-zinc-900/30 border border-zinc-800 rounded-xl">
       <p class="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Ranga wspierającego</p>
-      <p class="text-xl font-black text-white mt-1 font-mono uppercase tracking-tighter">Sierżant</p>
+      <p
+        class="text-xl font-black text-white mt-1 font-mono uppercase tracking-tighter"
+        title="Wkrótce — brak danych po stronie API"
+      >
+        —
+      </p>
     </div>
   </section>
 

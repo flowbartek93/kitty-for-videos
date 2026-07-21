@@ -48,6 +48,29 @@ export function withCampaignsSelectors() {
         const userCampaigns = allCampaigns.filter((campaign) => campaign.creatorId === userId);
         return userCampaigns;
       }),
+
+      supportedCampaigns: computed(() => {
+        const userId = store.campaignsApi.session()?.user.id;
+
+        if (!userId) {
+          return [];
+        }
+
+        const supportedCampaignIds = new Set(
+          store
+            .allParticipants()
+            .filter((participant) => participant.userId === userId)
+            .map((participant) => participant.campaignId),
+        );
+
+        return store.allCampaigns().filter((campaign) => supportedCampaignIds.has(campaign.id));
+      }),
+    })),
+
+    withComputed((store) => ({
+      activeInitiativesCount: computed(() => store.getUserCampaigns().filter((c) => c.status === 'active').length),
+
+      supportedCampaignsCount: computed(() => store.supportedCampaigns().length),
     })),
   );
 }

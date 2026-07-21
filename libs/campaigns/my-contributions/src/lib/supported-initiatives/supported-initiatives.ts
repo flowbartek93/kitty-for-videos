@@ -11,5 +11,5 @@ import { Campaign } from '@teamfund/shared';
 export class SupportedInitiativesComponent {
   private readonly store = inject(CampaignsStore);
 
-  readonly myCampaigns: Signal<Campaign[]> = this.store.getUserCampaigns;
+  readonly supportedCampaigns: Signal<Campaign[]> = this.store.supportedCampaigns;
 }
