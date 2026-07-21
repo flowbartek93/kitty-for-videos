@@ -47,3 +47,16 @@ export interface CreateCampaignPayload {
   preview_description: string;
   preview_image_url: string;
 }
+
+export interface CreateCampaignBody {
+  id: string;
+  title: string;
+  courseUrl: string;
+  minParticipants: number;
+  price: number;
+  priorityTier: TierEnum;
+  description: string;
+  preview_title: string;
+  preview_description: string;
+  preview_image_url: string;
+}

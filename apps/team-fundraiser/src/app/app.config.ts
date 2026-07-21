@@ -12,7 +12,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(appRoutes),
     CampaignsStore,
-    AuthStore,
     provideSupabaseConfig({
       url: environment.supabaseUrl,
       key: environment.supabaseKey,

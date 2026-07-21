@@ -1,12 +1,13 @@
 import { tapResponse } from '@ngrx/operators';
 import { patchState, signalStoreFeature, type, withMethods } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { CreateCampaignPayload } from '@teamfund/shared';
-import { pipe, switchMap, tap } from 'rxjs';
+import { CreateCampaignPayload, Participant, SupabaseParticipant } from '@teamfund/shared';
+import { EMPTY, pipe, switchMap, tap } from 'rxjs';
 import { CampaignFactory, SupabaseCampaignInsert } from '../utils/campaigns.factory';
 import { withCampaignsProps } from './campaigns.props';
 import { CampaignsState, FilterOption } from './campaigns.state';
 import { withCampaignsSelectors } from './campaigns.selectors';
+import { PostgrestSingleResponse } from '@supabase/supabase-js';
 
 export function withCampaignsMethods() {
   return signalStoreFeature(
@@ -79,7 +80,29 @@ export function withCampaignsMethods() {
               console.error('Błąd pobierania:', err);
               patchState(store, { loading: false, error: 'Nie udało się pobrać danych' });
             },
-            finalize: () => console.log('Zakończono proces ładowania'),
+          }),
+        ),
+      ),
+
+      supportCampaign: rxMethod<string>(
+        pipe(
+          tap(() => patchState(store, { loading: true, error: null })),
+          switchMap((id: string) => {
+            return store.campaignsApi.createParticipant(id);
+          }),
+          tapResponse({
+            next: (res: PostgrestSingleResponse<SupabaseParticipant>) => {
+              if (res.data) {
+                const existing = store.allParticipants() ?? [];
+                const participant: Participant = CampaignFactory.mapToParticipant(res.data);
+
+                patchState(store, { allParticipants: [...existing, participant], loading: false });
+              }
+              return EMPTY;
+            },
+            error: (err) => {
+              patchState(store, { loading: false, error: 'Nie udało się dodać uczestnika' });
+            },
           }),
         ),
       ),

@@ -61,9 +61,11 @@ export const AuthStore = signalStore(
     return {
       onInit() {
         supabase.client.auth.onAuthStateChange((_event, session) => {
-          if (session && _event === 'INITIAL_SESSION') {
+          if (session) {
             store.setSession(session);
-            store.setFullProfile(session.user.id ?? '');
+            if (session.user.id !== store.profile()?.id) {
+              store.setFullProfile(session.user.id ?? '');
+            }
           }
 
           if (!session) {

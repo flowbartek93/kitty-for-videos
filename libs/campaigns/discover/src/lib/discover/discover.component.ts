@@ -31,4 +31,8 @@ export class DiscoverComponent {
 
     return calculatedCampaigns;
   });
+
+  supportMission(id: string) {
+    this.store.supportCampaign(id);
+  }
 }

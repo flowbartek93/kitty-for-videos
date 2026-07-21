@@ -1,4 +1,11 @@
-import { Campaign, CampaignStatus, CreateCampaignPayload, Participant, TierEnum } from '@teamfund/shared';
+import {
+  Campaign,
+  CampaignStatus,
+  CreateCampaignPayload,
+  Participant,
+  SupabaseParticipant,
+  TierEnum,
+} from '@teamfund/shared';
 
 export interface SupabaseCampaignRecord {
   id: string;
@@ -15,14 +22,6 @@ export interface SupabaseCampaignRecord {
   tier: TierEnum;
 }
 
-export interface SupabaseParticipant {
-  id: string;
-  campaign_id: string;
-  user_id: string;
-  paid: boolean;
-  joined_at: Date;
-}
-
 export interface SupabaseCampaignInsert {
   title: string;
   description: string;
@@ -34,6 +33,10 @@ export interface SupabaseCampaignInsert {
   creator_id?: string;
   user_id?: string;
   tier: TierEnum;
+}
+
+export interface SupabaseParticipantInsert {
+  campaign_id: string;
 }
 
 export abstract class CampaignFactory {

@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { Campaign, CampaignWithStats } from '@teamfund/shared';
 
 @Component({
@@ -10,4 +10,10 @@ import { Campaign, CampaignWithStats } from '@teamfund/shared';
 })
 export class CourseCardComponent {
   readonly campaign = input.required<CampaignWithStats>();
+
+  readonly support = output<string>();
+
+  supportMission(campaignId: string) {
+    this.support.emit(campaignId);
+  }
 }
