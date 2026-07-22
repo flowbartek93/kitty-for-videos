@@ -16,7 +16,7 @@ export class AppController {
 
   @Get('supabase')
   async connectSb() {
-    const { data, error } = await this.supabaseSrv.client.from('campaigns').select('*'); // Tabela zdefiniowana w Twoich modelach
+    const { data, error } = await this.supabaseSrv.client.from('campaigns').select('*');
 
     if (error) {
       throw new InternalServerErrorException(`Supabase handshake failed: ${error.message}`);
