@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
-import { CampaignWithStats, ConfirmDialogService, CurrencyEnum } from '@teamfund/shared';
+import { CampaignWithStats, ConfirmDialogService } from '@teamfund/shared';
 
 @Component({
   selector: 'lib-course-card',
@@ -13,7 +13,14 @@ export class CourseCardComponent {
 
   readonly campaign = input.required<CampaignWithStats>();
 
-  protected readonly CurrencyEnum = CurrencyEnum;
+  /** Koszt na jednego uczestnika w PLN (kwota zbiórki / min. stan osobowy). */
+  protected readonly costPerPersonPLN = computed(() => {
+    const camp = this.campaign();
+    if (!camp.minParticipants || camp.minParticipants <= 0) {
+      return null;
+    }
+    return Math.round((camp.totalCostPLN / camp.minParticipants) * 100) / 100;
+  });
 
   readonly support = output<string>();
   readonly unsupport = output<string>();

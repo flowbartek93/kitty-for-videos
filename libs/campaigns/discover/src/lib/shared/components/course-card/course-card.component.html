@@ -52,25 +52,18 @@
         <div class="space-y-0.5">
           <p class="text-[10px] uppercase font-bold text-zinc-500 tracking-widest">Cel</p>
           <p class="text-xl font-black text-white italic">
-            {{ camp.totalCostUSD }}
-            <span class="text-xs font-normal text-zinc-500">{{ camp.currency }}</span>
+            {{ camp.totalCostPLN }}
+            <span class="text-xs font-normal text-zinc-500">PLN</span>
           </p>
-          @if (camp.currency !== CurrencyEnum.PLN) {
-            <p class="text-[10px] text-zinc-500 not-italic">
-              @if (camp.totalCostPLN) {
-                ≈ <span class="font-bold text-zinc-300">{{ camp.totalCostPLN }} PLN</span>
-              } @else {
-                <span class="text-zinc-600">przeliczenie PLN wkrótce</span>
-              }
-            </p>
-          }
         </div>
         <div class="space-y-0.5">
           <p class="text-[10px] uppercase font-bold text-zinc-500 tracking-widest">Uczestnicy</p>
           <p class="text-xl font-black text-white italic">
             <!-- participantsCount not wired from the store yet - fallback to mock -->
             {{ camp.participantsCount ?? 0 }}
+            <span class="text-xs font-normal text-zinc-500">/ {{ camp.minParticipants }}</span>
           </p>
+          <p class="text-[9px] text-zinc-600 uppercase font-bold tracking-tighter not-italic">wymagane do startu</p>
         </div>
         <div class="space-y-0.5">
           <p class="text-[10px] uppercase font-bold text-zinc-500 tracking-widest">Wpłaty</p>
@@ -78,12 +71,9 @@
         </div>
       </div>
 
-      @if (camp.costPerPersonUSD) {
+      @if (costPerPersonPLN() !== null) {
         <p class="text-[10px] text-zinc-600 uppercase font-bold tracking-tighter">
-          Koszt/os.: {{ camp.costPerPersonUSD }} {{ camp.currency }}
-          @if (camp.costPerPersonPLN) {
-            <span>&middot; {{ camp.costPerPersonPLN }} PLN</span>
-          }
+          Koszt/os.: {{ costPerPersonPLN() }} PLN
         </p>
       }
     </div>

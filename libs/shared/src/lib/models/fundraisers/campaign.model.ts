@@ -23,15 +23,27 @@ export const CURRENCY_OPTIONS = [
   CurrencyEnum.GBP,
 ] as const;
 
+/** Kurs = ile PLN kosztuje 1 jednostka danej waluty. */
+export type ExchangeRates = Record<CurrencyEnum, number>;
+
+/**
+ * Przelicza kwotę z waluty źródłowej na PLN wg podanych kursów.
+ * Dla PLN kurs = 1, więc kwota pozostaje ta sama.
+ */
+export function convertToPln(amount: number, currency: CurrencyEnum, rates: ExchangeRates): number {
+  const rate = rates[currency] ?? 1;
+  return Math.round(amount * rate * 100) / 100;
+}
+
 export interface Campaign {
   id: string;
   creatorId: string; // ID usera, który założył zrzutkę
   title: string;
   description: string;
   videoUrl: string; // Link do materiału (np. Vimeo, site instruktora)
-  totalCostUSD: number; // Cena bazowa szkolenia w walucie źródłowej (currency)
-  currency: CurrencyEnum; // Waluta ceny bazowej
-  totalCostPLN?: number; // Cena bazowa przeliczona na PLN (kurs liczony po stronie serwera)
+  currency: CurrencyEnum; // Waluta źródłowa, w której instruktor podał cenę (metadana)
+  totalCostPLN: number; // Cena zbiórki w PLN — jedyna zapisywana kwota (przeliczona z waluty źródłowej)
+  minParticipants: number; // Minimalny stan osobowy potrzebny do uruchomienia zbiórki
   status: CampaignStatus;
   createdAt: string;
   deadline?: string; // Opcjonalnie: do kiedy zbieramy
@@ -51,8 +63,7 @@ export type FilterOption = (typeof FILTER_OPTIONS)[number];
 export interface CampaignWithStats extends Campaign {
   isSupportedByUser: boolean;
   participantsCount?: number;
-  costPerPersonUSD?: number; // koszt/os. w walucie źródłowej
-  costPerPersonPLN?: number; // koszt/os. przeliczony na PLN
+  costPerPersonPLN?: number; // koszt/os. w PLN
 }
 
 export interface LinkPreview {

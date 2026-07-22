@@ -143,17 +143,13 @@
           @if (isFieldInvalid('price')) {
           <span id="price-error" class="text-xs text-error mt-1 block" role="alert">Wymagana cena min. 5.</span>
           } @else {
-          <!-- Uczestnicy zawsze wpłacają w PLN — pokazujemy docelową kwotę w PLN -->
-          @if (isForeignCurrency()) {
-          <span class="text-[11px] text-amber-400/80 mt-1 flex items-center gap-1">
-            <span aria-hidden="true">≈</span>
-            Kwota w PLN zostanie przeliczona wg aktualnego kursu przy uruchomieniu zbiórki.
-          </span>
-          } @else {
+          <!-- Uczestnicy zawsze wpłacają w PLN — pokazujemy przeliczoną kwotę od razu -->
           <span class="text-[11px] text-success/80 mt-1 block">
-            Docelowo: <span class="font-mono font-bold">{{ pricePLN() }} PLN</span>
+            Po przeliczeniu: <span class="font-mono font-bold">{{ pricePLN() }} PLN</span>
+            @if (isForeignCurrency()) {
+            <span class="text-slate-500">(kurs poglądowy — finalnie przeliczy serwer)</span>
+            }
           </span>
-          }
           }
         </div>
 
@@ -213,6 +209,47 @@
           >Wymagany opis (min. 20 znaków).</span
         >
         }
+      </div>
+
+      <!-- Podsumowanie rozliczenia (wszystko docelowo w PLN) -->
+      <div
+        class="bg-base-100 border border-neutral rounded-2xl p-5 flex flex-wrap items-center justify-between gap-4"
+        aria-live="polite"
+      >
+        <div>
+          <p class="text-[10px] uppercase font-bold text-slate-500 tracking-widest">Koszt całkowity</p>
+          <p class="text-lg font-black text-white font-mono">
+            {{ pricePLN() }} <span class="text-xs font-normal text-slate-500">PLN</span>
+            @if (isForeignCurrency()) {
+            <span class="text-[11px] font-normal text-slate-500">({{ priceValue() }} {{ currencyValue() }})</span>
+            }
+          </p>
+        </div>
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-5 h-5 text-slate-600 hidden sm:block"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke="currentColor"
+          aria-hidden="true"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+        </svg>
+
+        <div class="text-right">
+          <p class="text-[10px] uppercase font-bold text-slate-500 tracking-widest">
+            Na osobę (min. {{ minParticipantsValue() }} os.)
+          </p>
+          <p class="text-lg font-black text-primary font-mono">
+            @if (pricePerPersonPLN() !== null) {
+            {{ pricePerPersonPLN() }} <span class="text-xs font-normal text-slate-500">PLN / os.</span>
+            } @else {
+            <span class="text-sm font-normal text-slate-500">—</span>
+            }
+          </p>
+        </div>
       </div>
 
       @if (store.error()) {

@@ -4,7 +4,14 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { CreateCampaignPayload, CURRENCY_OPTIONS, CurrencyEnum, LinkPreview, TierEnum } from '@teamfund/shared';
+import {
+  convertToPln,
+  CreateCampaignPayload,
+  CURRENCY_OPTIONS,
+  CurrencyEnum,
+  LinkPreview,
+  TierEnum,
+} from '@teamfund/shared';
 import { CampaignsApiService, CampaignsStore } from 'campaigns-data-access';
 import { debounceTime, distinctUntilChanged, filter, switchMap, tap } from 'rxjs';
 
@@ -40,21 +47,35 @@ export class CampaignCreateComponent {
   });
 
   // Podgląd wartości ceny i waluty (do przeliczenia PLN w UI)
-  private priceValue = toSignal(this.createForm.controls.price.valueChanges, {
+  protected priceValue = toSignal(this.createForm.controls.price.valueChanges, {
     initialValue: this.createForm.controls.price.value,
   });
-  private currencyValue = toSignal(this.createForm.controls.currency.valueChanges, {
+  protected currencyValue = toSignal(this.createForm.controls.currency.valueChanges, {
     initialValue: this.createForm.controls.currency.value,
   });
+  protected minParticipantsValue = toSignal(this.createForm.controls.minParticipants.valueChanges, {
+    initialValue: this.createForm.controls.minParticipants.value,
+  });
 
-  /** Czy wybrana waluta jest walutą obcą (wymaga przeliczenia po stronie serwera). */
+  /** Czy wybrana waluta jest walutą obcą (inna niż PLN). */
   protected readonly isForeignCurrency = computed(() => this.currencyValue() !== CurrencyEnum.PLN);
 
   /**
-   * Kwota w PLN znana już po stronie klienta. Dla PLN = cena bazowa,
-   * dla walut obcych null (przeliczy serwer wg aktualnego kursu).
+   * Kwota przeliczona na PLN — liczona od razu wg (na razie fejkowych) kursów
+   * ze store'u. To ta wartość trafia do API jako total_cost_pln.
    */
-  protected readonly pricePLN = computed(() => (this.isForeignCurrency() ? null : this.priceValue()));
+  protected readonly pricePLN = computed(() =>
+    convertToPln(this.priceValue() ?? 0, this.currencyValue(), this.store.exchangeRates()),
+  );
+
+  /** Koszt przypadający na jednego uczestnika w PLN (przy minimalnym stanie osobowym). */
+  protected readonly pricePerPersonPLN = computed(() => {
+    const people = this.minParticipantsValue() ?? 0;
+    if (people <= 0) {
+      return null;
+    }
+    return Math.round((this.pricePLN() / people) * 100) / 100;
+  });
 
   constructor() {
     this.setupLinkScraperPipeline();

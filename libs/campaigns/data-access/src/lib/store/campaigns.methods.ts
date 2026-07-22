@@ -68,7 +68,10 @@ export function withCampaignsMethods() {
         pipe(
           tap(() => patchState(store, { loading: true, error: null })),
           switchMap((payload: CreateCampaignPayload) => {
-            const campaignDto: SupabaseCampaignInsert = CampaignFactory.createCampaignToSave(payload);
+            const campaignDto: SupabaseCampaignInsert = CampaignFactory.createCampaignToSave(
+              payload,
+              store.exchangeRates(),
+            );
 
             return store.campaignsApi.createCampaign(campaignDto);
           }),

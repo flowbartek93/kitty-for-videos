@@ -1,8 +1,10 @@
 import {
   Campaign,
   CampaignStatus,
+  convertToPln,
   CreateCampaignPayload,
   CurrencyEnum,
+  ExchangeRates,
   Participant,
   SupabaseParticipant,
   TierEnum,
@@ -15,9 +17,9 @@ export interface SupabaseCampaignRecord {
   title: string;
   description: string;
   video_url: string;
-  total_cost_usd: number | null;
   currency: string | null;
   total_cost_pln: number | null;
+  min_participants: number | null;
   status: string | null;
   created_at: string | null;
   deadline?: string | null;
@@ -29,9 +31,9 @@ export interface SupabaseCampaignInsert {
   title: string;
   description: string;
   video_url: string;
-  total_cost_usd?: number;
   currency: string;
-  total_cost_pln?: number;
+  total_cost_pln: number;
+  min_participants: number;
   preview_title: string;
   preview_description: string;
   preview_image_url: string;
@@ -52,9 +54,9 @@ export abstract class CampaignFactory {
       title: record.title,
       description: record.description,
       videoUrl: record.video_url,
-      totalCostUSD: record.total_cost_usd ?? 0,
       currency: (record.currency as CurrencyEnum) ?? CurrencyEnum.PLN,
-      totalCostPLN: record.total_cost_pln ?? undefined,
+      totalCostPLN: record.total_cost_pln ?? 0,
+      minParticipants: record.min_participants ?? 0,
       status: (record.status as CampaignStatus) ?? 'active',
       createdAt: record.created_at ?? '',
       deadline: record.deadline ?? undefined,
@@ -81,7 +83,7 @@ export abstract class CampaignFactory {
     return records.map(CampaignFactory.mapToParticipant);
   }
 
-  public static createCampaignToSave(formData: CreateCampaignPayload): SupabaseCampaignInsert {
+  public static createCampaignToSave(formData: CreateCampaignPayload, rates: ExchangeRates): SupabaseCampaignInsert {
     return {
       title: formData.title,
       description: formData.description,
@@ -89,11 +91,10 @@ export abstract class CampaignFactory {
       preview_title: formData.preview_title,
       preview_description: formData.preview_description,
       preview_image_url: formData.preview_image_url,
-      total_cost_usd: formData.price,
       currency: formData.currency,
-      // Dla PLN kwota przeliczona = cena bazowa. Dla walut obcych zostawiamy
-      // puste — serwer (nest) przeliczy po aktualnym kursie.
-      total_cost_pln: formData.currency === CurrencyEnum.PLN ? formData.price : undefined,
+      // Do API leci wyłącznie kwota w PLN (przeliczona z waluty źródłowej wg kursów).
+      total_cost_pln: convertToPln(formData.price, formData.currency, rates),
+      min_participants: formData.minParticipants,
       tier: formData.priorityTier ?? TierEnum.tier1,
     };
   }
