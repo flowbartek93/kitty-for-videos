@@ -33,6 +33,8 @@ export function withCampaignsSelectors() {
       }),
 
       isLoading: computed(() => store.loading()),
+
+      currentUserId: computed(() => store.campaignsApi.session()?.user.id ?? null),
     })),
 
     withComputed((store) => ({

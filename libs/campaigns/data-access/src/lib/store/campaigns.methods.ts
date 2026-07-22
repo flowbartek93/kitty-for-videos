@@ -1,9 +1,16 @@
 import { tapResponse } from '@ngrx/operators';
 import { patchState, signalStoreFeature, type, withMethods } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { CreateCampaignPayload, FilterOption, Participant, SupabaseParticipant } from '@teamfund/shared';
+import {
+  Campaign,
+  CreateCampaignBody,
+  CreateCampaignPayload,
+  FilterOption,
+  Participant,
+  SupabaseParticipant,
+} from '@teamfund/shared';
 import { EMPTY, map, pipe, switchMap, tap } from 'rxjs';
-import { CampaignFactory, SupabaseCampaignInsert } from '../utils/campaigns.factory';
+import { CampaignFactory, SupabaseCampaignInsert, SupabaseCampaignRecord } from '../utils/campaigns.factory';
 import { withCampaignsProps } from './campaigns.props';
 import { CampaignsState } from './campaigns.state';
 import { withCampaignsSelectors } from './campaigns.selectors';
@@ -82,6 +89,40 @@ export function withCampaignsMethods() {
             error: (err) => {
               console.error('Błąd pobierania:', err);
               patchState(store, { loading: false, error: 'Nie udało się pobrać danych' });
+            },
+          }),
+        ),
+      ),
+
+      updateCampaign: rxMethod<CreateCampaignBody>(
+        pipe(
+          tap(() => patchState(store, { loading: true, error: null })),
+          switchMap((payload: CreateCampaignBody) => {
+            const campaignDto: SupabaseCampaignInsert = CampaignFactory.createCampaignToSave(
+              payload,
+              store.exchangeRates(),
+            );
+
+            return store.campaignsApi.updateCampaign(payload.id, campaignDto);
+          }),
+          tapResponse({
+            next: (res: PostgrestSingleResponse<SupabaseCampaignRecord>) => {
+              if (res.data) {
+                const updated = CampaignFactory.mapToCampaign(res.data);
+                const replace = (list: Campaign[]) => list.map((c) => (c.id === updated.id ? updated : c));
+
+                patchState(store, {
+                  allCampaigns: replace(store.allCampaigns()),
+                  userCampaigns: replace(store.userCampaigns()),
+                  loading: false,
+                });
+              } else {
+                patchState(store, { loading: false });
+              }
+            },
+            error: (err) => {
+              console.error('Błąd edycji:', err);
+              patchState(store, { loading: false, error: 'Nie udało się zapisać zmian' });
             },
           }),
         ),

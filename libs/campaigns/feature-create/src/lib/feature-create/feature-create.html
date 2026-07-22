@@ -22,14 +22,22 @@
     <span
       class="text-[10px] font-bold uppercase tracking-wider bg-neutral text-slate-400 border border-neutral px-3 py-1 rounded-full"
     >
-      Nowa misja // KREATOR
+      {{ isEditMode() ? 'Edycja misji // KREATOR' : 'Nowa misja // KREATOR' }}
     </span>
   </div>
 
   <section class="bg-base-300 border border-neutral rounded-3xl p-6 md:p-8 shadow-xl">
     <header class="mb-8 border-b border-neutral pb-6">
-      <h1 class="text-2xl font-black text-white tracking-tight">Inicjuj Nową Zbiórkę</h1>
-      <p class="text-sm text-slate-400 mt-1">Konfiguracja zrzutki na szkolenia bojowe i systemy combat.</p>
+      <h1 class="text-2xl font-black text-white tracking-tight">
+        {{ isEditMode() ? 'Modyfikuj Zbiórkę' : 'Inicjuj Nową Zbiórkę' }}
+      </h1>
+      <p class="text-sm text-slate-400 mt-1">
+        {{
+          isEditMode()
+            ? 'Aktualizacja parametrów istniejącej operacji.'
+            : 'Konfiguracja zrzutki na szkolenia bojowe i systemy combat.'
+        }}
+      </p>
     </header>
 
     <form [formGroup]="createForm" (ngSubmit)="executeLaunch()" class="space-y-6" novalidate>
@@ -262,13 +270,13 @@
       }
 
       <div class="pt-4 border-t border-neutral flex justify-end gap-3">
-        <a routerLink="/dashboard" class="btn btn-ghost rounded-xl px-6">Anuluj</a>
+        <a [routerLink]="isEditMode() ? '/contributions/my-initiatives' : '/dashboard'" class="btn btn-ghost rounded-xl px-6">Anuluj</a>
         <button type="submit" [disabled]=" store.isLoading()" class="btn btn-primary rounded-xl px-8 min-w-40">
           @if (store.isLoading()) {
           <span class="loading loading-spinner loading-xs" role="status" aria-hidden="true"></span>
           <span>Przetwarzanie...</span>
           } @else {
-          <span>Uruchom Zbiórkę</span>
+          <span>{{ isEditMode() ? 'Zapisz zmiany' : 'Uruchom Zbiórkę' }}</span>
           }
         </button>
       </div>

@@ -3,9 +3,11 @@ import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, signa
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
+  convertFromPln,
   convertToPln,
+  CreateCampaignBody,
   CreateCampaignPayload,
   CURRENCY_OPTIONS,
   CurrencyEnum,
@@ -26,11 +28,16 @@ export class CampaignCreateComponent {
   private fb = inject(FormBuilder);
   private apiService = inject(CampaignsApiService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
   private destroyRef = inject(DestroyRef);
   store = inject(CampaignsStore);
 
   protected linkPreview = signal<LinkPreview | null>(null);
   protected isScraping = signal<boolean>(false);
+
+  /** ID edytowanej zbiórki (z parametru trasy) — null gdy tworzymy nową. */
+  protected readonly editId = signal<string | null>(null);
+  protected readonly isEditMode = computed(() => this.editId() !== null);
 
   protected readonly currencyOptions = CURRENCY_OPTIONS;
   protected readonly CurrencyEnum = CurrencyEnum;
@@ -79,6 +86,42 @@ export class CampaignCreateComponent {
 
   constructor() {
     this.setupLinkScraperPipeline();
+
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.editId.set(id);
+      this.loadForEdit(id);
+    }
+  }
+
+  /** Wczytuje istniejącą zbiórkę i uzupełnia formularz jej danymi. */
+  private loadForEdit(id: string): void {
+    this.apiService
+      .getCampaignById(id)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (campaign) => {
+          this.createForm.patchValue({
+            title: campaign.title,
+            courseUrl: campaign.videoUrl,
+            // Odtwarzamy kwotę źródłową z zapisanej kwoty PLN (w bazie mamy tylko PLN).
+            price: convertFromPln(campaign.totalCostPLN, campaign.currency, this.store.exchangeRates()),
+            currency: campaign.currency,
+            minParticipants: campaign.minParticipants,
+            priorityTier: campaign.tier,
+            description: campaign.description,
+          });
+
+          if (campaign.previewImageUrl) {
+            this.linkPreview.set({
+              title: campaign.title,
+              description: campaign.description,
+              image: campaign.previewImageUrl,
+            });
+          }
+        },
+        error: () => this.router.navigate(['/contributions/my-initiatives']),
+      });
   }
 
   private setupLinkScraperPipeline(): void {
@@ -119,13 +162,21 @@ export class CampaignCreateComponent {
     const formValues = this.createForm.getRawValue();
     const currentPreview = this.linkPreview();
 
-    const enrichedPayload: CreateCampaignPayload = {
-      ...formValues,
+    const previewData = {
       preview_title: currentPreview?.title || formValues.title,
       preview_description: currentPreview?.description || formValues.description,
       preview_image_url: currentPreview?.image || '',
     };
 
+    const id = this.editId();
+    if (id) {
+      const body: CreateCampaignBody = { id, ...formValues, ...previewData };
+      this.store.updateCampaign(body);
+      this.router.navigate(['/contributions/my-initiatives']);
+      return;
+    }
+
+    const enrichedPayload: CreateCampaignPayload = { ...formValues, ...previewData };
     this.store.createCampaign(enrichedPayload);
     this.router.navigate(['/dashboard']);
   }

@@ -36,6 +36,10 @@ export const appRoutes: Route[] = [
         loadComponent: () => import('feature-create').then((m) => m.CampaignCreateComponent),
       },
       {
+        path: 'create/:id',
+        loadComponent: () => import('feature-create').then((m) => m.CampaignCreateComponent),
+      },
+      {
         path: 'contributions',
         loadChildren: () => import('supported-initiatives').then((m) => m.CONTRIBUTIONS_ROUTES),
       },

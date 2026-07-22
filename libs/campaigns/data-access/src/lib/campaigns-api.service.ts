@@ -2,7 +2,12 @@ import { inject, Injectable } from '@angular/core';
 import { Campaign, LinkPreview, Participant, SupabaseClientService, SupabaseParticipant } from '@teamfund/shared';
 import { AuthStore } from 'auth';
 import { from, map, Observable } from 'rxjs';
-import { SupabaseCampaignInsert, SupabaseCampaignRecord, SupabaseParticipantInsert } from './utils/campaigns.factory';
+import {
+  CampaignFactory,
+  SupabaseCampaignInsert,
+  SupabaseCampaignRecord,
+  SupabaseParticipantInsert,
+} from './utils/campaigns.factory';
 import { PostgrestSingleResponse } from '@supabase/supabase-js';
 
 @Injectable({ providedIn: 'root' })
@@ -30,6 +35,29 @@ export class CampaignsApiService {
         .insert({ ...payload, creator_id: payload.creator_id ?? currentUserId })
         .select()
         .single<Campaign>(),
+    );
+  }
+
+  getCampaignById(id: string): Observable<Campaign> {
+    return from(this.supabase.client.from('campaigns').select('*').eq('id', id).single<SupabaseCampaignRecord>()).pipe(
+      map(({ data, error }) => {
+        if (error) throw new Error(error.message);
+        return CampaignFactory.mapToCampaign(data);
+      }),
+    );
+  }
+
+  updateCampaign(id: string, payload: SupabaseCampaignInsert) {
+    const currentUserId = this.session()?.user.id;
+
+    return from(
+      this.supabase.client
+        .from('campaigns')
+        .update(payload)
+        .eq('id', id)
+        .eq('creator_id', currentUserId) // tylko właściciel może edytować
+        .select()
+        .single<SupabaseCampaignRecord>(),
     );
   }
 

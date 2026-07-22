@@ -35,6 +35,18 @@ export function convertToPln(amount: number, currency: CurrencyEnum, rates: Exch
   return Math.round(amount * rate * 100) / 100;
 }
 
+/**
+ * Odwrotność convertToPln — odtwarza kwotę w walucie źródłowej z zapisanej
+ * kwoty PLN (używane przy edycji, bo w bazie trzymamy tylko PLN).
+ */
+export function convertFromPln(amountPln: number, currency: CurrencyEnum, rates: ExchangeRates): number {
+  const rate = rates[currency] ?? 1;
+  if (!rate) {
+    return 0;
+  }
+  return Math.round((amountPln / rate) * 100) / 100;
+}
+
 export interface Campaign {
   id: string;
   creatorId: string; // ID usera, który założył zrzutkę
