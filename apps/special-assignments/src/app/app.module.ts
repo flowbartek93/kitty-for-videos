@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SupabaseModule } from '@teamfund/backend-supabase';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { SpecialOperationsModule } from '@teamfund/special-operations';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { AppService } from './app.service';
       },
       inject: [ConfigService],
     }),
+    SpecialOperationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

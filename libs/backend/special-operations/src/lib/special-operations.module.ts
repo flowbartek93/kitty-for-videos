@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
+import { CurrenciesModule } from './currencies/currencies.module';
 
 @Module({
   controllers: [],
   providers: [],
-  exports: [],
+  imports: [CurrenciesModule],
+  exports: [CurrenciesModule],
 })
 export class SpecialOperationsModule {}
