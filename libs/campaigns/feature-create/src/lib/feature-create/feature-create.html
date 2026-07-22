@@ -118,24 +118,42 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
           <label for="price" class="block text-[10px] uppercase font-bold text-slate-400 mb-2 tracking-wider">
-            CENA
+            CENA KURSU (WALUTA ŹRÓDŁOWA) *
           </label>
-          <div class="relative flex items-center">
+          <div class="join w-full">
             <input
               id="price"
               type="number"
               formControlName="price"
-              class="input bg-base-100 border-neutral rounded-2xl w-full text-white font-mono focus:border-primary transition-all"
+              class="input join-item bg-base-100 border-neutral rounded-l-2xl w-full text-white font-mono focus:border-primary transition-all"
               [ngClass]="{'border-error': isFieldInvalid('price')}"
               [attr.aria-invalid]="isFieldInvalid('price')"
               [attr.aria-describedby]="isFieldInvalid('price') ? 'price-error' : null"
             />
-            <span class="absolute right-4 text-xs font-bold text-slate-500 pointer-events-none" aria-hidden="true"
-              >PLN</span
+            <select
+              formControlName="currency"
+              aria-label="Waluta ceny kursu"
+              class="select join-item bg-base-200 border-neutral rounded-r-2xl text-white font-mono font-bold w-24 shrink-0 focus:border-primary"
             >
+              @for (currency of currencyOptions; track currency) {
+              <option [value]="currency">{{ currency }}</option>
+              }
+            </select>
           </div>
           @if (isFieldInvalid('price')) {
-          <span id="price-error" class="text-xs text-error mt-1 block" role="alert">Wymagana cena min. 15 PLN.</span>
+          <span id="price-error" class="text-xs text-error mt-1 block" role="alert">Wymagana cena min. 5.</span>
+          } @else {
+          <!-- Uczestnicy zawsze wpłacają w PLN — pokazujemy docelową kwotę w PLN -->
+          @if (isForeignCurrency()) {
+          <span class="text-[11px] text-amber-400/80 mt-1 flex items-center gap-1">
+            <span aria-hidden="true">≈</span>
+            Kwota w PLN zostanie przeliczona wg aktualnego kursu przy uruchomieniu zbiórki.
+          </span>
+          } @else {
+          <span class="text-[11px] text-success/80 mt-1 block">
+            Docelowo: <span class="font-mono font-bold">{{ pricePLN() }} PLN</span>
+          </span>
+          }
           }
         </div>
 

@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
-import { Campaign, CampaignWithStats, ConfirmDialogService } from '@teamfund/shared';
+import { CampaignWithStats, ConfirmDialogService, CurrencyEnum } from '@teamfund/shared';
 
 @Component({
   selector: 'lib-course-card',
@@ -12,6 +12,8 @@ export class CourseCardComponent {
   private readonly confirmDialog = inject(ConfirmDialogService);
 
   readonly campaign = input.required<CampaignWithStats>();
+
+  protected readonly CurrencyEnum = CurrencyEnum;
 
   readonly support = output<string>();
   readonly unsupport = output<string>();

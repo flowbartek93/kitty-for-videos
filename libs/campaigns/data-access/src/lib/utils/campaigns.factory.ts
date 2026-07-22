@@ -2,6 +2,7 @@ import {
   Campaign,
   CampaignStatus,
   CreateCampaignPayload,
+  CurrencyEnum,
   Participant,
   SupabaseParticipant,
   TierEnum,
@@ -15,6 +16,8 @@ export interface SupabaseCampaignRecord {
   description: string;
   video_url: string;
   total_cost_usd: number | null;
+  currency: string | null;
+  total_cost_pln: number | null;
   status: string | null;
   created_at: string | null;
   deadline?: string | null;
@@ -27,6 +30,8 @@ export interface SupabaseCampaignInsert {
   description: string;
   video_url: string;
   total_cost_usd?: number;
+  currency: string;
+  total_cost_pln?: number;
   preview_title: string;
   preview_description: string;
   preview_image_url: string;
@@ -48,6 +53,8 @@ export abstract class CampaignFactory {
       description: record.description,
       videoUrl: record.video_url,
       totalCostUSD: record.total_cost_usd ?? 0,
+      currency: (record.currency as CurrencyEnum) ?? CurrencyEnum.PLN,
+      totalCostPLN: record.total_cost_pln ?? undefined,
       status: (record.status as CampaignStatus) ?? 'active',
       createdAt: record.created_at ?? '',
       deadline: record.deadline ?? undefined,
@@ -83,6 +90,10 @@ export abstract class CampaignFactory {
       preview_description: formData.preview_description,
       preview_image_url: formData.preview_image_url,
       total_cost_usd: formData.price,
+      currency: formData.currency,
+      // Dla PLN kwota przeliczona = cena bazowa. Dla walut obcych zostawiamy
+      // puste — serwer (nest) przeliczy po aktualnym kursie.
+      total_cost_pln: formData.currency === CurrencyEnum.PLN ? formData.price : undefined,
       tier: formData.priorityTier ?? TierEnum.tier1,
     };
   }
