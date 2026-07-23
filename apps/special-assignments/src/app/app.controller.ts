@@ -28,4 +28,11 @@ export class AppController {
       payloadSample: data,
     };
   }
+
+  @Get('nest')
+  nest() {
+    return {
+      body: 'odp z nesta',
+    };
+  }
 }
