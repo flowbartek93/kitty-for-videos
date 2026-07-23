@@ -49,6 +49,11 @@ export default [
                 'scope:shared',
               ],
             },
+            // 4. Backend (aplikacje i liby) może zależeć od innego backendu i od shared
+            {
+              sourceTag: 'scope:backend',
+              onlyDependOnLibsWithTags: ['scope:backend', 'scope:shared', 'type:data-access'],
+            },
           ],
         },
       ],

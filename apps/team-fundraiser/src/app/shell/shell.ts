@@ -23,7 +23,7 @@ export class ShellComponent {
     this.campaignsStore.loadAllCampaigns();
     this.campaignsStore.loadAllParticipants();
 
-    this.httpClient.get('http://localhost:3000/api/nest').subscribe({
+    this.httpClient.get('http://localhost:3000/api/currencies').subscribe({
       next: (res) => console.log('NEST OK:', res),
       error: (err) => console.error('NEST FAIL:', err),
     });

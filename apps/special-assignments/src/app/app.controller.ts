@@ -1,4 +1,4 @@
-import { Controller, Get, Inject, InternalServerErrorException } from '@nestjs/common';
+import { Controller, Get, InternalServerErrorException } from '@nestjs/common';
 import { AppService } from './app.service';
 import { SupabaseService } from '@teamfund/backend-supabase';
 
@@ -29,10 +29,14 @@ export class AppController {
     };
   }
 
-  @Get('nest')
-  nest() {
-    return {
-      body: 'odp z nesta',
-    };
+  @Get('currencies')
+  async getCurrencies() {
+    const response = await fetch('https://api.nbp.pl/api/exchangerates/tables/A/?format=json');
+
+    if (!response.ok) {
+      throw new InternalServerErrorException(`NBP API request failed: ${response.status}`);
+    }
+
+    return response.json();
   }
 }

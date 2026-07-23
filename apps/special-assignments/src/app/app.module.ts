@@ -1,4 +1,4 @@
-import { Module, Provider } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { SupabaseModule } from '@teamfund/backend-supabase';
 import { AppController } from './app.controller';
