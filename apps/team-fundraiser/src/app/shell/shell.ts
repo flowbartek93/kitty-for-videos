@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, effect, inject } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'auth';
 import { CampaignsStore } from 'campaigns-data-access';
