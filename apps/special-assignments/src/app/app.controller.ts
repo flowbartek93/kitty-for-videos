@@ -1,12 +1,14 @@
 import { Controller, Get, InternalServerErrorException } from '@nestjs/common';
 import { AppService } from './app.service';
 import { SupabaseService } from '@teamfund/backend-supabase';
+import { CurrenciesService, NbpTableDto } from '@teamfund/special-operations';
 
 @Controller()
 export class AppController {
   constructor(
     private readonly appService: AppService,
     private readonly supabaseSrv: SupabaseService,
+    private readonly currenciesSrv: CurrenciesService,
   ) {}
 
   @Get()
@@ -31,7 +33,7 @@ export class AppController {
 
   @Get('currencies')
   async getCurrencies() {
-    const response = await fetch('https://api.nbp.pl/api/exchangerates/tables/A/?format=json');
+    const response: Promise<NbpTableDto> = await this.currenciesSrv.fetchNbpCurrencies();
 
     if (!response.ok) {
       throw new InternalServerErrorException(`NBP API request failed: ${response.status}`);
