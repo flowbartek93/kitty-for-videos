@@ -13,6 +13,7 @@ import {
 export interface SupabaseCampaignRecord {
   id: string;
   creator_id: string | null;
+  creator_name: string | null;
   user_id: string | null;
   title: string;
   description: string;
@@ -51,6 +52,7 @@ export abstract class CampaignFactory {
     return {
       id: record.id,
       creatorId: record.creator_id ?? '',
+      creatorName: record.creator_name ?? '',
       title: record.title,
       description: record.description,
       videoUrl: record.video_url,

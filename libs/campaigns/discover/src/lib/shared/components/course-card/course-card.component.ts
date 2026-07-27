@@ -13,20 +13,16 @@ export class CourseCardComponent {
 
   readonly campaign = input.required<CampaignWithStats>();
 
-  /** TODO: mock UI — docelowo nazwa twórcy przyjdzie z backendu (creatorId -> user). */
-  protected readonly creatorName = 'Bartłomiej Ostrowski';
-
-  /** Inicjały do awatara, wyliczane z mocka. */
   protected readonly creatorInitials = computed(() =>
-    this.creatorName
-      .split(' ')
+    this.campaign()
+      .creatorName.split(' ')
+      .filter(Boolean)
       .map((part) => part.charAt(0))
       .slice(0, 2)
       .join('')
       .toUpperCase(),
   );
 
-  /** Koszt na jednego uczestnika w PLN (kwota zbiórki / min. stan osobowy). */
   protected readonly costPerPersonPLN = computed(() => {
     const camp = this.campaign();
     if (!camp.minParticipants || camp.minParticipants <= 0) {

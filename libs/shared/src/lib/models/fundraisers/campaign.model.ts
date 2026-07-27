@@ -50,6 +50,7 @@ export function convertFromPln(amountPln: number, currency: CurrencyEnum, rates:
 export interface Campaign {
   id: string;
   creatorId: string; // ID usera, który założył zrzutkę
+  creatorName: string; // Denormalizowana nazwa twórcy — zapisywana przy tworzeniu, bez joina po creatorId
   title: string;
   description: string;
   videoUrl: string; // Link do materiału (np. Vimeo, site instruktora)
