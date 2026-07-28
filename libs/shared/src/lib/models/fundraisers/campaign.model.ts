@@ -15,13 +15,7 @@ export enum CurrencyEnum {
   GBP = 'GBP',
 }
 
-export const CURRENCY_OPTIONS = [
-  CurrencyEnum.PLN,
-  CurrencyEnum.USD,
-  CurrencyEnum.EUR,
-  CurrencyEnum.RUB,
-  CurrencyEnum.GBP,
-] as const;
+export const CURRENCY_OPTIONS = [CurrencyEnum.PLN, CurrencyEnum.USD, CurrencyEnum.EUR, CurrencyEnum.GBP] as const;
 
 /** Kurs = ile PLN kosztuje 1 jednostka danej waluty. */
 export type ExchangeRates = Record<CurrencyEnum, number>;

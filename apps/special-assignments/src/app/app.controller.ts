@@ -33,12 +33,6 @@ export class AppController {
 
   @Get('currencies')
   async getCurrencies() {
-    const response: Promise<NbpTableDto> = await this.currenciesSrv.fetchNbpCurrencies();
-
-    if (!response.ok) {
-      throw new InternalServerErrorException(`NBP API request failed: ${response.status}`);
-    }
-
-    return response.json();
+    return await this.currenciesSrv.fetchNbpCurrencies();
   }
 }

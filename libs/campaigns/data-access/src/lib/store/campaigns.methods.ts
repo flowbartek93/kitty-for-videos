@@ -5,6 +5,7 @@ import {
   Campaign,
   CreateCampaignBody,
   CreateCampaignPayload,
+  ExchangeRates,
   FilterOption,
   Participant,
   SupabaseParticipant,
@@ -178,6 +179,10 @@ export function withCampaignsMethods() {
     withMethods((store) => ({
       setDiscoverFilter: (filter: FilterOption) => {
         patchState(store, { discoverFilterOption: filter });
+      },
+
+      setCurrencies: (rates: ExchangeRates) => {
+        patchState(store, { exchangeRates: rates });
       },
     })),
   );

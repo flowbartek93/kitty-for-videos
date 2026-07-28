@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { mapToProperCurrencies, NbpTable } from '@teamfund/shared';
 import { AuthService } from 'auth';
 import { CampaignsStore } from 'campaigns-data-access';
+import { response } from 'express';
 import { SidebarComponent, TopBar } from 'layout-ui';
 import { UserStore } from 'user-data-access';
 
@@ -22,8 +24,13 @@ export class ShellComponent {
     this.campaignsStore.loadAllCampaigns();
     this.campaignsStore.loadAllParticipants();
 
-    this.httpClient.get('http://localhost:3000/api/currencies').subscribe({
-      next: (res) => console.log('NEST OK:', res),
+    this.httpClient.get<NbpTable[]>('http://localhost:3000/api/currencies').subscribe({
+      next: (res: NbpTable[]) => {
+        const response = res[0].rates;
+        const currenciesModel = mapToProperCurrencies(response);
+
+        this.campaignsStore.setCurrencies(currenciesModel);
+      },
       error: (err) => console.error('NEST FAIL:', err),
     });
   }

@@ -10,16 +10,12 @@ export type CampaignsState = {
   exchangeRates: ExchangeRates;
 };
 
-/**
- * TYMCZASOWE, fejkowe kursy walut (ile PLN za 1 jednostkę).
- * Docelowo zastąpione realnymi kursami pobieranymi po stronie serwera (nest).
- */
-export const MOCK_EXCHANGE_RATES: ExchangeRates = {
-  [CurrencyEnum.PLN]: 1,
-  [CurrencyEnum.USD]: 4.0,
-  [CurrencyEnum.EUR]: 4.3,
-  [CurrencyEnum.RUB]: 0.045,
-  [CurrencyEnum.GBP]: 5.1,
+export const INITIAL_RATES: ExchangeRates = {
+  [CurrencyEnum.PLN]: 0,
+  [CurrencyEnum.USD]: 0,
+  [CurrencyEnum.EUR]: 0,
+  [CurrencyEnum.RUB]: 0,
+  [CurrencyEnum.GBP]: 0,
 };
 
 export const initialCampaignsState: CampaignsState = {
@@ -29,5 +25,5 @@ export const initialCampaignsState: CampaignsState = {
   userCampaigns: [],
   allParticipants: [],
   discoverFilterOption: 'all',
-  exchangeRates: MOCK_EXCHANGE_RATES,
+  exchangeRates: INITIAL_RATES,
 };

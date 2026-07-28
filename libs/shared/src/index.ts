@@ -2,6 +2,7 @@
 export * from './lib/models/auth/user-profile.model';
 export * from './lib/models/fundraisers/campaign.model';
 export * from './lib/models/fundraisers/participant.model';
+export * from './lib/models/currencies/currencies.model';
 
 // Supabase
 export * from './lib/supabase/supabase-client.service';
@@ -12,4 +13,3 @@ export * from './lib/popup/popup.service';
 
 export * from './lib/confirm-dialog/confirm-dialog.component';
 export * from './lib/confirm-dialog/confirm-dialog.service';
-
