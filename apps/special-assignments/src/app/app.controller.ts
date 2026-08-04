@@ -1,4 +1,5 @@
 import { Controller, Get, InternalServerErrorException } from '@nestjs/common';
+import { ApiOkResponse } from '@nestjs/swagger';
 import { AppService } from './app.service';
 import { SupabaseService } from '@teamfund/backend-supabase';
 import { CurrenciesService, NbpTableDto } from '@teamfund/special-operations';
@@ -32,6 +33,7 @@ export class AppController {
   }
 
   @Get('currencies')
+  @ApiOkResponse({ type: NbpTableDto, isArray: true })
   async getCurrencies() {
     return await this.currenciesSrv.fetchNbpCurrencies();
   }
