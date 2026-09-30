@@ -1,14 +1,8 @@
 import { inject, Injectable } from '@angular/core';
-import { Campaign, LinkPreview, Participant, SupabaseClientService, SupabaseParticipant } from '@teamfund/shared';
+import { Campaign, LinkPreview, SupabaseClientService, SupabaseParticipant } from '@teamfund/shared';
 import { AuthStore } from 'auth';
 import { from, map, Observable } from 'rxjs';
-import {
-  CampaignFactory,
-  SupabaseCampaignInsert,
-  SupabaseCampaignRecord,
-  SupabaseParticipantInsert,
-} from './utils/campaigns.factory';
-import { PostgrestSingleResponse } from '@supabase/supabase-js';
+import { CampaignFactory, SupabaseCampaignInsert, SupabaseCampaignRecord } from './utils/campaigns.factory';
 
 @Injectable({ providedIn: 'root' })
 export class CampaignsApiService {

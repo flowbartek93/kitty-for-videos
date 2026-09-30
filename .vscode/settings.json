@@ -2,7 +2,7 @@
   "js/ts.tsdk.path": "node_modules/typescript/lib",
   "js/ts.preferences.includePackageJsonAutoImports": "on",
   "js/ts.preferences.autoImportFileExcludePatterns": [],
-  "js/ts.preferences.importModuleSpecifier": "non-relative",
+  "js/ts.preferences.importModuleSpecifier": "project-relative",
   "js/ts.suggest.autoImports": true,
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
