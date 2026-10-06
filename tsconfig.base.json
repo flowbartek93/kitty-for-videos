@@ -15,7 +15,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "paths": {
-      "@teamfund/shared": ["./libs/shared/src/index.ts"],
+      "shared": ["./libs/shared/src/index.ts"],
       "auth": ["./libs/auth/src/index.ts"],
       "campaigns-data-access": ["./libs/campaigns/data-access/src/index.ts"],
       "@env/*": ["./apps/team-fundraiser/src/environments/*"],
@@ -27,9 +27,9 @@
       "user-feature-settings": ["./libs/user/feature-settings/src/index.ts"],
       "supported-initiatives": ["./libs/campaigns/my-contributions/src/index.ts"],
       "feature-create": ["./libs/campaigns/feature-create/src/index.ts"],
-      "@teamfund/backend-supabase": ["./libs/backend/supabase/src/index.ts"],
-      "@teamfund/special-operations": ["./libs/backend/special-operations/src/index.ts"],
-      "@teamfund/data-access": ["libs/notifications/data-access/src/index.ts"]
+      "backend-supabase": ["./libs/backend/supabase/src/index.ts"],
+      "special-operations": ["./libs/backend/special-operations/src/index.ts"],
+      "notifications-data-access": ["./libs/notifications/data-access/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

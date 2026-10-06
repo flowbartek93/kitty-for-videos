@@ -13,7 +13,7 @@ import {
   CurrencyEnum,
   LinkPreview,
   TierEnum,
-} from '@teamfund/shared';
+} from 'shared';
 import { CampaignsApiService, CampaignsStore } from 'campaigns-data-access';
 import { debounceTime, distinctUntilChanged, filter, switchMap, tap } from 'rxjs';
 

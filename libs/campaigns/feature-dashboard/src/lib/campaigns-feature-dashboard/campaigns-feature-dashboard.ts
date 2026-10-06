@@ -1,6 +1,6 @@
 import { Component, computed, inject, Signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Campaign } from '@teamfund/shared';
+import { Campaign } from 'shared';
 import { AuthService } from 'auth';
 import { CampaignsStore } from 'campaigns-data-access';
 

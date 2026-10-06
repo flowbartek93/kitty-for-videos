@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { SupabaseModule } from '@teamfund/backend-supabase';
+import { SupabaseModule } from 'backend-supabase';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { SpecialOperationsModule } from '@teamfund/special-operations';
+import { SpecialOperationsModule } from 'special-operations';
 
 @Module({
   imports: [

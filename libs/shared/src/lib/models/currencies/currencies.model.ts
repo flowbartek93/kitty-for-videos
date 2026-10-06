@@ -1,4 +1,4 @@
-import { ExchangeRates } from '@teamfund/shared';
+import { ExchangeRates } from 'shared';
 
 export interface NbpRate {
   currency: string;

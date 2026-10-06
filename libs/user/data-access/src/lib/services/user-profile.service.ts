@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { SupabaseClientService } from '@teamfund/shared';
+import { SupabaseClientService } from 'shared';
 import { from } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })

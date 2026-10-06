@@ -1,7 +1,7 @@
 import { computed, inject } from '@angular/core';
 import { signalStore, withComputed, withMethods, withProps } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { PopupService, SupabaseClientService, UpdateProfile } from '@teamfund/shared';
+import { PopupService, SupabaseClientService, UpdateProfile } from 'shared';
 import { AuthStore } from 'auth';
 import { from, of, pipe, switchMap, tap } from 'rxjs';
 import { UserProfileDataService } from './services/user-profile.service';

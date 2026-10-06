@@ -1,8 +1,8 @@
 import { Controller, Get, InternalServerErrorException } from '@nestjs/common';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { AppService } from './app.service';
-import { SupabaseService } from '@teamfund/backend-supabase';
-import { CurrenciesService, NbpTableDto } from '@teamfund/special-operations';
+import { SupabaseService } from 'backend-supabase';
+import { CurrenciesService, NbpTableDto } from 'special-operations';
 
 @Controller()
 export class AppController {

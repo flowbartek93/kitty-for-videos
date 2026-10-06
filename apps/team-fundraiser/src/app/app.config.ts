@@ -2,7 +2,7 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
 
-import { provideSupabaseConfig } from '@teamfund/shared';
+import { provideSupabaseConfig } from 'shared';
 import { CampaignsStore } from 'campaigns-data-access';
 import { environment } from '../environments/environment';
 

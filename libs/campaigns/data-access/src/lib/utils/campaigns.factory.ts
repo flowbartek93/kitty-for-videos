@@ -8,7 +8,7 @@ import {
   Participant,
   SupabaseParticipant,
   TierEnum,
-} from '@teamfund/shared';
+} from 'shared';
 
 export interface SupabaseCampaignRecord {
   id: string;

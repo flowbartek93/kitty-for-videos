@@ -3,7 +3,7 @@ import { computed, inject } from '@angular/core';
 import { patchState, signalStore, withComputed, withHooks, withMethods, withProps, withState } from '@ngrx/signals';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { Session } from '@supabase/supabase-js';
-import { PopupService, SupabaseClientService, UserProfile } from '@teamfund/shared';
+import { PopupService, SupabaseClientService, UserProfile } from 'shared';
 import { catchError, EMPTY, from, pipe, switchMap, tap } from 'rxjs';
 
 interface AuthState {

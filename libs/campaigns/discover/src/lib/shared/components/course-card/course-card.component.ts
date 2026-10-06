@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
-import { CampaignWithStats, ConfirmDialogService } from '@teamfund/shared';
+import { CampaignWithStats, ConfirmDialogService } from 'shared';
 
 @Component({
   selector: 'lib-course-card',

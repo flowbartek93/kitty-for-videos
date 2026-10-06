@@ -1,7 +1,7 @@
 import { Component, inject, Signal } from '@angular/core';
 import { CampaignsStore } from 'campaigns-data-access';
 import { CourseCardComponent } from '../shared/course-card/course-card.component';
-import { Campaign } from '@teamfund/shared';
+import { Campaign } from 'shared';
 
 @Component({
   selector: 'lib-supported-initiatives',

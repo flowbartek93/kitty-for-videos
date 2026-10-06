@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Campaign, LinkPreview, SupabaseClientService, SupabaseParticipant } from '@teamfund/shared';
+import { Campaign, LinkPreview, SupabaseClientService, SupabaseParticipant } from 'shared';
 import { AuthStore } from 'auth';
 import { from, map, Observable } from 'rxjs';
 import { CampaignFactory, SupabaseCampaignInsert, SupabaseCampaignRecord } from './utils/campaigns.factory';

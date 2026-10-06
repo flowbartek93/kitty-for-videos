@@ -1,6 +1,6 @@
 import { Component, computed, inject, Signal } from '@angular/core';
 import { CampaignsStore } from 'campaigns-data-access';
-import { Campaign, CampaignWithStats, Participant } from '@teamfund/shared';
+import { Campaign, CampaignWithStats, Participant } from 'shared';
 import { CourseCardComponent } from '../shared/components/course-card/course-card.component';
 import { DiscoverToolbarComponent } from './discover-toolbar/discover-toolbar.component';
 import { AuthService } from 'auth';

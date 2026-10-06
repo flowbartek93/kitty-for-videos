@@ -1,4 +1,4 @@
-import { Campaign, CurrencyEnum, ExchangeRates, FilterOption, Participant } from '@teamfund/shared';
+import { Campaign, CurrencyEnum, ExchangeRates, FilterOption, Participant } from 'shared';
 
 export type CampaignsState = {
   loading: boolean;

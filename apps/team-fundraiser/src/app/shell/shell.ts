@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { mapToProperCurrencies, NbpTable } from '@teamfund/shared';
+import { mapToProperCurrencies, NbpTable } from 'shared';
 import { AuthService } from 'auth';
 import { CampaignsStore } from 'campaigns-data-access';
-import { response } from 'express';
 import { SidebarComponent, TopBar } from 'layout-ui';
+import { NotificationsStore } from 'notifications-data-access';
 import { UserStore } from 'user-data-access';
 
 @Component({
@@ -19,6 +19,7 @@ export class ShellComponent {
   private campaignsStore = inject(CampaignsStore);
   private httpClient = inject(HttpClient);
   readonly userStore = inject(UserStore);
+  readonly notificationsStore = inject(NotificationsStore);
 
   constructor() {
     this.campaignsStore.loadAllCampaigns();

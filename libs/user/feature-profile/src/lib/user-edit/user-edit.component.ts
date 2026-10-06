@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { PopupService, UpdateProfile } from '@teamfund/shared';
+import { PopupService, UpdateProfile } from 'shared';
 import { UserStore } from 'user-data-access';
 
 @Component({

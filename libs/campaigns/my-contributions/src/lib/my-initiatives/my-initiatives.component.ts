@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, Signal } from '@angular/core';
-import { Campaign } from '@teamfund/shared';
+import { Campaign } from 'shared';
 import { CampaignsStore } from 'campaigns-data-access';
 import { CourseCardComponent } from '../shared/course-card/course-card.component';
 

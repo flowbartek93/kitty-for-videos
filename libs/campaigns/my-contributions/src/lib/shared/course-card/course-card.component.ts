@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Campaign } from '@teamfund/shared';
+import { Campaign } from 'shared';
 import { CampaignsStore } from 'campaigns-data-access';
 
 @Component({

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
-import { FilterOption } from '@teamfund/shared';
+import { FilterOption } from 'shared';
 import { CampaignsStore } from 'campaigns-data-access';
 
 @Component({

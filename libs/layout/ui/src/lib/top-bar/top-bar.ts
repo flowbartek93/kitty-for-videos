@@ -1,6 +1,6 @@
 import { Component, effect, inject, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { UserProfile } from '@teamfund/shared';
+import { UserProfile } from 'shared';
 
 @Component({
   selector: 'lib-top-bar',

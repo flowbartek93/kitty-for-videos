@@ -6,6 +6,8 @@ export const NotificationsStore = signalStore(
   withState<NotificationsState>(initialNotificationsState),
   withHooks({
     onInit: () => {
+
+      
       console.log('store works');
     },
   }),

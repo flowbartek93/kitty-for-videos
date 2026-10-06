@@ -3,7 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { catchError, EMPTY, from, tap } from 'rxjs';
 
-import { PopupService } from '@teamfund/shared';
+import { PopupService } from 'shared';
 
 import { form, FormField, required } from '@angular/forms/signals';
 import { AuthService } from '../../services/auth.service';

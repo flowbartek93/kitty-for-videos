@@ -9,7 +9,7 @@ import {
   FilterOption,
   Participant,
   SupabaseParticipant,
-} from '@teamfund/shared';
+} from 'shared';
 import { EMPTY, map, pipe, switchMap, tap } from 'rxjs';
 import { CampaignFactory, SupabaseCampaignInsert, SupabaseCampaignRecord } from '../utils/campaigns.factory';
 import { withCampaignsProps } from './campaigns.props';

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PopupService } from '@teamfund/shared';
+import { PopupService } from 'shared';
 import { AuthService } from '../../services/auth.service';
 import { from, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';

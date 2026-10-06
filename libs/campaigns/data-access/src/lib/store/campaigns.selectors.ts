@@ -1,7 +1,7 @@
 import { computed } from '@angular/core';
 import { signalStoreFeature, type, withComputed } from '@ngrx/signals';
 import { CampaignsApiService } from '../campaigns-api.service';
-import { FilterOption } from '@teamfund/shared';
+import { FilterOption } from 'shared';
 import { CampaignsState } from './campaigns.state';
 
 export function withCampaignsSelectors() {
