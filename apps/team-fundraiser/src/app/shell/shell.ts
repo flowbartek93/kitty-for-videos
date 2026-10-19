@@ -12,6 +12,7 @@ import { UserStore } from 'user-data-access';
   imports: [RouterModule, SidebarComponent, TopBar],
   selector: 'app-shell',
   templateUrl: './shell.html',
+  providers: [NotificationsStore],
 })
 export class ShellComponent {
   private authSrv = inject(AuthService);

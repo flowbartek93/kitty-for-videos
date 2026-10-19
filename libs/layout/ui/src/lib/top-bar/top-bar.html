@@ -10,9 +10,12 @@
   <!--! dzwoneczek -->
   <div class="flex items-center gap-6">
     <lib-notification-bell
+      [notifications]="notifications()"
       [showIndicator]="showNotificationIndicator()"
       [count]="notificationsCount()"
       (bellClicked)="notificationsClicked.emit()"
+      (notificationClicked)="notificationClicked.emit($event)"
+      (markAllReadClicked)="markAllNotificationsReadClicked.emit()"
     ></lib-notification-bell>
 
     <div class="flex items-center gap-4 pl-4 border-l border-neutral">

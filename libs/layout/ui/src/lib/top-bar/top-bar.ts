@@ -1,7 +1,7 @@
 import { Component, effect, inject, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { UserProfile } from 'shared';
-import { NotificationBell } from '../notification-bell/notification-bell';
+import { BellNotification, NotificationBell } from '../notification-bell/notification-bell';
 
 @Component({
   selector: 'lib-top-bar',
@@ -14,9 +14,12 @@ export class TopBar {
 
   readonly currentProfile = input<UserProfile | null>(null);
 
+  readonly notifications = input<BellNotification[]>([]);
   readonly showNotificationIndicator = input<boolean>(false);
   readonly notificationsCount = input<number>(0);
   readonly notificationsClicked = output<void>();
+  readonly notificationClicked = output<string>();
+  readonly markAllNotificationsReadClicked = output<void>();
 
   public logout() {
     this.logoutClicked.emit();

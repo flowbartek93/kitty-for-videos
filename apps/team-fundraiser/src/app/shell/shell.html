@@ -8,6 +8,11 @@
       <lib-top-bar
         [avatarUrl]="avatarUrl()"
         [currentProfile]="currentProfile()"
+        [notifications]="notificationsStore.items()"
+        [showNotificationIndicator]="notificationsStore.hasUnread()"
+        [notificationsCount]="notificationsStore.unreadCount()"
+        (notificationClicked)="notificationsStore.markAsRead($event)"
+        (markAllNotificationsReadClicked)="notificationsStore.markAllAsRead()"
         (logoutClicked)="logout()"
       ></lib-top-bar>
     </header>

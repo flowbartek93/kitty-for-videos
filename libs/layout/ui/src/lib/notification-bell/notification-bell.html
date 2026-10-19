@@ -1,24 +1,109 @@
-<button
-  type="button"
-  class="btn btn-ghost btn-circle text-slate-400 hover:text-white"
-  [attr.aria-label]="label()"
-  (click)="bellClicked.emit()"
->
-  <div class="indicator">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-      />
-    </svg>
-    @if (showIndicator()) {
-      @if (badgeText()) {
-        <span class="badge badge-sm badge-primary indicator-item">{{ badgeText() }}</span>
-      } @else {
-        <span class="badge badge-xs badge-primary indicator-item"></span>
+<div class="dropdown dropdown-end">
+  <div
+    tabindex="0"
+    role="button"
+    class="btn btn-ghost btn-circle text-slate-400 hover:text-white"
+    [attr.aria-label]="label()"
+    (click)="bellClicked.emit()"
+  >
+    <div class="indicator">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+        />
+      </svg>
+      @if (showIndicator()) {
+        @if (badgeText()) {
+          <span class="badge badge-sm badge-primary indicator-item font-bold">{{ badgeText() }}</span>
+        } @else {
+          <span class="badge badge-xs badge-primary indicator-item"></span>
+        }
       }
+    </div>
+  </div>
+
+  <div
+    tabindex="0"
+    class="dropdown-content bg-base-200 border border-neutral rounded-2xl w-96 max-w-[calc(100vw-2rem)] mt-3 shadow-xl z-50 overflow-hidden"
+  >
+    <div class="flex items-center justify-between px-5 pt-4 pb-3 border-b border-neutral/50">
+      <div class="flex items-center gap-2">
+        <span class="text-sm font-black text-white tracking-tight">{{ label() }}</span>
+        @if (badgeText()) {
+          <span class="badge badge-sm bg-primary/10 text-primary border-none font-bold">{{ badgeText() }}</span>
+        }
+      </div>
+      @if (hasUnread()) {
+        <button
+          type="button"
+          class="text-[10px] text-slate-500 hover:text-primary font-bold uppercase tracking-widest transition-colors"
+          (click)="markAllReadClicked.emit()"
+        >
+          Oznacz wszystkie
+        </button>
+      }
+    </div>
+
+    @if (items().length) {
+      <ul class="max-h-96 overflow-y-auto custom-scrollbar p-2 flex flex-col gap-1">
+        @for (item of items(); track item.id) {
+          <li>
+            <button
+              type="button"
+              class="w-full flex items-start gap-3 text-left rounded-xl px-3 py-3 transition-colors hover:bg-base-100"
+              [class]="item.is_read ? '' : 'bg-base-100/40'"
+              (click)="notificationClicked.emit(item.id)"
+            >
+              <span class="shrink-0 w-9 h-9 rounded-xl flex items-center justify-center" [class]="item.variant.tile">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="item.variant.icon" />
+                </svg>
+              </span>
+
+              <span class="flex-1 min-w-0">
+                <span
+                  class="block text-sm leading-snug"
+                  [class.text-white]="!item.is_read"
+                  [class.font-semibold]="!item.is_read"
+                  [class.text-slate-400]="item.is_read"
+                >
+                  {{ item.content }}
+                </span>
+                <span class="block mt-1 text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+                  {{ item.timeAgo }}
+                </span>
+              </span>
+
+              @if (!item.is_read) {
+                <span class="shrink-0 mt-1.5 w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(81,89,255,0.6)]"></span>
+              }
+            </button>
+          </li>
+        }
+      </ul>
+    } @else {
+      <div class="flex flex-col items-center justify-center gap-3 px-6 py-10 text-center">
+        <span class="w-12 h-12 rounded-2xl bg-base-300 text-slate-500 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+            />
+          </svg>
+        </span>
+        <span class="text-sm text-slate-500">{{ emptyText() }}</span>
+      </div>
     }
   </div>
-</button>
+</div>

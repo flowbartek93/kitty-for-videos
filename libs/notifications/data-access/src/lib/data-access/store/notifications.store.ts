@@ -1,7 +1,9 @@
-import { signalStore, withHooks, withProps, withState } from '@ngrx/signals';
+import { patchState, signalStore, withComputed, withHooks, withProps, withState } from '@ngrx/signals';
 import { NotificationsState, initialNotificationsState } from './notifications.state';
+import { withNotificationsMethods } from './notifications.methods';
+import { MOCK_NOTIFICATIONS } from './notifications.mock';
 import { SupabaseClientService } from 'shared';
-import { inject } from '@angular/core';
+import { computed, inject } from '@angular/core';
 import { AuthService } from 'auth';
 
 export const NotificationsStore = signalStore(
@@ -9,12 +11,18 @@ export const NotificationsStore = signalStore(
   withProps(() => ({
     authSrv: inject(AuthService),
   })),
+  withComputed((store) => ({
+    unreadCount: computed(() => store.items().filter((item) => !item.is_read).length),
+    hasUnread: computed(() => store.items().some((item) => !item.is_read)),
+  })),
+  withNotificationsMethods(),
   withHooks({
     onInit: (store) => {
       const supabaseSrv = inject(SupabaseClientService);
       const userId = store.authSrv.getCurrentUser();
 
-      void userId;
+      // TODO: zastąpić pobieraniem z Supabase
+      patchState(store, { items: MOCK_NOTIFICATIONS });
 
       supabaseSrv.client
         .channel('db-changes')
