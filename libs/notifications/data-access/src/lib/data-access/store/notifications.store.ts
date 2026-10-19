@@ -5,7 +5,6 @@ import { inject } from '@angular/core';
 import { AuthService } from 'auth';
 
 export const NotificationsStore = signalStore(
-  { providedIn: 'root' },
   withState<NotificationsState>(initialNotificationsState),
   withProps(() => ({
     authSrv: inject(AuthService),

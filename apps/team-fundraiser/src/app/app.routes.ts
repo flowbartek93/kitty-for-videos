@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 import { guestGuard, Login, loginGuard, Register } from 'auth';
 import { ShellComponent } from './shell/shell';
+import { NotificationsStore } from 'notifications-data-access';
 
 export const appRoutes: Route[] = [
   {
@@ -16,6 +17,7 @@ export const appRoutes: Route[] = [
   {
     path: '',
     component: ShellComponent,
+    providers: [NotificationsStore],
     canActivate: [loginGuard],
     children: [
       {
