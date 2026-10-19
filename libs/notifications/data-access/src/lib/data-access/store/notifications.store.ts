@@ -1,6 +1,6 @@
 import { signalStore, withHooks, withProps, withState } from '@ngrx/signals';
 import { NotificationsState, initialNotificationsState } from './notifications.state';
-import { SupabaseClientService } from '@teamfund/shared';
+import { SupabaseClientService } from 'shared';
 import { inject } from '@angular/core';
 import { AuthService } from 'auth';
 
@@ -15,6 +15,8 @@ export const NotificationsStore = signalStore(
       const supabaseSrv = inject(SupabaseClientService);
       const userId = store.authSrv.getCurrentUser();
 
+      void userId;
+
       supabaseSrv.client
         .channel('db-changes')
         .on(
@@ -24,7 +26,7 @@ export const NotificationsStore = signalStore(
             schema: 'public',
             table: 'campaigns',
           },
-          (payload) => console.log(payload),
+          (payload: Record<string, unknown>) => console.log(payload),
         )
         .on(
           'postgres_changes',
@@ -33,7 +35,7 @@ export const NotificationsStore = signalStore(
             schema: 'public',
             table: 'participants',
           },
-          (payload) => console.log(payload),
+          (payload: Record<string, unknown>) => console.log(payload),
         )
         .subscribe();
       console.log('store works');
