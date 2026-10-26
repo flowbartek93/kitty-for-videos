@@ -19,33 +19,26 @@ export const NotificationsStore = signalStore(
   withHooks({
     onInit: (store) => {
       const supabaseSrv = inject(SupabaseClientService);
-      const userId = store.authSrv.getCurrentUser();
 
       // TODO: zastąpić pobieraniem z Supabase
       patchState(store, { items: MOCK_NOTIFICATIONS });
 
       supabaseSrv.client
-        .channel('db-changes')
-        .on(
-          'postgres_changes',
-          {
-            event: '*',
-            schema: 'public',
-            table: 'campaigns',
-          },
-          (payload: Record<string, unknown>) => console.log(payload),
-        )
+        .channel('notifications-inserts')
         .on(
           'postgres_changes',
           {
             event: 'INSERT',
             schema: 'public',
-            table: 'participants',
+            table: 'notifications',
           },
-          (payload: Record<string, unknown>) => console.log(payload),
+          (payload) => console.log('[notifications] INSERT', payload.new),
         )
-        .subscribe();
-      console.log('store works');
+        .subscribe((status, error) => {
+          if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
+            console.error('[notifications] Realtime subscription failed', error);
+          }
+        });
     },
   }),
 );
