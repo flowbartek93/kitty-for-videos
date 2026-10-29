@@ -23,22 +23,34 @@ export const NotificationsStore = signalStore(
       // TODO: zastąpić pobieraniem z Supabase
       patchState(store, { items: MOCK_NOTIFICATIONS });
 
-      supabaseSrv.client
-        .channel('notifications-inserts')
-        .on(
-          'postgres_changes',
-          {
-            event: 'INSERT',
-            schema: 'public',
-            table: 'notifications',
-          },
-          (payload) => console.log('[notifications] INSERT', payload.new),
-        )
-        .subscribe((status, error) => {
-          if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
-            console.error('[notifications] Realtime subscription failed', error);
-          }
-        });
+      supabaseSrv.client.auth.getSession().then(({ data }) => {
+        const user = data.session?.user;
+        if (!user) {
+          console.warn('[notifications] brak sesji - nie subskrybuję');
+          return;
+        }
+
+        console.log('[notifications] nasłuchuję jako', user.id, user.email);
+
+        supabaseSrv.client
+          .channel(`notifications:${user.id}`)
+          .on(
+            'postgres_changes',
+            {
+              event: 'INSERT',
+              schema: 'public',
+              table: 'notifications',
+              filter: `user_id=eq.${user.id}`,
+            },
+            (payload) => console.log('[notifications] INSERT', payload.new),
+          )
+          .subscribe((status, error) => {
+            console.log('[notifications] channel status:', status);
+            if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
+              console.error('[notifications] Realtime subscription failed', error);
+            }
+          });
+      });
     },
   }),
 );
