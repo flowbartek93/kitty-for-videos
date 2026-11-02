@@ -14,7 +14,6 @@ export interface SupabaseCampaignRecord {
   id: string;
   creator_id: string | null;
   creator_name: string | null;
-  user_id: string | null;
   title: string;
   description: string;
   video_url: string;
